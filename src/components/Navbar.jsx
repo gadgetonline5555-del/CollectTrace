@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { TrendingUp, BookOpen, BarChart3, Tag } from "lucide-react";
+import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck } from "lucide-react";
+import { base44 } from "@/api/base44Client";
 
 const NAV = [
   { to: "/", label: "ホーム", icon: TrendingUp },
@@ -11,6 +12,10 @@ const NAV = [
 
 export default function Navbar() {
   const { pathname } = useLocation();
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    base44.auth.me().then((u) => setIsAdmin(u?.role === "admin")).catch(() => {});
+  }, []);
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -39,6 +44,11 @@ export default function Navbar() {
               </Link>
             );
           })}
+          {isAdmin && (
+            <Link to="/admin" className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${pathname.startsWith("/admin") ? "text-white bg-white/10" : "text-slate-400 hover:text-white hover:bg-white/5"}`}>
+              <ShieldCheck className="w-4 h-4" /> 管理
+            </Link>
+          )}
         </nav>
         <Link
           to="/pricing"
