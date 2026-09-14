@@ -1,0 +1,57 @@
+{
+  "name": "Manga",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "cover_url": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "\u57fa\u790e\u77e5\u8b58",
+        "\u9298\u67c4\u5206\u6790",
+        "\u76f8\u5834\u5fc3\u7406",
+        "\u6226\u7565",
+        "\u5931\u6557\u8ac7"
+      ]
+    },
+    "plan_tier": {
+      "type": "string",
+      "enum": [
+        "free",
+        "starter",
+        "pro",
+        "elite"
+      ],
+      "default": "free"
+    },
+    "episodes": {
+      "type": "number",
+      "default": 1
+    },
+    "rating": {
+      "type": "number",
+      "default": 4.5
+    },
+    "summary": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "category",
+    "plan_tier"
+  ]
+}

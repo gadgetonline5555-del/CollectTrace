@@ -1,0 +1,60 @@
+{
+  "name": "Research",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "ticker": {
+      "type": "string"
+    },
+    "sector": {
+      "type": "string"
+    },
+    "plan_tier": {
+      "type": "string",
+      "enum": [
+        "starter",
+        "pro",
+        "elite"
+      ],
+      "default": "pro"
+    },
+    "rating": {
+      "type": "string",
+      "enum": [
+        "Strong Buy",
+        "Buy",
+        "Hold",
+        "Sell"
+      ]
+    },
+    "target_price": {
+      "type": "number"
+    },
+    "current_price": {
+      "type": "number"
+    },
+    "upside": {
+      "type": "number"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "author": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "plan_tier",
+    "sector"
+  ]
+}

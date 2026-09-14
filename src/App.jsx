@@ -7,6 +7,13 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 // Add page imports here
+import Home from '@/pages/Home';
+import MangaLibrary from '@/pages/MangaLibrary';
+import MangaReader from '@/pages/MangaReader';
+import ResearchHub from '@/pages/ResearchHub';
+import ResearchDetail from '@/pages/ResearchDetail';
+import Pricing from '@/pages/Pricing';
+import Layout from '@/components/Layout';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -35,6 +42,14 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       {/* Add your page Route elements here */}
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/manga" element={<MangaLibrary />} />
+        <Route path="/manga/:id" element={<MangaReader />} />
+        <Route path="/research" element={<ResearchHub />} />
+        <Route path="/research/:id" element={<ResearchDetail />} />
+        <Route path="/pricing" element={<Pricing />} />
+      </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
