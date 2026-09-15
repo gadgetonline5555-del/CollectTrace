@@ -223,7 +223,33 @@ const DICT = {
   "air.qt_company": { jp: "企業", en: "Company" },
   "air.qt_sector": { jp: "セクター", en: "Sector" },
   "air.qt_market": { jp: "市場", en: "Market" },
-  "air.qt_theme": { jp: "テーマ", en: "Theme" }
+  "air.qt_theme": { jp: "テーマ", en: "Theme" },
+
+  "nav.discover": { jp: "発見", en: "Discover" },
+
+  "disc.badge": { jp: "予測レコメンド・全世界カバー", en: "Predictive · Whole-world coverage" },
+  "disc.h": { jp: "発見フィード", en: "Discover" },
+  "disc.p": { jp: "あなたの行動履歴・ウォッチリスト・保有銘柄を分析し、AIが今知っておくべき情報を予測。目立たない機関投資家銘柄の早期発掘、気象・災害、地政学・移民・人口、科学・生物・人類まで全世界を網羅。", en: "Analyzes your activity, watchlist and holdings to predict what matters to you now. Surfaces lesser-known institutional stocks early, plus weather/disaster, geopolitics/immigration/population, science/biology/humanity — the whole world." },
+  "disc.safety": { jp: "第三者中立・投資助言代理業なし・偏りなし・憶測や扇動なし", en: "Neutral · no investment advice · no bias · no speculation or inflaming" },
+  "disc.mode_personalized": { jp: "あなたへ", en: "For you" },
+  "disc.mode_default": { jp: "全世界", en: "Whole world" },
+  "disc.mode_desc_p": { jp: "アプリ内の行動履歴・ウォッチリスト・保有銘柄から予測。未ログイン時は全世界表示に切替。", en: "Predicted from your in-app activity, watchlist and holdings. Falls back to whole-world for anonymous users." },
+  "disc.mode_desc_d": { jp: "全世界のバランスされた概観。国別傾向・移民・人口・科学・歴史まで広くカバー。", en: "A balanced global overview spanning countries, immigration, population, science and history." },
+  "disc.generate": { jp: "生成", en: "Generate" },
+  "disc.generating": { jp: "AIが全世界を分析中…", en: "AI analyzing the world…" },
+  "disc.refresh": { jp: "最新化", en: "Refresh" },
+  "disc.rationale": { jp: "選定理由", en: "Why this feed" },
+  "disc.deep_dive": { jp: "詳細を調査", en: "Deep dive" },
+  "disc.err": { jp: "フィードの生成に失敗しました", en: "Failed to generate feed" },
+  "disc.empty": { jp: "トピックを生成できませんでした。もう一度お試しください。", en: "Could not generate topics. Please try again." },
+  "disc.fresh_breaking": { jp: "速報", en: "Breaking" },
+  "disc.fresh_week": { jp: "今週", en: "This week" },
+  "disc.fresh_ongoing": { jp: "進行中", en: "Ongoing" },
+  "disc.cat_stock": { jp: "銘柄", en: "Stock" },
+  "disc.cat_weather": { jp: "気象・災害", en: "Weather/Disaster" },
+  "disc.cat_geopolitics": { jp: "地政学・移民・人口", en: "Geopolitics/Population" },
+  "disc.cat_science": { jp: "科学・生物・人類", en: "Science/Humanity" },
+  "disc.cat_market": { jp: "市場", en: "Market" }
 };
 
 const I18nContext = createContext({ lang: "jp", setLang: () => {}, t: (k) => k });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck, Globe, ChevronDown, Lock, Star, Briefcase, Terminal, Sparkles } from "lucide-react";
+import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck, Globe, ChevronDown, Lock, Star, Briefcase, Terminal, Sparkles, Compass } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
@@ -16,6 +16,7 @@ const NAV = [
 const TOOLS = [
   { to: "/glossary", key: "nav.glossary", tier: "free", icon: BookOpen },
   { to: "/ai-research", key: "nav.air", tier: "free", icon: Sparkles },
+  { to: "/discover", key: "nav.discover", tier: "free", icon: Compass },
   { to: "/watchlist", key: "nav.watchlist", tier: "starter", icon: Star },
   { to: "/portfolio", key: "nav.portfolio", tier: "pro", icon: Briefcase },
   { to: "/api-access", key: "nav.api", tier: "elite", icon: Terminal },

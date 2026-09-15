@@ -47,6 +47,14 @@ export default function AiResearch() {
       .finally(() => setLoading(false));
   }, [t]);
 
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const q = p.get("query");
+    const ty = p.get("type");
+    if (q) { setInput(q); setQuery(q); }
+    if (ty && ["company", "sector", "market", "theme"].includes(ty)) setQueryType(ty);
+  }, []);
+
   useEffect(() => { if (query) loadQuery(query); }, [query, loadQuery]);
 
   const handleSearch = (e) => {
