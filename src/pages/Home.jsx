@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, BarChart3, TrendingUp, Sparkles, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
 import MangaCard from "@/components/MangaCard";
 import ResearchCard from "@/components/ResearchCard";
@@ -9,13 +10,8 @@ import LatestResearch from "@/components/LatestResearch";
 
 export default function Home() {
   const { t } = useI18n();
-  const [mangas, setMangas] = useState([]);
-  const [reports, setReports] = useState([]);
-
-  useEffect(() => {
-    base44.entities.Manga.list("-rating", 4).then(setMangas).catch(() => {});
-    base44.entities.Research.list("-published_date", 3).then(setReports).catch(() => {});
-  }, []);
+  const { data: mangas = [] } = useQuery({ queryKey: ["home", "manga", "featured"], queryFn: () => base44.entities.Manga.list("-rating", 4).catch(() => []) });
+  const { data: reports = [] } = useQuery({ queryKey: ["home", "research", "featured"], queryFn: () => base44.entities.Research.list("-published_date", 3).catch(() => []) });
 
   const STAT_TILES = [
     { label: t("stat.manga.label"), value: "120+", sub: t("stat.manga.sub"), icon: BookOpen, accent: "text-cyan-400" },

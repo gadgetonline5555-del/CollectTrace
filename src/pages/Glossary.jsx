@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
 
@@ -15,14 +16,13 @@ const CATS = [
 
 export default function Glossary() {
   const { t } = useI18n();
-  const [terms, setTerms] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("すべて");
 
-  useEffect(() => {
-    base44.entities.Glossary.list("term", 200).then((r) => { setTerms(r); setLoading(false); }).catch(() => setLoading(false));
-  }, []);
+  const { data: terms = [], isFetching: loading } = useQuery({
+    queryKey: ["glossary", "terms"],
+    queryFn: () => base44.entities.Glossary.list("term", 200),
+  });
 
   useEffect(() => {
     if (!q && cat === "すべて") return;

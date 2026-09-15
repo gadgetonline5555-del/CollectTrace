@@ -74,7 +74,8 @@ export default function InsightsDashboard() {
     ]).then(([a, u]) => { setActs(a || []); setUsers(u || []); setLoading(false); });
   }, []);
 
-  const stats = useMemo(() => {
+  // Activity-derived stats depend only on the activity log.
+  const activityStats = useMemo(() => {
     const byType = countBy(acts, (a) => a.event_type);
     const mangaViews = acts.filter((a) => a.event_type === "manga_view");
     const researchViews = acts.filter((a) => a.event_type === "research_view");
@@ -91,7 +92,11 @@ export default function InsightsDashboard() {
     const tickerMap = countBy(tickerActs, (a) => a.ticker);
     const langMap = countBy(acts, (a) => a.language || "unknown");
 
-    // plan distribution from users
+    return { byType, mangaCat, researchSec, kwMap, tickerMap, langMap };
+  }, [acts]);
+
+  // User/plan-derived stats depend only on the user list.
+  const stats = useMemo(() => {
     const planMap = countBy(users, (u) => u.subscription_tier || "free");
     const totalUsers = users.length;
     const payingUsers = (planMap.starter || 0) + (planMap.pro || 0) + (planMap.elite || 0);
@@ -104,16 +109,17 @@ export default function InsightsDashboard() {
     const projectedConv5 = Math.round(freeUsers * 0.05 * arpu);
     const projected1000 = Math.round(1000 * (payingUsers / Math.max(totalUsers, 1)) * arpu);
 
-    return { byType, mangaCat, researchSec, kwMap, tickerMap, langMap, planMap, totalUsers, payingUsers, mrr, arpu, convRate, projectedConv5, projected1000, mangaViews, researchViews };
-  }, [acts, users]);
+    return { planMap, totalUsers, payingUsers, mrr, arpu, convRate, projectedConv5, projected1000 };
+  }, [users]);
 
-  const planData = PLANS.map((p) => ({ name: p.name.jp, users: stats.planMap[p.id] || 0, id: p.id }));
-  const mangaCatData = topEntries(stats.mangaCat).map(([k, v]) => ({ name: k, count: v }));
-  const researchSecData = topEntries(stats.researchSec).map(([k, v]) => ({ name: k, count: v }));
-  const kwData = topEntries(stats.kwMap, 10);
-  const tickerData = topEntries(stats.tickerMap, 10);
-  const langData = topEntries(stats.langMap);
-  const recent = acts.slice(0, 12);
+  // Chart datasets: each recomputed only when its source changes.
+  const planData = useMemo(() => PLANS.map((p) => ({ name: p.name.jp, users: stats.planMap[p.id] || 0, id: p.id })), [stats]);
+  const mangaCatData = useMemo(() => topEntries(activityStats.mangaCat).map(([k, v]) => ({ name: k, count: v })), [activityStats]);
+  const researchSecData = useMemo(() => topEntries(activityStats.researchSec).map(([k, v]) => ({ name: k, count: v })), [activityStats]);
+  const kwData = useMemo(() => topEntries(activityStats.kwMap, 10), [activityStats]);
+  const tickerData = useMemo(() => topEntries(activityStats.tickerMap, 10), [activityStats]);
+  const langData = useMemo(() => topEntries(activityStats.langMap), [activityStats]);
+  const recent = useMemo(() => acts.slice(0, 12), [acts]);
 
   if (loading) {
     return <div className="flex items-center justify-center py-20 text-slate-400"><Loader2 className="w-6 h-6 animate-spin mr-2" /> 分析データを取得中…</div>;
@@ -221,7 +227,7 @@ export default function InsightsDashboard() {
 
         <Section title="アクション別発生数" icon={Activity}>
           <div className="space-y-2">
-            {Object.entries(stats.byType).sort((a, b) => b[1] - a[1]).map(([k, v]) => (
+            {Object.entries(activityStats.byType).sort((a, b) => b[1] - a[1]).map(([k, v]) => (
               <div key={k} className="flex justify-between text-sm">
                 <span className="text-slate-300">{evtLabel[k] || k}</span>
                 <span className="text-slate-400 font-mono">{v}</span>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
 import { formatDistanceToNow } from "date-fns";
 import { ja, enUS } from "date-fns/locale";
@@ -12,28 +13,25 @@ import { ja, enUS } from "date-fns/locale";
 export default function LatestResearch() {
   const { t, lang } = useI18n();
   const locale = lang === "en" ? enUS : ja;
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const [ai, wealth, intel, ipo] = await Promise.allSettled([
-          base44.entities.AiResearchSnapshot.list("-created_date", 6),
-          base44.entities.WealthProfile.list("-created_date", 6),
-          base44.entities.CompanyIntel.list("-created_date", 6),
-          base44.entities.IpoProfile.list("-created_date", 6),
-        ]);
-        const pick = (r) => (r.status === "fulfilled" && Array.isArray(r.value) ? r.value : []);
-        const merged = [
-          ...pick(ai).map((x) => ({ ...x, _type: "ai" })),
-          ...pick(wealth).map((x) => ({ ...x, _type: "wealth" })),
-          ...pick(intel).map((x) => ({ ...x, _type: "intel" })),
-          ...pick(ipo).map((x) => ({ ...x, _type: "ipo" })),
-        ].sort((a, b) => new Date(b.created_date) - new Date(a.created_date)).slice(0, 8);
-        setItems(merged);
-      } catch { /* non-fatal */ }
-    })();
-  }, []);
+  const { data: items = [] } = useQuery({
+    queryKey: ["home", "latest-research"],
+    queryFn: async () => {
+      const [ai, wealth, intel, ipo] = await Promise.allSettled([
+        base44.entities.AiResearchSnapshot.list("-created_date", 6),
+        base44.entities.WealthProfile.list("-created_date", 6),
+        base44.entities.CompanyIntel.list("-created_date", 6),
+        base44.entities.IpoProfile.list("-created_date", 6),
+      ]);
+      const pick = (r) => (r.status === "fulfilled" && Array.isArray(r.value) ? r.value : []);
+      const merged = [
+        ...pick(ai).map((x) => ({ ...x, _type: "ai" })),
+        ...pick(wealth).map((x) => ({ ...x, _type: "wealth" })),
+        ...pick(intel).map((x) => ({ ...x, _type: "intel" })),
+        ...pick(ipo).map((x) => ({ ...x, _type: "ipo" })),
+      ].sort((a, b) => new Date(b.created_date) - new Date(a.created_date)).slice(0, 8);
+      return merged;
+    },
+  });
 
   if (items.length === 0) return null;
   const typeColor = {

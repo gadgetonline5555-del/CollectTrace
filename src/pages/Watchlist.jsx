@@ -81,7 +81,7 @@ export default function Watchlist() {
                 <span className="text-slate-300 flex-1">{it.title}</span>
                 {it.target_price != null && <span className="text-sm text-slate-400">¥{Number(it.target_price).toLocaleString()}</span>}
                 {it.note && <span className="text-sm text-slate-500 hidden md:block max-w-xs truncate">{it.note}</span>}
-                <button onClick={() => remove(it.id)} className="text-slate-500 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
+                <button onClick={() => remove(it.id)} aria-label={t("wl.remove")} className="text-slate-500 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
               </div>
             ))}
           </div>

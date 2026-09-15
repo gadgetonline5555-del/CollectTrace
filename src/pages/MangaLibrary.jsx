@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
 import MangaCard from "@/components/MangaCard";
 import { PLANS } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
@@ -18,16 +19,14 @@ const CATEGORIES = [
 
 export default function MangaLibrary() {
   const { t, lang } = useI18n();
-  const [mangas, setMangas] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("すべて");
 
-  const load = () => {
-    setLoading(true);
-    return base44.entities.Manga.list("-rating", 50).then((res) => { setMangas(res); setLoading(false); }).catch(() => setLoading(false));
-  };
-  useEffect(() => { load(); }, []);
+  const { data: mangas = [], isFetching: loading, refetch } = useQuery({
+    queryKey: ["manga", "library"],
+    queryFn: () => base44.entities.Manga.list("-rating", 50),
+  });
+  const load = () => refetch();
 
   useEffect(() => {
     if (!q && cat === "すべて") return;

@@ -130,7 +130,7 @@ export default function Portfolio() {
                   <span className={r.pnl != null ? (r.pnl >= 0 ? "text-emerald-400" : "text-rose-400") : "text-slate-500"}>
                     {r.pnl != null ? `${r.pnl >= 0 ? "+" : ""}¥${r.pnl.toLocaleString()}` : "—"}
                   </span>
-                  <button onClick={() => remove(r.id)} className="ml-auto text-slate-500 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
+                  <button onClick={() => remove(r.id)} aria-label={t("pf.remove")} className="ml-auto text-slate-500 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
                 </div>
               </div>
             ))}

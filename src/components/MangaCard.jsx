@@ -26,7 +26,7 @@ export default function MangaCard({ manga }) {
           {plan.name[lang]}
         </div>
         {!access && (
-          <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-950/80 backdrop-blur flex items-center justify-center border border-white/15">
+          <div aria-hidden="true" className="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-950/80 backdrop-blur flex items-center justify-center border border-white/15">
             <Lock className="w-4 h-4 text-amber-300" />
           </div>
         )}

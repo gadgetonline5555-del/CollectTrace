@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { base44 } from "@/api/base44Client";
+import { useQuery } from "@tanstack/react-query";
 import ResearchCard from "@/components/ResearchCard";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
@@ -18,16 +19,14 @@ const SECTORS = [
 
 export default function ResearchHub() {
   const { t } = useI18n();
-  const [reports, setReports] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
   const [sector, setSector] = useState("すべて");
 
-  const load = () => {
-    setLoading(true);
-    return base44.entities.Research.list("-published_date", 60).then((res) => { setReports(res); setLoading(false); }).catch(() => setLoading(false));
-  };
-  useEffect(() => { load(); }, []);
+  const { data: reports = [], isFetching: loading, refetch } = useQuery({
+    queryKey: ["research", "hub"],
+    queryFn: () => base44.entities.Research.list("-published_date", 60),
+  });
+  const load = () => refetch();
 
   useEffect(() => {
     if (!q && sector === "すべて") return;

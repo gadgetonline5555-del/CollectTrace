@@ -31,7 +31,7 @@ export default function ResearchCard({ research }) {
           <h3 className="font-display font-bold text-white leading-tight line-clamp-2">{research.title}</h3>
         </div>
         {!access ? (
-          <div className="shrink-0 w-8 h-8 rounded-full bg-slate-950/60 flex items-center justify-center border border-white/15">
+          <div aria-hidden="true" className="shrink-0 w-8 h-8 rounded-full bg-slate-950/60 flex items-center justify-center border border-white/15">
             <Lock className="w-4 h-4 text-amber-300" />
           </div>
         ) : (
