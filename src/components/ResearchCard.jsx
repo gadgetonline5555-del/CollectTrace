@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Lock, TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
 import { getPlan, canAccess } from "@/lib/plans";
+import { useI18n } from "@/lib/i18n";
 
 export default function ResearchCard({ research, userTier = "free" }) {
+  const { t, lang } = useI18n();
   const plan = getPlan(research.plan_tier);
   const access = canAccess(userTier, research.plan_tier);
   const isBuy = research.rating === "Strong Buy" || research.rating === "Buy";
@@ -21,7 +23,7 @@ export default function ResearchCard({ research, userTier = "free" }) {
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xs font-mono font-bold text-slate-300">{research.ticker}</span>
             <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wide bg-gradient-to-r ${plan.accent} text-slate-950`}>
-              {plan.name}
+              {plan.name[lang]}
             </span>
           </div>
           <h3 className="font-display font-bold text-white leading-tight line-clamp-2">{research.title}</h3>
@@ -41,13 +43,13 @@ export default function ResearchCard({ research, userTier = "free" }) {
             {isBuy ? <TrendingUp className="w-4 h-4 text-emerald-400" /> : <TrendingDown className="w-4 h-4 text-rose-400" />}
             ¥{research.current_price?.toLocaleString() ?? "—"}
           </div>
-          <div className="text-xs text-slate-500">現在値</div>
+          <div className="text-xs text-slate-500">{t("rc.current")}</div>
         </div>
         <div className="text-right">
           <div className={`text-lg font-bold font-mono ${upside >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
             {upside >= 0 ? "+" : ""}{upside}%
           </div>
-          <div className="text-xs text-slate-500">上値余地</div>
+          <div className="text-xs text-slate-500">{t("rc.upside")}</div>
         </div>
       </div>
     </Link>

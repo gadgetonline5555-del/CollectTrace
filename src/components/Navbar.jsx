@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck } from "lucide-react";
+import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck, Globe } from "lucide-react";
 import { base44 } from "@/api/base44Client";
+import { useI18n } from "@/lib/i18n";
 
 const NAV = [
-  { to: "/", label: "ホーム", icon: TrendingUp },
-  { to: "/manga", label: "漫画", icon: BookOpen },
-  { to: "/research", label: "調査", icon: BarChart3 },
-  { to: "/pricing", label: "プラン", icon: Tag },
+  { to: "/", key: "nav.home", icon: TrendingUp },
+  { to: "/manga", key: "nav.manga", icon: BookOpen },
+  { to: "/research", key: "nav.research", icon: BarChart3 },
+  { to: "/pricing", key: "nav.pricing", icon: Tag },
 ];
 
 export default function Navbar() {
   const { pathname } = useLocation();
+  const { lang, setLang, t } = useI18n();
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     base44.auth.me().then((u) => setIsAdmin(u?.role === "admin")).catch(() => {});
   }, []);
+
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -29,33 +32,30 @@ export default function Navbar() {
           </div>
         </Link>
         <nav className="hidden md:flex items-center gap-1">
-          {NAV.map(({ to, label, icon: Icon }) => {
+          {NAV.map(({ to, key, icon: Icon }) => {
             const active = to === "/" ? pathname === "/" : pathname.startsWith(to);
             return (
-              <Link
-                key={to}
-                to={to}
-                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  active ? "text-white bg-white/10" : "text-slate-400 hover:text-white hover:bg-white/5"
-                }`}
-              >
+              <Link key={to} to={to} className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${active ? "text-white bg-white/10" : "text-slate-400 hover:text-white hover:bg-white/5"}`}>
                 <Icon className="w-4 h-4" />
-                {label}
+                {t(key)}
               </Link>
             );
           })}
           {isAdmin && (
             <Link to="/admin" className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${pathname.startsWith("/admin") ? "text-white bg-white/10" : "text-slate-400 hover:text-white hover:bg-white/5"}`}>
-              <ShieldCheck className="w-4 h-4" /> 管理
+              <ShieldCheck className="w-4 h-4" /> {t("nav.admin")}
             </Link>
           )}
         </nav>
-        <Link
-          to="/pricing"
-          className="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 transition-opacity"
-        >
-          アップグレード
-        </Link>
+        <div className="flex items-center gap-2">
+          <button onClick={() => setLang(lang === "jp" ? "en" : "jp")} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 border border-white/10 transition-colors" aria-label="Switch language">
+            <Globe className="w-4 h-4" />
+            <span className="font-mono text-xs">{lang === "jp" ? "JP" : "EN"}</span>
+          </button>
+          <Link to="/pricing" className="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 transition-opacity">
+            {t("nav.upgrade")}
+          </Link>
+        </div>
       </div>
     </header>
   );

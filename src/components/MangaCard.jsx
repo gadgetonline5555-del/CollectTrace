@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Lock, Star, BookOpen } from "lucide-react";
 import { getPlan, canAccess } from "@/lib/plans";
+import { useI18n } from "@/lib/i18n";
 
 export default function MangaCard({ manga, userTier = "free" }) {
+  const { t, lang } = useI18n();
   const plan = getPlan(manga.plan_tier);
   const access = canAccess(userTier, manga.plan_tier);
   return (
@@ -19,7 +21,7 @@ export default function MangaCard({ manga, userTier = "free" }) {
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
         <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur text-[11px] font-semibold text-white border border-white/15">
           <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${plan.accent}`} />
-          {plan.name}
+          {plan.name[lang]}
         </div>
         {!access && (
           <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-950/80 backdrop-blur flex items-center justify-center border border-white/15">
@@ -30,7 +32,7 @@ export default function MangaCard({ manga, userTier = "free" }) {
           <div className="flex items-center gap-1 text-amber-300 text-xs mb-1">
             <Star className="w-3.5 h-3.5 fill-current" />
             <span className="font-semibold">{manga.rating?.toFixed(1) ?? "4.5"}</span>
-            <span className="text-slate-400 ml-2 flex items-center gap-1"><BookOpen className="w-3.5 h-3.5" />{manga.episodes}話</span>
+            <span className="text-slate-400 ml-2 flex items-center gap-1"><BookOpen className="w-3.5 h-3.5" />{manga.episodes}{t("mc.ep")}</span>
           </div>
           <h3 className="font-display font-bold text-white text-lg leading-tight line-clamp-2">{manga.title}</h3>
           <p className="text-slate-400 text-xs mt-0.5">{manga.author}</p>

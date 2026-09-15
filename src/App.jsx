@@ -20,6 +20,7 @@ import ForgotPassword from '@/pages/ForgotPassword';
 import ResetPassword from '@/pages/ResetPassword';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Layout from '@/components/Layout';
+import { I18nProvider } from '@/lib/i18n';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -72,6 +73,7 @@ function App() {
 
   return (
     <AuthProvider>
+      <I18nProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
           <ScrollToTop />
@@ -79,6 +81,7 @@ function App() {
         </Router>
         <Toaster />
       </QueryClientProvider>
+      </I18nProvider>
     </AuthProvider>
   )
 }

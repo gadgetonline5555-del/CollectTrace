@@ -1,7 +1,9 @@
 import React from "react";
 import { TrendingUp } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 export default function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="mt-24 border-t border-white/10 bg-slate-950">
       <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8 text-sm">
@@ -12,24 +14,20 @@ export default function Footer() {
             </div>
             <span className="font-display font-bold text-white">Collect Trace</span>
           </div>
-          <p className="text-slate-400 leading-relaxed">
-            投資漫画で学び、投資調査で深める。次世代の投資情報プラットフォーム。
-          </p>
+          <p className="text-slate-400 leading-relaxed">{t("footer.tagline")}</p>
         </div>
         <div>
-          <h4 className="text-white font-semibold mb-3">提供内容</h4>
+          <h4 className="text-white font-semibold mb-3">{t("footer.contents")}</h4>
           <ul className="space-y-2 text-slate-400">
-            <li>投資漫画コンテンツ</li>
-            <li>銘柄スクリーニング</li>
-            <li>調査レポート</li>
-            <li>市場データ API</li>
+            <li>{t("footer.c1")}</li>
+            <li>{t("footer.c2")}</li>
+            <li>{t("footer.c3")}</li>
+            <li>{t("footer.c4")}</li>
           </ul>
         </div>
         <div>
-          <h4 className="text-white font-semibold mb-3">注意事項</h4>
-          <p className="text-slate-400 leading-relaxed">
-            本サービスは情報提供のみを目的とし、投資助言・個別相談は行いません。投資は自己責任でご判断ください。
-          </p>
+          <h4 className="text-white font-semibold mb-3">{t("footer.notice_h")}</h4>
+          <p className="text-slate-400 leading-relaxed">{t("footer.notice")}</p>
         </div>
       </div>
       <div className="border-t border-white/10 py-4 text-center text-xs text-slate-500">

@@ -1,0 +1,156 @@
+import React, { createContext, useContext, useState, useCallback } from "react";
+
+const DICT = {
+  "nav.home": { jp: "ホーム", en: "Home" },
+  "nav.manga": { jp: "漫画", en: "Manga" },
+  "nav.research": { jp: "調査", en: "Research" },
+  "nav.pricing": { jp: "プラン", en: "Plans" },
+  "nav.admin": { jp: "管理", en: "Admin" },
+  "nav.upgrade": { jp: "アップグレード", en: "Upgrade" },
+
+  "footer.tagline": { jp: "投資漫画で学び、投資調査で深める。次世代の投資情報プラットフォーム。", en: "Learn through investment manga, deepen through research. A next-gen investment platform." },
+  "footer.contents": { jp: "提供内容", en: "What we offer" },
+  "footer.c1": { jp: "投資漫画コンテンツ", en: "Investment manga" },
+  "footer.c2": { jp: "銘柄スクリーニング", en: "Stock screening" },
+  "footer.c3": { jp: "調査レポート", en: "Research reports" },
+  "footer.c4": { jp: "市場データ API", en: "Market data API" },
+  "footer.notice_h": { jp: "注意事項", en: "Disclaimer" },
+  "footer.notice": { jp: "本サービスは情報提供のみを目的とし、投資助言・個別相談は行いません。投資は自己責任でご判断ください。", en: "This service is for informational purposes only and does not constitute investment advice or personalized consultation. All investment decisions are your own responsibility." },
+
+  "hero.badge": { jp: "漫画で学ぶ × 調査で勝つ — 次世代投資プラットフォーム", en: "Learn through manga × Win through research — next-gen investment platform" },
+  "hero.h1Pre": { jp: "投資を", en: "" },
+  "hero.h1Hi1": { jp: "読む", en: "Read" },
+  "hero.h1Mid": { jp: "、投資を", en: " markets, " },
+  "hero.h1Hi2": { jp: "解く", en: "decode" },
+  "hero.h1Post": { jp: "。", en: " opportunities." },
+  "hero.p": { jp: "初心者は漫画で投資の本質を直感し、プロは機関レベルの調査レポートで銘柄を深掘り。4つのプラン階層で、学びと分析をシームレスに繋ぐ。", en: "Beginners intuit the essence of investing through manga; professionals dive deep with institution-grade research. Four tiers seamlessly bridge learning and analysis." },
+  "hero.cta1": { jp: "漫画を読み始める", en: "Start reading" },
+  "hero.cta2": { jp: "調査を見る", en: "Browse research" },
+
+  "stat.manga.label": { jp: "投資漫画", en: "Investment manga" },
+  "stat.manga.sub": { jp: "話数配信中", en: "episodes streaming" },
+  "stat.reports.label": { jp: "調査レポート", en: "Research reports" },
+  "stat.reports.sub": { jp: "銘柄カバー", en: "stocks covered" },
+  "stat.upside.label": { jp: "上値余地 平均", en: "Avg upside" },
+  "stat.upside.sub": { jp: "プロプラン銘柄", en: "Pro-plan picks" },
+  "stat.cadence.label": { jp: "配信頻度", en: "Update cadence" },
+  "stat.cadence.sub": { jp: "市場データ更新", en: "market data refresh" },
+  "stat.cadence.value": { jp: "毎日", en: "Daily" },
+
+  "home.featured_h": { jp: "話題の投資漫画", en: "Featured manga" },
+  "home.featured_p": { jp: "知識が物語になる", en: "Where knowledge becomes a story" },
+  "home.see_all": { jp: "すべて見る", en: "See all" },
+  "home.research_h": { jp: "最新の調査レポート", en: "Latest research" },
+  "home.research_p": { jp: "データが物語を裏付ける", en: "Where data backs the narrative" },
+  "home.cta_h": { jp: "プランを比べて、最適な一歩を", en: "Compare plans, take the right step" },
+  "home.cta_p": { jp: "価格ごとに何が違うか一目でわかる。あなたの投資ステージに合った情報を選べます。", en: "See exactly what each tier unlocks. Choose the insight that fits your stage." },
+  "home.cta_btn": { jp: "プランを見る", en: "View plans" },
+
+  "pricing.h1": { jp: "価格ごとに、情報が変わる。", en: "Each tier, a different depth of insight." },
+  "pricing.p": { jp: "「何が違うのか分からない」を終わらせる。各プランで提供されるコンテンツ・データ・レポートを明確に定義しています。", en: "End the confusion about what differs. Every plan's content, data, and reports are clearly defined." },
+  "pricing.disclaimer": { jp: "投資助言・個別相談は一切行いません。情報提供のみのサービスです。", en: "No investment advice or personalized consultation. Informational service only." },
+  "pricing.compare_h": { jp: "プラン比較一覧", en: "Plan comparison" },
+
+  "cmp.feature": { jp: "提供内容", en: "Feature" },
+  "cmp.row1": { jp: "投資漫画（全作品）", en: "All manga titles" },
+  "cmp.row2": { jp: "銘柄スクリーニング", en: "Stock screening" },
+  "cmp.row3": { jp: "個別銘柄レポート", en: "Stock reports" },
+  "cmp.row4": { jp: "市場データ API", en: "Market data API" },
+  "cmp.row5": { jp: "アルゴ指標アクセス", en: "Algo indicators" },
+  "cmp.withAds": { jp: "広告あり", en: "with ads" },
+  "cmp.basic": { jp: "基礎", en: "Basic" },
+  "cmp.detailed": { jp: "詳細", en: "Detailed" },
+  "cmp.institutional": { jp: "機関級", en: "Institutional" },
+  "cmp.beginner": { jp: "初心者向け", en: "Beginner" },
+  "cmp.deep": { jp: "ディープ", en: "Deep-dive" },
+  "cmp.highfreq": { jp: "○（高頻度）", en: "Yes (high-frequency)" },
+
+  "pt.monthly": { jp: "月額", en: "Monthly" },
+  "pt.annual": { jp: "年額", en: "Annual" },
+  "pt.annual_hint": { jp: "2ヶ月無料", en: "2 months free" },
+  "pt.current": { jp: "現在のプラン", en: "Current plan" },
+  "pt.startfree": { jp: "無料で始める", en: "Start free" },
+  "pt.upgrade": { jp: "アップグレード", en: "Upgrade" },
+  "pt.mo": { jp: "/月", en: "/mo" },
+  "pt.yr": { jp: "/年", en: "/yr" },
+  "pt.free_display": { jp: "¥0", en: "¥0" },
+  "pt.popular": { jp: "人気No.1", en: "Most popular" },
+  "pt.loading": { jp: "処理中…", en: "Processing…" },
+  "pt.success": { jp: "お支払いが完了しました", en: "Payment complete" },
+  "pt.success_desc": { jp: "サブスクリプションが有効化されました。", en: "Your subscription is now active." },
+  "pt.cancelled": { jp: "お支払いがキャンセルされました", en: "Payment was cancelled" },
+  "pt.iframe_title": { jp: "決済は公開アプリでのみ利用できます", en: "Checkout is only available in the published app" },
+  "pt.iframe_desc": { jp: "アプリを公開して新しいタブで開いてください。", en: "Please publish the app and open it in a new tab." },
+  "pt.fail": { jp: "決済セッションの作成に失敗しました", en: "Could not create a checkout session" },
+  "pt.error": { jp: "エラーが発生しました", en: "An error occurred" },
+
+  "mc.ep": { jp: "話", en: "ep" },
+  "rc.current": { jp: "現在値", en: "Current" },
+  "rc.upside": { jp: "上値余地", en: "Upside" },
+
+  "reader.loading": { jp: "読み込み中…", en: "Loading…" },
+  "reader.notfound": { jp: "漫画が見つかりません。", en: "Manga not found." },
+  "reader.back": { jp: "ライブラリに戻る", en: "Back to library" },
+  "reader.ep": { jp: "話", en: "ep" },
+  "reader.lock_h": { jp: "この作品は「{plan}」プラン以上", en: "This title requires the {plan} plan or above" },
+  "reader.lock_p": { jp: "{price}のプランで、この作品の全エピソードをお楽しみいただけます。", en: "Unlock every episode of this title with the {price} plan." },
+  "reader.view_plans": { jp: "プランを見る", en: "View plans" },
+  "reader.empty": { jp: "本文を準備中です。近日公開予定。", en: "Full content coming soon." },
+  "reader.done": { jp: "この話を読み終えました — 次のエピソードへ進む", en: "Finished this episode — on to the next" },
+
+  "rd.loading": { jp: "読み込み中…", en: "Loading…" },
+  "rd.notfound": { jp: "レポートが見つかりません。", en: "Report not found." },
+  "rd.back": { jp: "ハブに戻る", en: "Back to hub" },
+  "rd.current": { jp: "現在値", en: "Current" },
+  "rd.target": { jp: "目標株価", en: "Target" },
+  "rd.upside": { jp: "上値余地", en: "Upside" },
+  "rd.rating": { jp: "格付け", en: "Rating" },
+  "rd.lock_h": { jp: "このレポートは「{plan}」プラン以上", en: "This report requires the {plan} plan or above" },
+  "rd.lock_p": { jp: "{price}で、詳細分析・財務データ・格付けのすべてにアクセスできます。", en: "Unlock detailed analysis, financials, and ratings with the {price} plan." },
+  "rd.view_plans": { jp: "プランを見る", en: "View plans" },
+  "rd.empty": { jp: "本文を準備中です。近日公開予定。", en: "Full content coming soon." },
+
+  "lib.h": { jp: "投資漫画ライブラリ", en: "Investment manga library" },
+  "lib.p": { jp: "物語で学ぶ、投資の原理と相場の心理。", en: "Learn the principles of investing and market psychology through story." },
+  "lib.search": { jp: "タイトル・作者で検索", en: "Search titles or authors" },
+  "lib.empty": { jp: "該当する漫画がありません。", en: "No manga found." },
+  "lib.plans_label": { jp: "プランで絞る:", en: "Filter by plan:" },
+  "cat.all": { jp: "すべて", en: "All" },
+  "cat.basics": { jp: "基礎知識", en: "Basics" },
+  "cat.analysis": { jp: "銘柄分析", en: "Stock analysis" },
+  "cat.psych": { jp: "相場心理", en: "Market psychology" },
+  "cat.strategy": { jp: "戦略", en: "Strategy" },
+  "cat.loss": { jp: "失敗談", en: "Lessons from loss" },
+
+  "hub.h": { jp: "調査レポートハブ", en: "Research hub" },
+  "hub.p": { jp: "銘柄別の深い分析と市場テーマの調査。", en: "Deep stock analysis and market-theme research." },
+  "hub.search": { jp: "銘柄・タイトルで検索", en: "Search tickers or titles" },
+  "hub.empty": { jp: "該当するレポートがありません。", en: "No reports found." },
+  "hub.sector": { jp: "セクター", en: "Sector" },
+  "sec.all": { jp: "すべて", en: "All" },
+  "sec.tech": { jp: "テクノロジー", en: "Technology" },
+  "sec.health": { jp: "ヘルスケア", en: "Healthcare" },
+  "sec.energy": { jp: "エネルギー", en: "Energy" },
+  "sec.fin": { jp: "金融", en: "Financials" },
+  "sec.consumer": { jp: "消費財", en: "Consumer" },
+  "sec.semi": { jp: "半導体", en: "Semiconductors" }
+};
+
+const I18nContext = createContext({ lang: "jp", setLang: () => {}, t: (k) => k });
+
+export function I18nProvider({ children }) {
+  const [lang, setLangState] = useState(() => (typeof window !== "undefined" && localStorage.getItem("ct_lang")) || "jp");
+  const setLang = useCallback((l) => {
+    setLangState(l);
+    if (typeof window !== "undefined") localStorage.setItem("ct_lang", l);
+  }, []);
+  const t = useCallback((key, params) => {
+    const entry = DICT[key];
+    let s = entry ? (entry[lang] ?? entry.jp) : key;
+    if (params) for (const k in params) s = s.replace(`{${k}}`, params[k]);
+    return s;
+  }, [lang]);
+  return <I18nContext.Provider value={{ lang, setLang, t }}>{children}</I18nContext.Provider>;
+}
+
+export const useI18n = () => useContext(I18nContext);
