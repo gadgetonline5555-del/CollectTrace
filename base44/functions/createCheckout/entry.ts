@@ -1,9 +1,9 @@
 import { secrets } from "base44:runtime";
 
 const PRICES = {
-  starter: "price_1UFo6h4djcjyuDe5dWGYMenD",
-  pro: "price_1UFo6h4djcjyuDe56B8lq9ZI",
-  elite: "price_1UFo6h4djcjyuDe5hvzgFlyh",
+  starter: "price_1UG4JUK883blt89Ki3kqRKjQ",
+  pro: "price_1UG4JUK883blt89KQEsrk9zr",
+  elite: "price_1UG4JUK883blt89KmxfXhsRu",
 };
 
 export default async function (req: Request): Promise<Response> {

@@ -3,9 +3,9 @@ import Stripe from "npm:stripe@17.6.0";
 import { secrets } from "base44:runtime";
 
 const PRICE_TO_TIER = {
-  "price_1UFo6h4djcjyuDe5dWGYMenD": "starter",
-  "price_1UFo6h4djcjyuDe56B8lq9ZI": "pro",
-  "price_1UFo6h4djcjyuDe5hvzgFlyh": "elite",
+  "price_1UG4JUK883blt89Ki3kqRKjQ": "starter",
+  "price_1UG4JUK883blt89KQEsrk9zr": "pro",
+  "price_1UG4JUK883blt89KmxfXhsRu": "elite",
 };
 
 async function setUserTier(base44, email, tier) {
