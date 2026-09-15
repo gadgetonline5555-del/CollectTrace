@@ -118,12 +118,13 @@ export default function Portfolio() {
         ) : items.length === 0 ? (
           <div className="text-center py-16 text-slate-500">{t("pf.empty")}</div>
         ) : (
-          <div className="space-y-3">
-            <div className="grid grid-cols-5 gap-2 px-4 text-xs text-slate-500 uppercase tracking-wide">
+          <div className="-mx-4 sm:mx-0 overflow-x-auto overscroll-x-auto pb-2">
+          <div className="min-w-[36rem] space-y-3">
+            <div className="grid grid-cols-5 gap-2 px-4 text-xs text-slate-500 uppercase tracking-wide [&>*]:min-w-0">
               <span>{t("pf.ticker")}</span><span>{t("pf.shares")}</span><span>{t("pf.current")}</span><span>{t("pf.value")}</span><span>{t("pf.pnl")}</span>
             </div>
             {rows.map((r) => (
-              <div key={r.id} className="grid grid-cols-5 gap-2 items-center p-4 rounded-xl bg-slate-900/60 border border-white/10 text-sm">
+              <div key={r.id} className="grid grid-cols-5 gap-2 items-center p-4 rounded-xl bg-slate-900/60 border border-white/10 text-sm [&>*]:min-w-0">
                 <span className="font-mono font-bold text-white">{r.ticker}</span>
                 <span className="text-slate-300">{r.shares}</span>
                 <span className="text-slate-300">{r.cur ? `¥${r.cur.toLocaleString()}` : t("pf.noprice")}</span>
@@ -136,6 +137,7 @@ export default function Portfolio() {
                 </div>
               </div>
             ))}
+          </div>
           </div>
         )}
       </div>

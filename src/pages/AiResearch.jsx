@@ -114,7 +114,7 @@ export default function AiResearch() {
         <div className="flex flex-wrap gap-2 mb-3">
           {QTYPES.map((qt) => (
             <button key={qt.id} type="button" onClick={() => setQueryType(qt.id)}
-              className={`min-h-11 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${queryType === qt.id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
+              className={`min-h-11 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${queryType === qt.id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
               {t(qt.key)}
             </button>
           ))}
@@ -132,7 +132,7 @@ export default function AiResearch() {
           <div className="flex flex-wrap gap-2">
             {SUGGESTIONS.map((s) => (
               <button key={s} onClick={() => { setInput(s); setQuery(s); }}
-                className="min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10 transition-colors">
+                className="min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 {s}
               </button>
             ))}
@@ -145,7 +145,7 @@ export default function AiResearch() {
           <div className="flex items-center justify-between gap-3 mb-5 flex-wrap">
             <div className="flex items-center gap-2">
               <button onClick={handleRefresh} disabled={refreshing}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 disabled:opacity-50 transition-opacity">
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 disabled:opacity-50 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 <RefreshCw className={`w-4 h-4 ${refreshing ? "animate-spin" : ""}`} />
                 {refreshing ? t("air.refreshing") : t("air.refresh")}
               </button>
@@ -162,8 +162,8 @@ export default function AiResearch() {
             )}
             {latest && (
               <div className="inline-flex rounded-lg bg-slate-900 border border-white/10 p-0.5 ml-auto">
-                <button onClick={() => setCompact(false)} className={`px-3 py-1.5 rounded-md text-xs font-medium ${!compact ? "bg-white text-slate-950" : "text-slate-400"}`}>{t("air.view_full")}</button>
-                <button onClick={() => setCompact(true)} className={`px-3 py-1.5 rounded-md text-xs font-medium ${compact ? "bg-white text-slate-950" : "text-slate-400"}`}>{t("air.view_summary")}</button>
+                <button onClick={() => setCompact(false)} className={`px-3 py-1.5 rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${!compact ? "bg-white text-slate-950" : "text-slate-400"}`}>{t("air.view_full")}</button>
+                <button onClick={() => setCompact(true)} className={`px-3 py-1.5 rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${compact ? "bg-white text-slate-950" : "text-slate-400"}`}>{t("air.view_summary")}</button>
               </div>
             )}
           </div>
@@ -189,7 +189,7 @@ export default function AiResearch() {
               <p className="text-slate-300 font-medium">{t("air.no_snapshot")}</p>
               <p className="text-slate-500 text-sm mt-1 mb-6">{t("air.no_snapshot_p")}</p>
               <button onClick={handleRefresh}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90">
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 <Sparkles className="w-4 h-4" /> {t("air.generate_first")}
               </button>
             </div>
@@ -205,7 +205,7 @@ export default function AiResearch() {
               <div className="space-y-2">
                 {history.map((h) => (
                   <button key={h.id} onClick={() => setViewing(h)}
-                    className={`w-full text-left flex items-center justify-between gap-3 px-4 py-3 rounded-xl border transition-colors ${viewing?.id === h.id ? "border-cyan-400/40 bg-cyan-500/10" : "border-white/10 bg-slate-900/50 hover:bg-slate-800/50"}`}>
+                    className={`w-full text-left flex items-center justify-between gap-3 px-4 py-3 rounded-xl border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${viewing?.id === h.id ? "border-cyan-400/40 bg-cyan-500/10" : "border-white/10 bg-slate-900/50 hover:bg-slate-800/50"}`}>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-mono text-slate-400">v{h.version}</span>

@@ -61,16 +61,16 @@ export default function Discover() {
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
         <div className="inline-flex rounded-xl bg-slate-900 border border-white/10 p-1">
           <button onClick={() => switchMode("personalized")}
-            className={`min-h-11 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${mode === "personalized" ? "bg-white text-slate-950" : "text-slate-300 hover:text-white"}`}>
+            className={`min-h-11 px-4 py-2 rounded-lg text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${mode === "personalized" ? "bg-white text-slate-950" : "text-slate-300 hover:text-white"}`}>
             {t("disc.mode_personalized")}
           </button>
           <button onClick={() => switchMode("default")}
-            className={`min-h-11 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${mode === "default" ? "bg-white text-slate-950" : "text-slate-300 hover:text-white"}`}>
+            className={`min-h-11 px-4 py-2 rounded-lg text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${mode === "default" ? "bg-white text-slate-950" : "text-slate-300 hover:text-white"}`}>
             {t("disc.mode_default")}
           </button>
         </div>
         <button onClick={() => generate(mode)} disabled={loading}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 disabled:opacity-50 transition-opacity">
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 disabled:opacity-50 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
           <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
           {loading ? t("disc.generating") : t("disc.refresh")}
         </button>

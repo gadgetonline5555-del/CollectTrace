@@ -11,7 +11,7 @@ export default function PricingTiers({ currentTier = "free", onUpgrade, compact 
     <div>
       <div className="flex items-center justify-center gap-3 mb-8">
         <span className={`text-sm ${!annual ? "text-white font-semibold" : "text-slate-500"}`}>{t("pt.monthly")}</span>
-        <button onClick={() => setAnnual((a) => !a)} className={`relative w-14 h-7 rounded-full transition-colors ${annual ? "bg-gradient-to-r from-cyan-400 to-violet-500" : "bg-slate-700"}`}>
+        <button onClick={() => setAnnual((a) => !a)} className={`relative w-14 h-7 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${annual ? "bg-gradient-to-r from-cyan-400 to-violet-500" : "bg-slate-700"}`}>
           <span className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform ${annual ? "translate-x-8" : "translate-x-1"}`} />
         </button>
         <span className={`text-sm ${annual ? "text-white font-semibold" : "text-slate-500"}`}>{t("pt.annual")} <span className="text-emerald-400 text-xs">{t("pt.annual_hint")}</span></span>
@@ -25,7 +25,7 @@ export default function PricingTiers({ currentTier = "free", onUpgrade, compact 
           return (
             <div key={plan.id} className={`relative rounded-3xl p-6 bg-slate-900/60 backdrop-blur border ${plan.ring} ring-1 flex flex-col ${plan.id === "pro" ? "lg:scale-105 shadow-2xl shadow-violet-500/10" : ""}`}>
               {plan.id === "pro" && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-violet-400 to-fuchsia-500 text-slate-950 flex items-center gap-1">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-violet-400 to-fuchsia-500 text-slate-950 flex items-center gap-1">
                   <Sparkles className="w-3 h-3" /> {t("pt.popular")}
                 </div>
               )}
@@ -52,7 +52,7 @@ export default function PricingTiers({ currentTier = "free", onUpgrade, compact 
                   </li>
                 ))}
               </ul>
-              <button disabled={isCurrent || isBusy} onClick={() => onUpgrade?.(plan.id)} className={`w-full py-3 rounded-xl font-semibold text-sm transition-all ${isCurrent ? "bg-slate-800 text-slate-500 cursor-default" : `bg-gradient-to-r ${plan.accent} text-slate-950 hover:opacity-90 hover:shadow-lg ${isBusy ? "opacity-60 cursor-wait" : ""}`}`}>
+              <button disabled={isCurrent || isBusy} onClick={() => onUpgrade?.(plan.id)} className={`w-full py-3 rounded-xl font-semibold text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${isCurrent ? "bg-slate-800 text-slate-500 cursor-default" : `bg-gradient-to-r ${plan.accent} text-slate-950 hover:opacity-90 hover:shadow-lg ${isBusy ? "opacity-60 cursor-wait" : ""}`}`}>
                 {isBusy ? t("pt.loading") : isCurrent ? t("pt.current") : price === 0 ? t("pt.startfree") : t("pt.upgrade")}
               </button>
             </div>

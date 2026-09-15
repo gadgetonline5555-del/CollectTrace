@@ -111,7 +111,7 @@ export default function CompanyIntel() {
         <div className="flex flex-wrap gap-2 mb-3">
           {CTYPES.map((ct) => (
             <button key={ct.id} type="button" onClick={() => setCompanyType(ct.id)}
-              className={`min-h-11 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${companyType === ct.id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
+              className={`min-h-11 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${companyType === ct.id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
               {t(ct.key)}
             </button>
           ))}
@@ -129,7 +129,7 @@ export default function CompanyIntel() {
           <div className="flex flex-wrap gap-2">
             {SUGGESTIONS.map((s) => (
               <button key={s} onClick={() => { setInput(s); setQuery(s); }}
-                className="min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10 transition-colors">
+                className="min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 {s}
               </button>
             ))}
@@ -142,7 +142,7 @@ export default function CompanyIntel() {
           <div className="flex items-center justify-between gap-3 mb-5 flex-wrap">
             <div className="flex items-center gap-2">
               <button onClick={handleRefresh} disabled={refreshing}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-950 hover:opacity-90 disabled:opacity-50 transition-opacity">
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-950 hover:opacity-90 disabled:opacity-50 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 <RefreshCw className={`w-4 h-4 ${refreshing ? "animate-spin" : ""}`} />
                 {refreshing ? t("intel.refreshing") : t("intel.refresh")}
               </button>
@@ -180,7 +180,7 @@ export default function CompanyIntel() {
               <p className="text-slate-300 font-medium">{t("intel.no_intel")}</p>
               <p className="text-slate-500 text-sm mt-1 mb-6">{t("intel.no_intel_p")}</p>
               <button onClick={handleRefresh}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-950 hover:opacity-90">
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-950 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 <Network className="w-4 h-4" /> {t("intel.generate_first")}
               </button>
             </div>
@@ -196,7 +196,7 @@ export default function CompanyIntel() {
               <div className="space-y-2">
                 {history.map((h) => (
                   <button key={h.id} onClick={() => setViewing(h)}
-                    className={`w-full text-left flex items-center justify-between gap-3 px-4 py-3 rounded-xl border transition-colors ${viewing?.id === h.id ? "border-emerald-400/40 bg-emerald-500/10" : "border-white/10 bg-slate-900/50 hover:bg-slate-800/50"}`}>
+                    className={`w-full text-left flex items-center justify-between gap-3 px-4 py-3 rounded-xl border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${viewing?.id === h.id ? "border-emerald-400/40 bg-emerald-500/10" : "border-white/10 bg-slate-900/50 hover:bg-slate-800/50"}`}>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-mono text-slate-400">v{h.version}</span>

@@ -44,7 +44,7 @@ export default function Navbar() {
           </div>
           <div className="leading-none">
             <span className="font-display font-bold text-white tracking-tight text-lg">Collect Trace</span>
-            <span className="block text-[10px] text-slate-400 tracking-widest uppercase">Manga × Research</span>
+            <span className="block text-xs text-slate-400 tracking-widest uppercase">Manga × Research</span>
           </div>
         </Link>
         <nav className="hidden md:flex items-center gap-1">
@@ -80,9 +80,9 @@ export default function Navbar() {
           )}
         </nav>
         <div className="flex items-center gap-2">
-          <button onClick={() => setLang(lang === "jp" ? "en" : "jp")} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 border border-white/10 transition-colors" aria-label="Switch language">
+          <button onClick={() => setLang(lang === "jp" ? "en" : "jp")} className="flex items-center gap-1.5 px-3 py-2 min-h-11 min-w-11 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/5 border border-white/10 transition-colors" aria-label="Switch language">
             <Globe className="w-4 h-4" />
-            <span className="font-mono text-xs">{lang === "jp" ? "JP" : "EN"}</span>
+            <span className="font-mono text-sm">{lang === "jp" ? "JP" : "EN"}</span>
           </button>
           <Link to="/pricing" className="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 transition-opacity">
             {t("nav.upgrade")}
