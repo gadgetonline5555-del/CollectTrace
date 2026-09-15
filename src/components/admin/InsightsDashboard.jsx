@@ -1,8 +1,14 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { Users, Crown, TrendingUp, Globe2, Search, Star, BookOpen, BarChart3, Activity, Loader2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { PLANS } from "@/lib/plans";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from "recharts";
+
+const ChartComponents = lazy(() => import("./ChartComponents"));
+const ChartFallback = () => (
+  <div className="flex items-center justify-center" style={{ height: 200 }}>
+    <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+  </div>
+);
 
 const PLAN_PRICE = { free: 0, starter: 1000, pro: 10000, elite: 100000 };
 const CHART_COLORS = ["#a78bfa", "#22d3ee", "#34d399", "#fbbf24", "#f472b6", "#60a5fa", "#f87171", "#c084fc"];
@@ -143,16 +149,9 @@ export default function InsightsDashboard() {
       <div className="grid md:grid-cols-2 gap-6">
         <Section title="プラン別ユーザー分布" icon={Crown}>
           {stats.totalUsers === 0 ? <div className="text-slate-500 text-sm py-8 text-center">ユーザーなし</div> : (
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={planData}>
-                <XAxis dataKey="name" tick={{ fill: "#94a3b8", fontSize: 12 }} axisLine={{ stroke: "#334155" }} />
-                <YAxis tick={{ fill: "#94a3b8", fontSize: 12 }} allowDecimals={false} axisLine={{ stroke: "#334155" }} />
-                <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #334155", borderRadius: 12, color: "#fff" }} />
-                <Bar dataKey="users" radius={[6, 6, 0, 0]}>
-                  {planData.map((_, i) => <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />)}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            <Suspense fallback={<ChartFallback />}>
+              <ChartComponents variant="plan" data={planData} />
+            </Suspense>
           )}
         </Section>
 
@@ -178,27 +177,17 @@ export default function InsightsDashboard() {
       <div className="grid md:grid-cols-2 gap-6">
         <Section title="漫画カテゴリ別 閲覧興味" icon={BookOpen}>
           {mangaCatData.length === 0 ? <div className="text-slate-500 text-sm py-8 text-center">データなし</div> : (
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={mangaCatData} layout="vertical">
-                <XAxis type="number" tick={{ fill: "#94a3b8", fontSize: 12 }} allowDecimals={false} axisLine={{ stroke: "#334155" }} />
-                <YAxis type="category" dataKey="name" tick={{ fill: "#cbd5e1", fontSize: 11 }} width={70} axisLine={{ stroke: "#334155" }} />
-                <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #334155", borderRadius: 12, color: "#fff" }} />
-                <Bar dataKey="count" radius={[0, 6, 6, 0]} fill="#a78bfa" />
-              </BarChart>
-            </ResponsiveContainer>
+            <Suspense fallback={<ChartFallback />}>
+              <ChartComponents variant="manga" data={mangaCatData} />
+            </Suspense>
           )}
         </Section>
 
         <Section title="調査レポート セクター別 閲覧興味" icon={BarChart3}>
           {researchSecData.length === 0 ? <div className="text-slate-500 text-sm py-8 text-center">データなし</div> : (
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={researchSecData} layout="vertical">
-                <XAxis type="number" tick={{ fill: "#94a3b8", fontSize: 12 }} allowDecimals={false} axisLine={{ stroke: "#334155" }} />
-                <YAxis type="category" dataKey="name" tick={{ fill: "#cbd5e1", fontSize: 11 }} width={70} axisLine={{ stroke: "#334155" }} />
-                <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #334155", borderRadius: 12, color: "#fff" }} />
-                <Bar dataKey="count" radius={[0, 6, 6, 0]} fill="#22d3ee" />
-              </BarChart>
-            </ResponsiveContainer>
+            <Suspense fallback={<ChartFallback />}>
+              <ChartComponents variant="research" data={researchSecData} />
+            </Suspense>
           )}
         </Section>
       </div>
