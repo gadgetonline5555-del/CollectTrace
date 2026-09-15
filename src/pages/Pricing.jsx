@@ -1,18 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { ShieldCheck, X } from "lucide-react";
+import { base44 } from "@/api/base44Client";
 import PricingTiers from "@/components/PricingTiers";
 
 export default function Pricing() {
   const { toast } = useToast();
   const [current, setCurrent] = useState("free");
 
-  const handleUpgrade = (planId) => {
-    setCurrent(planId);
-    toast({
-      title: "プランを切り替えました（デモ）",
-      description: "実際の決済は行われません。現在のプラン表示が更新されました。",
-    });
+  const [busy, setBusy] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get("status");
+    if (status === "success") {
+      toast({ title: "お支払いが完了しました", description: "サブスクリプションが有効化されました。" });
+    } else if (status === "cancelled") {
+      toast({ title: "お支払いがキャンセルされました", variant: "destructive" });
+    }
+  }, [toast]);
+
+  const handleUpgrade = async (planId) => {
+    if (planId === "free") { setCurrent("free"); return; }
+    if (window.top !== window.self) {
+      toast({ title: "決済は公開アプリでのみ利用できます", description: "アプリを公開して新しいタブで開いてください。", variant: "destructive" });
+      return;
+    }
+    setBusy(planId);
+    try {
+      const res = await base44.functions.invoke("createCheckout", { plan_tier: planId });
+      if (res.data?.url) window.location.href = res.data.url;
+      else toast({ title: "決済セッションの作成に失敗しました", variant: "destructive" });
+    } catch (e) {
+      toast({ title: "エラーが発生しました", description: e.message, variant: "destructive" });
+    } finally {
+      setBusy(null);
+    }
   };
 
   return (
