@@ -191,7 +191,39 @@ const DICT = {
   "api.example": { jp: "リクエスト例", en: "Example request" },
   "api.copy": { jp: "コピー", en: "Copy" },
   "api.copied": { jp: "コピーしました", en: "Copied" },
-  "api.pending": { jp: "プラン有効時に発行されます", en: "Issued once your plan is active" }
+  "api.pending": { jp: "プラン有効時に発行されます", en: "Issued once your plan is active" },
+
+  "nav.air": { jp: "AI調査", en: "AI Research" },
+
+  "air.h": { jp: "リアルタイムAI投資調査", en: "Real-time AI Investment Research" },
+  "air.p": { jp: "企業・セクター・市場テーマを検索すると、AIが最新のWeb情報を収集し、出典付きで構造化レポートを生成。過去のスナップショットは履歴として保存されます。", en: "Search any company, sector, or market theme. AI gathers the latest web info and generates a sourced, structured report. Past snapshots are preserved as history." },
+  "air.badge": { jp: "リアルタイム・自己更新型", en: "Real-time · Self-updating" },
+  "air.search_ph": { jp: "企業名・ティッカー・セクター・テーマを入力", en: "Enter a company, ticker, sector, or theme" },
+  "air.suggest": { jp: "話題の検索例", en: "Trending searches" },
+  "air.refresh": { jp: "最新化する", en: "Refresh" },
+  "air.refreshing": { jp: "更新中…", en: "Refreshing…" },
+  "air.generating": { jp: "AIが最新情報を収集・分析しています…", en: "AI is gathering and analyzing the latest info…" },
+  "air.generating_p": { jp: "数秒から数十秒かかります", en: "This takes a few to several seconds" },
+  "air.last_update": { jp: "最終更新", en: "Last updated" },
+  "air.stale": { jp: "30分以上経過 — 最新化を推奨", en: "Over 30 min old — refresh recommended" },
+  "air.just_now": { jp: "たった今", en: "Just now" },
+  "air.history": { jp: "スナップショット履歴", en: "Snapshot history" },
+  "air.no_snapshot": { jp: "まだスナップショットがありません", en: "No snapshot yet" },
+  "air.no_snapshot_p": { jp: "「最新化する」でAIが初回レポートを生成します。", en: "Click \"Refresh\" to let AI generate the first report." },
+  "air.generate_first": { jp: "初回レポートを生成", en: "Generate first report" },
+  "air.metrics": { jp: "主要指標", en: "Key metrics" },
+  "air.key_points": { jp: "要点", en: "Key points" },
+  "air.full_analysis": { jp: "詳細分析", en: "Full analysis" },
+  "air.sources": { jp: "出典", en: "Sources" },
+  "air.bullish": { jp: "強気", en: "Bullish" },
+  "air.bearish": { jp: "弱気", en: "Bearish" },
+  "air.neutral": { jp: "中立", en: "Neutral" },
+  "air.err_load": { jp: "スナップショットの読み込みに失敗しました", en: "Failed to load snapshots" },
+  "air.err_refresh": { jp: "更新に失敗しました", en: "Refresh failed" },
+  "air.qt_company": { jp: "企業", en: "Company" },
+  "air.qt_sector": { jp: "セクター", en: "Sector" },
+  "air.qt_market": { jp: "市場", en: "Market" },
+  "air.qt_theme": { jp: "テーマ", en: "Theme" }
 };
 
 const I18nContext = createContext({ lang: "jp", setLang: () => {}, t: (k) => k });

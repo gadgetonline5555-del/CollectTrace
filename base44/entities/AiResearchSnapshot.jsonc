@@ -1,0 +1,75 @@
+{
+  "name": "AiResearchSnapshot",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string"
+    },
+    "query_type": {
+      "type": "string",
+      "enum": [
+        "company",
+        "sector",
+        "market",
+        "theme"
+      ],
+      "default": "company"
+    },
+    "language": {
+      "type": "string",
+      "default": "jp"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "key_points": {
+      "type": "string"
+    },
+    "metrics": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "string"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "bullish",
+        "neutral",
+        "bearish"
+      ],
+      "default": "neutral"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "previous_version_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
