@@ -27,6 +27,7 @@ const Watchlist = lazy(() => import('@/pages/Watchlist'));
 const Portfolio = lazy(() => import('@/pages/Portfolio'));
 const ApiAccess = lazy(() => import('@/pages/ApiAccess'));
 const Settings = lazy(() => import('@/pages/Settings'));
+const Legal = lazy(() => import('@/pages/Legal'));
 const Login = lazy(() => import('@/pages/Login'));
 const Register = lazy(() => import('@/pages/Register'));
 const ForgotPassword = lazy(() => import('@/pages/ForgotPassword'));
@@ -79,6 +80,7 @@ const AuthenticatedApp = () => {
         <Route path="/invite" element={<Invite />} />
         <Route path="/s/:id" element={<SnapshotView />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/legal" element={<Legal />} />
         <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
           <Route path="/manga" element={<MangaLibrary />} />
           <Route path="/watchlist" element={<Watchlist />} />

@@ -24,6 +24,9 @@ const DICT = {
   "set.cancel": { jp: "キャンセル", en: "Cancel" },
   "set.deleting": { jp: "削除中…", en: "Deleting…" },
   "set.delete_confirm": { jp: "削除する", en: "Delete" },
+  "set.legal_h": { jp: "法的情報", en: "Legal" },
+  "set.privacy": { jp: "プライバシーポリシー", en: "Privacy Policy" },
+  "set.terms": { jp: "利用規約", en: "Terms of Service" },
 
   "footer.tagline": { jp: "投資漫画で学び、投資調査で深める。次世代の投資情報プラットフォーム。", en: "Learn through investment manga, deepen through research. A next-gen investment platform." },
   "footer.contents": { jp: "提供内容", en: "What we offer" },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "next-themes";
 import { base44 } from "@/api/base44Client";
@@ -86,6 +86,18 @@ export default function Settings() {
               <span>{t(key)}</span>
             </button>
           ))}
+        </div>
+      </section>
+
+      <section className="mb-8">
+        <h2 className="text-sm font-semibold text-slate-400 mb-3">{t("set.legal_h")}</h2>
+        <div className="flex flex-col gap-2">
+          <Link to="/legal#privacy" className="min-h-11 flex items-center px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-sm text-slate-200 hover:bg-slate-800 transition-colors">
+            {t("set.privacy")}
+          </Link>
+          <Link to="/legal#terms" className="min-h-11 flex items-center px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-sm text-slate-200 hover:bg-slate-800 transition-colors">
+            {t("set.terms")}
+          </Link>
         </div>
       </section>
 
