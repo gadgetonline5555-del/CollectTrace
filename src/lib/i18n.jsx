@@ -105,6 +105,10 @@ const DICT = {
   "pt.iframe_desc": { jp: "アプリを公開して新しいタブで開いてください。", en: "Please publish the app and open it in a new tab." },
   "pt.fail": { jp: "決済セッションの作成に失敗しました", en: "Could not create a checkout session" },
   "pt.error": { jp: "エラーが発生しました", en: "An error occurred" },
+  "pt.native_title": { jp: "ブラウザで手続きしてください", en: "Subscribe in your browser" },
+  "pt.native_desc": { jp: "App Store / Google Play の規約により、お支払いはブラウザで行います。購入後、アプリに戻ると自動的にプランが反映されます。", en: "Per App Store / Google Play policy, payment is completed in your browser. Your plan activates automatically when you return." },
+  "pt.native_banner": { jp: "サブスクリプションのお支払いは、ストア規約によりブラウザで行っていただきます。購入後、アプリに戻ると自動的にプランが有効になります。", en: "Per store policy, subscription payment happens in your browser. Your plan activates automatically once you return to the app." },
+  "pt.native_cta": { jp: "ブラウザでプランを見る", en: "Open plans in browser" },
 
   "mc.ep": { jp: "話", en: "ep" },
   "rc.current": { jp: "現在値", en: "Current" },

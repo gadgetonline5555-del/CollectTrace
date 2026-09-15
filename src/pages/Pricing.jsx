@@ -6,12 +6,14 @@ import { useI18n } from "@/lib/i18n";
 import { PLANS } from "@/lib/plans";
 import PricingTiers from "@/components/PricingTiers";
 import { track } from "@/lib/track";
+import { isNativeMobileApp, openExternal } from "@/lib/platform";
 
 export default function Pricing() {
   const { toast } = useToast();
   const { t, lang } = useI18n();
   const [current, setCurrent] = useState("free");
   const [busy, setBusy] = useState(null);
+  const native = isNativeMobileApp();
 
   useEffect(() => { track("pricing_view"); }, []);
 
@@ -24,6 +26,11 @@ export default function Pricing() {
 
   const handleUpgrade = async (planId) => {
     if (planId === "free") { setCurrent("free"); return; }
+    if (native) {
+      openExternal(`${window.location.origin}/pricing`);
+      toast({ title: t("pt.native_title"), description: t("pt.native_desc") });
+      return;
+    }
     if (window.top !== window.self) {
       toast({ title: t("pt.iframe_title"), description: t("pt.iframe_desc"), variant: "destructive" });
       return;
@@ -60,6 +67,17 @@ export default function Pricing() {
           <ShieldCheck className="w-4 h-4 text-emerald-400" />
           {t("pricing.disclaimer")}
         </div>
+        {native && (
+          <div className="mt-4 mx-auto max-w-2xl rounded-2xl border border-amber-400/30 bg-amber-500/10 p-4 text-left">
+            <p className="text-sm text-amber-200">{t("pt.native_banner")}</p>
+            <button
+              onClick={() => openExternal(`${window.location.origin}/pricing`)}
+              className="mt-3 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-white text-slate-950 min-h-11"
+            >
+              {t("pt.native_cta")}
+            </button>
+          </div>
+        )}
       </div>
 
       <PricingTiers currentTier={current} onUpgrade={handleUpgrade} busy={busy} />
