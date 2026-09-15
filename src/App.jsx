@@ -25,6 +25,7 @@ import SnapshotView from '@/pages/SnapshotView';
 import Watchlist from '@/pages/Watchlist';
 import Portfolio from '@/pages/Portfolio';
 import ApiAccess from '@/pages/ApiAccess';
+import Settings from '@/pages/Settings';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import ForgotPassword from '@/pages/ForgotPassword';
@@ -32,6 +33,7 @@ import ResetPassword from '@/pages/ResetPassword';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Layout from '@/components/Layout';
 import { I18nProvider } from '@/lib/i18n';
+import { ThemeProvider } from 'next-themes';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -74,6 +76,7 @@ const AuthenticatedApp = () => {
         <Route path="/ipo" element={<IpoTracker />} />
         <Route path="/invite" element={<Invite />} />
         <Route path="/s/:id" element={<SnapshotView />} />
+        <Route path="/settings" element={<Settings />} />
         <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
           <Route path="/manga" element={<MangaLibrary />} />
           <Route path="/watchlist" element={<Watchlist />} />
@@ -95,6 +98,7 @@ function App() {
 
   return (
     <AuthProvider>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <I18nProvider>
       <QueryClientProvider client={queryClientInstance}>
         <Router>
@@ -104,6 +108,7 @@ function App() {
         <Toaster />
       </QueryClientProvider>
       </I18nProvider>
+      </ThemeProvider>
     </AuthProvider>
   )
 }

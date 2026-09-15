@@ -88,5 +88,34 @@
 
   body {
     @apply bg-background text-foreground font-body;
+    overscroll-behavior: none;
+  }
+
+  button,
+  nav,
+  a,
+  [role="button"],
+  svg {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  article,
+  .prose,
+  [data-content] {
+    user-select: auto;
+    -webkit-user-select: auto;
+  }
+}
+
+@layer utilities {
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pb-safe-nav {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 4.5rem);
   }
 }
