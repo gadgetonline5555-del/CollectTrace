@@ -224,6 +224,9 @@ const DICT = {
   "air.qt_sector": { jp: "セクター", en: "Sector" },
   "air.qt_market": { jp: "市場", en: "Market" },
   "air.qt_theme": { jp: "テーマ", en: "Theme" },
+  "air.summary_label": { jp: "要約", en: "Summary" },
+  "air.view_full": { jp: "詳細", en: "Full" },
+  "air.view_summary": { jp: "要約", en: "Summary" },
 
   "nav.discover": { jp: "発見", en: "Discover" },
 

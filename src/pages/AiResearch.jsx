@@ -4,6 +4,8 @@ import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
 import AiSnapshotCard from "@/components/AiSnapshotCard";
+import AiSummaryCard from "@/components/AiSummaryCard";
+import { useSearchParams } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { ja, enUS } from "date-fns/locale";
 
@@ -31,6 +33,7 @@ export default function AiResearch() {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(null);
+  const [compact, setCompact] = useState(false);
 
   const loadQuery = useCallback((q) => {
     if (!q) return;
@@ -47,13 +50,13 @@ export default function AiResearch() {
       .finally(() => setLoading(false));
   }, [t]);
 
+  const [searchParams] = useSearchParams();
+  const urlQuery = searchParams.get("query");
+  const urlType = searchParams.get("type");
   useEffect(() => {
-    const p = new URLSearchParams(window.location.search);
-    const q = p.get("query");
-    const ty = p.get("type");
-    if (q) { setInput(q); setQuery(q); }
-    if (ty && ["company", "sector", "market", "theme"].includes(ty)) setQueryType(ty);
-  }, []);
+    if (urlQuery) { setInput(urlQuery); setQuery(urlQuery); }
+    if (urlType && ["company", "sector", "market", "theme"].includes(urlType)) setQueryType(urlType);
+  }, [urlQuery, urlType]);
 
   useEffect(() => { if (query) loadQuery(query); }, [query, loadQuery]);
 
@@ -146,6 +149,12 @@ export default function AiResearch() {
                 {t("air.last_update")}: {formatDistanceToNow(new Date(latest.created_date), { addSuffix: true, locale })}
               </span>
             )}
+            {latest && (
+              <div className="inline-flex rounded-lg bg-slate-900 border border-white/10 p-0.5 ml-auto">
+                <button onClick={() => setCompact(false)} className={`px-3 py-1.5 rounded-md text-xs font-medium ${!compact ? "bg-white text-slate-950" : "text-slate-400"}`}>{t("air.view_full")}</button>
+                <button onClick={() => setCompact(true)} className={`px-3 py-1.5 rounded-md text-xs font-medium ${compact ? "bg-white text-slate-950" : "text-slate-400"}`}>{t("air.view_summary")}</button>
+              </div>
+            )}
           </div>
 
           {error && <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-4 text-rose-300 text-sm mb-5">{error}</div>}
@@ -161,7 +170,7 @@ export default function AiResearch() {
               <div className="w-8 h-8 border-4 border-slate-700 border-t-violet-400 rounded-full animate-spin mx-auto" />
             </div>
           ) : shown ? (
-            <AiSnapshotCard snapshot={shown} live={!!viewing && viewing.id === latest?.id} />
+            compact ? <AiSummaryCard snapshot={shown} /> : <AiSnapshotCard snapshot={shown} live={!!viewing && viewing.id === latest?.id} />
           ) : (
             <div className="rounded-3xl border border-white/10 bg-slate-900/60 p-12 text-center">
               <Sparkles className="w-10 h-10 text-slate-600 mx-auto mb-4" />
