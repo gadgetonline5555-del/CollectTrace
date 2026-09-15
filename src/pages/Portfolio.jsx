@@ -22,13 +22,15 @@ export default function Portfolio() {
       const list = await base44.entities.Portfolio.list("-created_date", 100);
       setItems(list);
       const tickers = [...new Set(list.map((p) => p.ticker))];
+      const results = await Promise.all(
+        tickers.map((tk) =>
+          base44.entities.Research.filter({ ticker: tk }, "-published_date", 1)
+            .then((r) => (r && r[0] && r[0].current_price ? [tk, r[0].current_price] : null))
+            .catch(() => null)
+        )
+      );
       const priceMap = {};
-      for (const tk of tickers) {
-        try {
-          const r = await base44.entities.Research.filter({ ticker: tk }, "-published_date", 1);
-          if (r && r[0] && r[0].current_price) priceMap[tk] = r[0].current_price;
-        } catch {}
-      }
+      for (const res of results) if (res) priceMap[res[0]] = res[1];
       setPrices(priceMap);
     } catch {}
     setLoading(false);

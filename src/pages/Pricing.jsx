@@ -84,7 +84,7 @@ export default function Pricing() {
 
       <div className="mt-20">
         <h2 className="font-display text-2xl font-bold text-white text-center mb-8">{t("pricing.compare_h")}</h2>
-        <div className="-mx-4 sm:mx-0">
+        <div className="hidden md:block">
         <div className="relative overflow-x-auto overscroll-x-auto touch-pan-x rounded-2xl border border-white/10">
           <div aria-hidden className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-r from-slate-950/90 to-transparent" />
           <div aria-hidden className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-l from-slate-950/90 to-transparent" />
@@ -105,6 +105,23 @@ export default function Pricing() {
             </tbody>
           </table>
         </div>
+        </div>
+        <div className="md:hidden -mx-4 px-4 space-y-4">
+          {PLANS.map((p, pi) => (
+            <div key={p.id} className="rounded-2xl border border-white/10 bg-slate-900/60 overflow-hidden">
+              <div className="px-4 py-3 border-b border-white/10 bg-slate-900/80">
+                <h3 className="font-display text-lg font-bold text-white">{p.name[lang]}</h3>
+              </div>
+              <div className="divide-y divide-white/5">
+                {ROWS.map((row) => (
+                  <div key={row.label} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
+                    <span className="text-slate-400">{row.label}</span>
+                    <span className="text-white font-medium text-right">{cell(row.values[pi])}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
