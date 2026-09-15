@@ -340,6 +340,13 @@ const DICT = {
   "nav.intel": { jp: "企業構図", en: "Company Intel" },
   "nav.ipo": { jp: "IPO調査", en: "IPO Intel" },
 
+  "quota.badge": { jp: "無料枠上限", en: "Free limit reached" },
+  "quota.title": { jp: "本日の無料AI調査回数に達しました", en: "You've hit today's free AI research limit" },
+  "quota.body": { jp: "本日の利用回数: {used} / {limit}。無制限で使うにはスタータープラン（¥1,000/月）にアップグレードしてください。", en: "Today's usage: {used} / {limit}. Upgrade to the Starter plan (¥1,000/mo) for unlimited access." },
+  "quota.cta": { jp: "プランを見る", en: "View plans" },
+  "quota.remaining": { jp: "残り {n} 回 / {limit}（無料枠）", en: "{n} of {limit} free calls left" },
+  "quota.err": { jp: "本日の無料調査回数に達しました。無制限ならスタータープラン。", en: "Today's free research limit reached. Go unlimited with the Starter plan." },
+
   "nav.discover": { jp: "発見", en: "Discover" },
 
   "disc.badge": { jp: "予測レコメンド・全世界カバー", en: "Predictive · Whole-world coverage" },

@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
+import { checkQuota, logCall } from '../../shared/aiQuota.ts';
 
 export default async function(req: Request): Promise<Response> {
   try {
@@ -7,6 +8,9 @@ export default async function(req: Request): Promise<Response> {
     const mode = body?.mode === "personalized" ? "personalized" : "default";
     const language = body?.language === "en" ? "en" : "jp";
     const langLabel = language === "en" ? "English" : "日本語";
+
+    const quota = await checkQuota(base44, req, "generateDiscoverFeed");
+    if (!quota.allowed) return Response.json({ error: "quota_exceeded", limit: quota.limit, used: quota.used, tier: quota.identity.tier }, { status: 429 });
 
     // Gather user signals (personalized mode only). Public app: user may be anonymous.
     let user = null;
@@ -92,6 +96,8 @@ Produce 8 to 10 topics. Write ALL text in ${langLabel}.`;
         required: ["rationale", "topics"]
       }
     });
+
+    await logCall(base44, quota.identity, "generateDiscoverFeed");
 
     return Response.json({
       mode,

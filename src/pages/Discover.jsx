@@ -4,6 +4,7 @@ import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
 import TopicCard from "@/components/TopicCard";
+import QuotaNotice from "@/components/QuotaNotice";
 
 export default function Discover() {
   const { t, lang } = useI18n();
@@ -11,17 +12,24 @@ export default function Discover() {
   const [feed, setFeed] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [quota, setQuota] = useState(null);
 
   const generate = useCallback(async (m) => {
     setLoading(true);
     setError(null);
+    setQuota(null);
     try {
       const res = await base44.functions.invoke("generateDiscoverFeed", { mode: m, language: lang });
+      if (res.data?.error === "quota_exceeded") { setQuota({ used: res.data.used ?? 0, limit: res.data.limit ?? 0 }); return; }
       if (res.data?.error) throw new Error(res.data.error);
       setFeed(res.data);
       track("research_view", { target_type: "discover", category: m, title: res.data?.rationale?.slice(0, 80) || "" });
     } catch (e) {
-      setError(e.message || t("disc.err"));
+      if (e?.data?.error === "quota_exceeded" || (typeof e?.message === "string" && e.message.includes("quota_exceeded"))) {
+        setQuota({ used: e?.data?.used ?? 0, limit: e?.data?.limit ?? 0 });
+      } else {
+        setError(e.message || t("disc.err"));
+      }
     } finally {
       setLoading(false);
     }
@@ -69,7 +77,7 @@ export default function Discover() {
         </p>
       </div>
 
-      {error && <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-4 text-rose-300 text-sm mb-6">{error}</div>}
+      {quota ? <div className="mb-6"><QuotaNotice used={quota.used} limit={quota.limit} /></div> : error ? <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-4 text-rose-300 text-sm mb-6">{error}</div> : null}
 
       {loading && !feed ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">

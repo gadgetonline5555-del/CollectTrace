@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
+import { checkQuota, logCall } from '../../shared/aiQuota.ts';
 
 export default async function(req: Request): Promise<Response> {
   try {
@@ -9,6 +10,9 @@ export default async function(req: Request): Promise<Response> {
     const region = ["jp", "us", "global"].includes(body?.region) ? body.region : "global";
     if (!query) return Response.json({ error: "query required" }, { status: 400 });
     if (query.length > 160) return Response.json({ error: "query too long" }, { status: 400 });
+
+    const quota = await checkQuota(base44, req, "researchIpo");
+    if (!quota.allowed) return Response.json({ error: "quota_exceeded", limit: quota.limit, used: quota.used, tier: quota.identity.tier }, { status: 429 });
 
     const prev = await base44.asServiceRole.entities.IpoProfile.filter({ query }, "-created_date", 1);
     const previous = prev[0];
@@ -88,6 +92,8 @@ If the query is a broad term (e.g. "日本のIPO 2025", "US upcoming IPOs", "glo
         required: ["summary", "content"]
       }
     });
+
+    await logCall(base44, quota.identity, "researchIpo");
 
     const snapshot = await base44.asServiceRole.entities.IpoProfile.create({
       query,

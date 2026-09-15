@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
+import { checkQuota, logCall } from '../../shared/aiQuota.ts';
 
 export default async function(req: Request): Promise<Response> {
   try {
@@ -9,6 +10,9 @@ export default async function(req: Request): Promise<Response> {
     const query_type = ["company", "sector", "market", "theme"].includes(body?.query_type) ? body.query_type : "company";
     if (!query) return Response.json({ error: "query required" }, { status: 400 });
     if (query.length > 120) return Response.json({ error: "query too long" }, { status: 400 });
+
+    const quota = await checkQuota(base44, req, "refreshAiResearch");
+    if (!quota.allowed) return Response.json({ error: "quota_exceeded", limit: quota.limit, used: quota.used, tier: quota.identity.tier }, { status: 429 });
 
     // Chain onto the most recent snapshot for this query (versioning + history)
     const prev = await base44.asServiceRole.entities.AiResearchSnapshot.filter({ query }, "-created_date", 1);
@@ -50,6 +54,8 @@ If information is insufficient or the query is ambiguous, still return the JSON 
         required: ["summary", "key_points", "content"]
       }
     });
+
+    await logCall(base44, quota.identity, "refreshAiResearch");
 
     const snapshot = await base44.asServiceRole.entities.AiResearchSnapshot.create({
       query,

@@ -1,0 +1,47 @@
+{
+  "name": "AiCall",
+  "type": "object",
+  "properties": {
+    "identity": {
+      "type": "string",
+      "description": "user id or 'ip:<ip>' for anonymous"
+    },
+    "date": {
+      "type": "string",
+      "description": "YYYY-MM-DD (UTC) for daily quota window"
+    },
+    "function_name": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "identity",
+    "date",
+    "function_name"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

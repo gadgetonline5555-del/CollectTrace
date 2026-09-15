@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Search, RefreshCw, History, Network, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import CompanyIntelCard from "@/components/CompanyIntelCard";
+import QuotaNotice from "@/components/QuotaNotice";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
 import { useSearchParams } from "react-router-dom";
@@ -31,6 +32,7 @@ export default function CompanyIntel() {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(null);
+  const [quota, setQuota] = useState(null);
 
   const loadQuery = useCallback((q) => {
     if (!q) return;
@@ -68,8 +70,10 @@ export default function CompanyIntel() {
     if (!query || refreshing) return;
     setRefreshing(true);
     setError(null);
+    setQuota(null);
     try {
       const res = await base44.functions.invoke("researchCompanyIntel", { query, language: lang, company_type: companyType });
+      if (res.data?.error === "quota_exceeded") { setQuota({ used: res.data.used ?? 0, limit: res.data.limit ?? 0 }); return; }
       const snap = res.data?.snapshot;
       if (!snap) throw new Error(res.data?.error || "no intel");
       setLatest(snap);
@@ -77,7 +81,11 @@ export default function CompanyIntel() {
       setHistory((h) => [snap, ...h.filter((x) => x.id !== snap.id)]);
       track("research_view", { target_id: snap.id, target_type: "company_intel", title: query, content_tier: "company_intel" });
     } catch (err) {
-      setError(err.message || t("intel.err_refresh"));
+      if (err?.data?.error === "quota_exceeded" || (typeof err?.message === "string" && err.message.includes("quota_exceeded"))) {
+        setQuota({ used: err?.data?.used ?? 0, limit: err?.data?.limit ?? 0 });
+      } else {
+        setError(err.message || t("intel.err_refresh"));
+      }
     } finally {
       setRefreshing(false);
     }
@@ -148,7 +156,7 @@ export default function CompanyIntel() {
             )}
           </div>
 
-          {error && <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-4 text-rose-300 text-sm mb-5">{error}</div>}
+          {quota ? <div className="mb-5"><QuotaNotice used={quota.used} limit={quota.limit} /></div> : error ? <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-4 text-rose-300 text-sm mb-5">{error}</div> : null}
 
           {refreshing ? (
             <div className="rounded-3xl border border-white/10 bg-slate-900/60 p-12 text-center">
