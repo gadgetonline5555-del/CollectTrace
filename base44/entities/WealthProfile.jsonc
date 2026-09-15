@@ -1,0 +1,88 @@
+{
+  "name": "WealthProfile",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string"
+    },
+    "profile_type": {
+      "type": "string",
+      "enum": [
+        "individual",
+        "company",
+        "institution",
+        "fund",
+        "sovereign"
+      ],
+      "default": "individual"
+    },
+    "language": {
+      "type": "string",
+      "default": "jp"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "net_worth": {
+      "type": "string"
+    },
+    "annual_income": {
+      "type": "string"
+    },
+    "compensation": {
+      "type": "string"
+    },
+    "holdings": {
+      "type": "string"
+    },
+    "philanthropy": {
+      "type": "string"
+    },
+    "lifestyle": {
+      "type": "string"
+    },
+    "recent_activity": {
+      "type": "string"
+    },
+    "history": {
+      "type": "string"
+    },
+    "key_points": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "previous_version_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
