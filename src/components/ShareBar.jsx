@@ -30,9 +30,9 @@ export default function ShareBar({ url, title, text, compact = false }) {
   if (compact) {
     return (
       <div className="flex items-center gap-2">
-        <a href={`https://twitter.com/intent/tweet?text=${full}`} target="_blank" rel="noreferrer" className={`${btn} px-2.5 py-2`} aria-label="Xでシェア"><Twitter className="w-4 h-4" /></a>
-        <a href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`} target="_blank" rel="noreferrer" className={`${btn} px-2.5 py-2 text-[#06C755]`} aria-label="LINEでシェア"><LineIcon className="w-4 h-4" /></a>
-        <button onClick={onCopy} className={`${btn} px-2.5 py-2`} aria-label="リンクをコピー">{copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Link2 className="w-4 h-4" />}</button>
+        <a href={`https://twitter.com/intent/tweet?text=${full}`} target="_blank" rel="noreferrer" className={`${btn} min-h-11 min-w-11 px-2.5 py-2`} aria-label="Xでシェア"><Twitter className="w-4 h-4" /></a>
+        <a href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`} target="_blank" rel="noreferrer" className={`${btn} min-h-11 min-w-11 px-2.5 py-2 text-[#06C755]`} aria-label="LINEでシェア"><LineIcon className="w-4 h-4" /></a>
+        <button onClick={onCopy} className={`${btn} min-h-11 min-w-11 px-2.5 py-2`} aria-label="リンクをコピー">{copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Link2 className="w-4 h-4" />}</button>
       </div>
     );
   }

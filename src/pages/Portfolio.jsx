@@ -89,15 +89,15 @@ export default function Portfolio() {
         {items.length > 0 && (
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="rounded-2xl p-5 bg-slate-900/60 border border-white/10">
-              <div className="text-xs text-slate-500 mb-1">{t("pf.value")}</div>
+              <div className="text-sm text-slate-500 mb-1">{t("pf.value")}</div>
               <div className="font-display text-2xl font-bold text-white">¥{totalValue.toLocaleString()}</div>
             </div>
             <div className="rounded-2xl p-5 bg-slate-900/60 border border-white/10">
-              <div className="text-xs text-slate-500 mb-1">{t("pf.cost")}</div>
+              <div className="text-sm text-slate-500 mb-1">{t("pf.cost")}</div>
               <div className="font-display text-2xl font-bold text-white">¥{totalCost.toLocaleString()}</div>
             </div>
             <div className="rounded-2xl p-5 bg-slate-900/60 border border-white/10">
-              <div className="text-xs text-slate-500 mb-1">{t("pf.pnl")}</div>
+              <div className="text-sm text-slate-500 mb-1">{t("pf.pnl")}</div>
               <div className={`font-display text-2xl font-bold flex items-center gap-1 ${totalPnl >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                 {totalPnl >= 0 ? <TrendingUp className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />}
                 ¥{totalPnl.toLocaleString()}
@@ -105,7 +105,7 @@ export default function Portfolio() {
             </div>
           </div>
         )}
-        <form onSubmit={add} className="grid grid-cols-3 gap-3 mb-8 p-5 rounded-2xl bg-slate-900/60 border border-white/10">
+        <form onSubmit={add} className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 p-5 rounded-2xl bg-slate-900/60 border border-white/10">
           <input value={form.ticker} onChange={(e) => setForm({ ...form, ticker: e.target.value })} placeholder={t("pf.ticker")} className="px-3 py-2 rounded-lg bg-slate-950 border border-white/10 text-white text-sm" />
           <input value={form.shares} onChange={(e) => setForm({ ...form, shares: e.target.value })} placeholder={t("pf.shares")} type="number" className="px-3 py-2 rounded-lg bg-slate-950 border border-white/10 text-white text-sm" />
           <div className="flex gap-2">
@@ -132,7 +132,7 @@ export default function Portfolio() {
                   <span className={r.pnl != null ? (r.pnl >= 0 ? "text-emerald-400" : "text-rose-400") : "text-slate-500"}>
                     {r.pnl != null ? `${r.pnl >= 0 ? "+" : ""}¥${r.pnl.toLocaleString()}` : "—"}
                   </span>
-                  <button onClick={() => remove(r.id)} aria-label={t("pf.remove")} className="ml-auto text-slate-500 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
+                  <button onClick={() => remove(r.id)} aria-label={t("pf.remove")} className="ml-auto min-h-11 min-w-11 inline-flex items-center justify-center text-slate-500 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
                 </div>
               </div>
             ))}
