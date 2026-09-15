@@ -42,7 +42,7 @@ export default function Pricing() {
   };
 
   const ROWS = [
-    { label: t("cmp.row1"), values: [t("cmp.withAds"), "yes", "yes", "yes"] },
+    { label: t("cmp.row1"), values: [t("cmp.row1_free"), t("cmp.unlimited"), t("cmp.unlimited"), t("cmp.unlimited")] },
     { label: t("cmp.row2"), values: ["no", t("cmp.basic"), t("cmp.detailed"), t("cmp.institutional")] },
     { label: t("cmp.row3"), values: ["no", t("cmp.beginner"), t("cmp.detailed"), t("cmp.deep")] },
     { label: t("cmp.row4"), values: ["no", "no", "yes", t("cmp.highfreq")] },

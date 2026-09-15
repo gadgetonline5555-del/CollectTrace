@@ -52,7 +52,9 @@ const DICT = {
   "pricing.compare_h": { jp: "プラン比較一覧", en: "Plan comparison" },
 
   "cmp.feature": { jp: "提供内容", en: "Feature" },
-  "cmp.row1": { jp: "投資漫画（全作品）", en: "All manga titles" },
+  "cmp.row1": { jp: "AI投資調査", en: "AI investment research" },
+  "cmp.row1_free": { jp: "1日10回", en: "10/day" },
+  "cmp.unlimited": { jp: "無制限", en: "Unlimited" },
   "cmp.row2": { jp: "銘柄スクリーニング", en: "Stock screening" },
   "cmp.row3": { jp: "個別銘柄レポート", en: "Stock reports" },
   "cmp.row4": { jp: "市場データ API", en: "Market data API" },

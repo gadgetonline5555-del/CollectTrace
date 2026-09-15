@@ -6,11 +6,11 @@ export const PLANS = [
     ring: "ring-slate-500/40",
     name: { jp: "フリー", en: "Free" },
     audience: { jp: "初心者", en: "Beginner" },
-    tagline: { jp: "投資の第一歩を漫画で", en: "Your first step into investing, through manga" },
+    tagline: { jp: "AI調査で投資を始める", en: "Start investing with AI research" },
     priceLabel: { jp: "無料", en: "Free" },
     features: {
-      jp: ["投資基礎漫画 12作品", "週1話の新作配信", "コミュニティ閲覧", "広告付き配信"],
-      en: ["12 foundational manga", "New episode weekly", "Community read-only", "Ad-supported streaming"]
+      jp: ["AI投資調査 1日10回まで", "用語集・発見フィード", "資産・企業・IPO調査の閲覧", "紹介で無料枠を拡大"],
+      en: ["AI investment research (10/day)", "Glossary & Discover feed", "Browse wealth, company & IPO research", "Grow your quota by inviting friends"]
     },
     locked: {
       jp: ["銘柄スクリーニング", "個別銘柄レポート", "市場データAPI"],
@@ -24,11 +24,11 @@ export const PLANS = [
     ring: "ring-cyan-400/50",
     name: { jp: "スターター", en: "Starter" },
     audience: { jp: "初中級者", en: "Beginner+" },
-    tagline: { jp: "漫画で学び、データに触れる", en: "Learn through manga, touch the data" },
+    tagline: { jp: "AI調査を無制限で、データに触れる", en: "Unlimited AI research, touch the data" },
     priceLabel: { jp: "¥1,000/月", en: "¥1,000/mo" },
     features: {
-      jp: ["全漫画コンテンツ広告なし", "基礎スクリーニング機能", "初心者向けレポート閲覧", "銘柄ウォッチリスト"],
-      en: ["Ad-free manga library", "Basic stock screening", "Beginner-level reports", "Stock watchlist"]
+      jp: ["AI投資調査 無制限", "基礎スクリーニング機能", "初心者向けレポート閲覧", "銘柄ウォッチリスト"],
+      en: ["Unlimited AI investment research", "Basic stock screening", "Beginner-level reports", "Stock watchlist"]
     },
     locked: {
       jp: ["詳細財務分析", "プロ級レポート"],
