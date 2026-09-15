@@ -1,0 +1,111 @@
+{
+  "name": "IpoProfile",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string",
+      "enum": [
+        "jp",
+        "us",
+        "global"
+      ],
+      "default": "global"
+    },
+    "language": {
+      "type": "string",
+      "default": "jp"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "ticker": {
+      "type": "string"
+    },
+    "exchange": {
+      "type": "string"
+    },
+    "ipo_date": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "default": ""
+    },
+    "offering_price": {
+      "type": "string"
+    },
+    "offering_size": {
+      "type": "string"
+    },
+    "valuation": {
+      "type": "string"
+    },
+    "sector": {
+      "type": "string"
+    },
+    "use_of_proceeds": {
+      "type": "string"
+    },
+    "underwriters": {
+      "type": "string"
+    },
+    "subscription_demand": {
+      "type": "string"
+    },
+    "growth_story": {
+      "type": "string"
+    },
+    "risks": {
+      "type": "string"
+    },
+    "comparables": {
+      "type": "string"
+    },
+    "recent_activity": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "key_points": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "previous_version_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
