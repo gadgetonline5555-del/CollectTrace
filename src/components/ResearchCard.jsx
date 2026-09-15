@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Lock, TrendingUp, TrendingDown, ArrowUpRight } from "lucide-react";
-import { getPlan, canAccess } from "@/lib/plans";
+import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
+import { useUserTier } from "@/hooks/useUserTier";
 
-export default function ResearchCard({ research, userTier = "free" }) {
+export default function ResearchCard({ research }) {
   const { t, lang } = useI18n();
+  const { can } = useUserTier();
   const plan = getPlan(research.plan_tier);
-  const access = canAccess(userTier, research.plan_tier);
+  const access = can(research.plan_tier);
   const isBuy = research.rating === "Strong Buy" || research.rating === "Buy";
   const upside = research.upside ?? (research.target_price && research.current_price
     ? Math.round(((research.target_price - research.current_price) / research.current_price) * 100)

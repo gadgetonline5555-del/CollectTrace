@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck, Globe } from "lucide-react";
+import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck, Globe, ChevronDown, Lock, Star, Briefcase, Terminal } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
+import { useUserTier } from "@/hooks/useUserTier";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 const NAV = [
   { to: "/", key: "nav.home", icon: TrendingUp },
@@ -11,9 +13,17 @@ const NAV = [
   { to: "/pricing", key: "nav.pricing", icon: Tag },
 ];
 
+const TOOLS = [
+  { to: "/glossary", key: "nav.glossary", tier: "free", icon: BookOpen },
+  { to: "/watchlist", key: "nav.watchlist", tier: "starter", icon: Star },
+  { to: "/portfolio", key: "nav.portfolio", tier: "pro", icon: Briefcase },
+  { to: "/api-access", key: "nav.api", tier: "elite", icon: Terminal },
+];
+
 export default function Navbar() {
   const { pathname } = useLocation();
   const { lang, setLang, t } = useI18n();
+  const { can } = useUserTier();
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     base44.auth.me().then((u) => setIsAdmin(u?.role === "admin")).catch(() => {});
@@ -41,6 +51,22 @@ export default function Navbar() {
               </Link>
             );
           })}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-colors outline-none">
+              <Star className="w-4 h-4" /> {t("nav.tools")} <ChevronDown className="w-3.5 h-3.5" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="bg-slate-900 border-white/10">
+              {TOOLS.map(({ to, key, tier, icon: Icon }) => (
+                <DropdownMenuItem key={to} asChild>
+                  <Link to={to} className="flex items-center gap-2 cursor-pointer">
+                    <Icon className="w-4 h-4" />
+                    <span>{t(key)}</span>
+                    {!can(tier) && <Lock className="w-3 h-3 text-amber-300 ml-auto" />}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
           {isAdmin && (
             <Link to="/admin" className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${pathname.startsWith("/admin") ? "text-white bg-white/10" : "text-slate-400 hover:text-white hover:bg-white/5"}`}>
               <ShieldCheck className="w-4 h-4" /> {t("nav.admin")}

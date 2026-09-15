@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Lock, Star, BookOpen, CheckCircle2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
-import { getPlan, canAccess } from "@/lib/plans";
+import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
+import { useUserTier } from "@/hooks/useUserTier";
 
 export default function MangaReader() {
   const { t, lang } = useI18n();
+  const { can } = useUserTier();
   const { id } = useParams();
   const [manga, setManga] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +21,7 @@ export default function MangaReader() {
   if (!manga) return <div className="max-w-3xl mx-auto px-6 py-20 text-center text-slate-400">{t("reader.notfound")}</div>;
 
   const plan = getPlan(manga.plan_tier);
-  const access = canAccess("free", manga.plan_tier);
+  const access = can(manga.plan_tier);
 
   return (
     <article className="max-w-3xl mx-auto px-6 py-12">

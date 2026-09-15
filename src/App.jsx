@@ -14,6 +14,10 @@ import ResearchHub from '@/pages/ResearchHub';
 import ResearchDetail from '@/pages/ResearchDetail';
 import Pricing from '@/pages/Pricing';
 import Admin from '@/pages/Admin';
+import Glossary from '@/pages/Glossary';
+import Watchlist from '@/pages/Watchlist';
+import Portfolio from '@/pages/Portfolio';
+import ApiAccess from '@/pages/ApiAccess';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import ForgotPassword from '@/pages/ForgotPassword';
@@ -55,8 +59,12 @@ const AuthenticatedApp = () => {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/glossary" element={<Glossary />} />
         <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
           <Route path="/manga" element={<MangaLibrary />} />
+          <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/api-access" element={<ApiAccess />} />
           <Route path="/manga/:id" element={<MangaReader />} />
           <Route path="/research" element={<ResearchHub />} />
           <Route path="/research/:id" element={<ResearchDetail />} />

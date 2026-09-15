@@ -1,0 +1,33 @@
+{
+  "name": "Portfolio",
+  "type": "object",
+  "properties": {
+    "ticker": {
+      "type": "string"
+    },
+    "shares": {
+      "type": "number"
+    },
+    "buy_price": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "ticker",
+    "shares"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

@@ -30,6 +30,12 @@ const RESEARCH_FIELDS = [
   { key: "content", label: "本文", type: "textarea" },
 ];
 
+const GLOSSARY_FIELDS = [
+  { key: "term", label: "用語", type: "text", required: true },
+  { key: "definition", label: "定義", type: "textarea", required: true },
+  { key: "category", label: "カテゴリ", type: "select", options: ["基礎用語", "テクニカル指標", "ファンダメンタル", "戦略", "心理"] },
+];
+
 export default function Admin() {
   const [tab, setTab] = useState("manga");
   return (
@@ -40,9 +46,11 @@ export default function Admin() {
         <TabsList className="bg-slate-900 border border-white/10">
           <TabsTrigger value="manga">漫画</TabsTrigger>
           <TabsTrigger value="research">調査レポート</TabsTrigger>
+          <TabsTrigger value="glossary">用語集</TabsTrigger>
         </TabsList>
         <TabsContent value="manga" className="mt-6"><ResourceManager entityName="Manga" fields={MANGA_FIELDS} /></TabsContent>
         <TabsContent value="research" className="mt-6"><ResourceManager entityName="Research" fields={RESEARCH_FIELDS} /></TabsContent>
+        <TabsContent value="glossary" className="mt-6"><ResourceManager entityName="Glossary" fields={GLOSSARY_FIELDS} /></TabsContent>
       </Tabs>
     </div>
   );

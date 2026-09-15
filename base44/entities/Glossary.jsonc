@@ -1,0 +1,46 @@
+{
+  "name": "Glossary",
+  "type": "object",
+  "properties": {
+    "term": {
+      "type": "string"
+    },
+    "definition": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "\u57fa\u790e\u7528\u8a9e",
+        "\u30c6\u30af\u30cb\u30ab\u30eb\u6307\u6a19",
+        "\u30d5\u30a1\u30f3\u30c0\u30e1\u30f3\u30bf\u30eb",
+        "\u6226\u7565",
+        "\u5fc3\u7406"
+      ],
+      "default": "\u57fa\u790e\u7528\u8a9e"
+    }
+  },
+  "required": [
+    "term",
+    "definition",
+    "category"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

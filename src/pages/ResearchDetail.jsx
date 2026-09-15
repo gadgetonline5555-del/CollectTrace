@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Lock, TrendingUp, TrendingDown, BarChart3, Target, Calendar, User } from "lucide-react";
 import { base44 } from "@/api/base44Client";
-import { getPlan, canAccess } from "@/lib/plans";
+import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
+import { useUserTier } from "@/hooks/useUserTier";
 
 export default function ResearchDetail() {
   const { t, lang } = useI18n();
+  const { can } = useUserTier();
   const { id } = useParams();
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +21,7 @@ export default function ResearchDetail() {
   if (!report) return <div className="max-w-4xl mx-auto px-6 py-20 text-center text-slate-400">{t("rd.notfound")}</div>;
 
   const plan = getPlan(report.plan_tier);
-  const access = canAccess("free", report.plan_tier);
+  const access = can(report.plan_tier);
   const upside = report.upside ?? (report.target_price && report.current_price
     ? Math.round(((report.target_price - report.current_price) / report.current_price) * 100) : 0);
 

@@ -7,6 +7,17 @@
         "admin",
         "user"
       ]
+    },
+    "subscription_tier": {
+      "type": "string",
+      "description": "\u73fe\u5728\u306e\u6709\u6599\u30d7\u30e9\u30f3\u968e\u5c64\uff08\u6c7a\u6e08Webhook\u3067\u81ea\u52d5\u66f4\u65b0\uff09",
+      "enum": [
+        "free",
+        "starter",
+        "pro",
+        "elite"
+      ],
+      "default": "free"
     }
   },
   "required": [

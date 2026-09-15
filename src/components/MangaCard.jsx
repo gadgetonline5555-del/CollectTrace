@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Lock, Star, BookOpen } from "lucide-react";
-import { getPlan, canAccess } from "@/lib/plans";
+import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
+import { useUserTier } from "@/hooks/useUserTier";
 
-export default function MangaCard({ manga, userTier = "free" }) {
+export default function MangaCard({ manga }) {
   const { t, lang } = useI18n();
+  const { can } = useUserTier();
   const plan = getPlan(manga.plan_tier);
-  const access = canAccess(userTier, manga.plan_tier);
+  const access = can(manga.plan_tier);
   return (
     <Link
       to={`/manga/${manga.id}`}
