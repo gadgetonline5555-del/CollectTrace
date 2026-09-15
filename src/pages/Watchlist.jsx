@@ -4,6 +4,7 @@ import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
 import TierGate from "@/components/TierGate";
+import { track } from "@/lib/track";
 
 export default function Watchlist() {
   const { t } = useI18n();
@@ -27,6 +28,7 @@ export default function Watchlist() {
       target_price: form.target_price ? Number(form.target_price) : null,
       note: form.note,
     });
+    track("watchlist_add", { ticker: form.ticker.toUpperCase(), title: form.title || form.ticker.toUpperCase() });
     setForm({ ticker: "", title: "", target_price: "", note: "" });
     load();
   };

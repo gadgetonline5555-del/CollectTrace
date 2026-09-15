@@ -4,6 +4,7 @@ import { base44 } from "@/api/base44Client";
 import MangaCard from "@/components/MangaCard";
 import { PLANS } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
+import { track } from "@/lib/track";
 
 const CATEGORIES = [
   { value: "すべて", key: "cat.all" },
@@ -24,6 +25,12 @@ export default function MangaLibrary() {
   useEffect(() => {
     base44.entities.Manga.list("-rating", 50).then((res) => { setMangas(res); setLoading(false); }).catch(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (!q && cat === "すべて") return;
+    const id = setTimeout(() => track("manga_search", { keyword: q, category: cat }), 900);
+    return () => clearTimeout(id);
+  }, [q, cat]);
 
   const filtered = mangas.filter((m) => {
     const matchCat = cat === "すべて" || m.category === cat;

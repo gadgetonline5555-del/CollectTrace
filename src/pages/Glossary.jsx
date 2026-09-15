@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
+import { track } from "@/lib/track";
 
 const CATS = [
   { value: "すべて", key: "gcat.all" },
@@ -22,6 +23,12 @@ export default function Glossary() {
   useEffect(() => {
     base44.entities.Glossary.list("term", 200).then((r) => { setTerms(r); setLoading(false); }).catch(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (!q && cat === "すべて") return;
+    const id = setTimeout(() => track("glossary_search", { keyword: q, category: cat }), 900);
+    return () => clearTimeout(id);
+  }, [q, cat]);
 
   const filtered = terms.filter((g) => {
     const matchCat = cat === "すべて" || g.category === cat;

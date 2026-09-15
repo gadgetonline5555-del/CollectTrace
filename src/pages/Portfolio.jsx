@@ -4,6 +4,7 @@ import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
 import TierGate from "@/components/TierGate";
+import { track } from "@/lib/track";
 
 export default function Portfolio() {
   const { t } = useI18n();
@@ -40,6 +41,7 @@ export default function Portfolio() {
       shares: Number(form.shares),
       buy_price: form.buy_price ? Number(form.buy_price) : null,
     });
+    track("portfolio_add", { ticker: form.ticker.toUpperCase() });
     setForm({ ticker: "", shares: "", buy_price: "" });
     load();
   };

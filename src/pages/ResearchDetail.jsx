@@ -5,6 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
+import { track } from "@/lib/track";
 
 export default function ResearchDetail() {
   const { t, lang } = useI18n();
@@ -14,7 +15,7 @@ export default function ResearchDetail() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    base44.entities.Research.get(id).then((r) => { setReport(r); setLoading(false); }).catch(() => setLoading(false));
+    base44.entities.Research.get(id).then((r) => { setReport(r); setLoading(false); track("research_view", { target_id: r?.id, target_type: "research", title: r?.title, category: r?.sector, ticker: r?.ticker, content_tier: r?.plan_tier }); }).catch(() => setLoading(false));
   }, [id]);
 
   if (loading) return <div className="max-w-4xl mx-auto px-6 py-20 text-center text-slate-400">{t("rd.loading")}</div>;

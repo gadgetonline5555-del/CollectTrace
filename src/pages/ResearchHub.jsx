@@ -3,6 +3,7 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import ResearchCard from "@/components/ResearchCard";
 import { useI18n } from "@/lib/i18n";
+import { track } from "@/lib/track";
 
 const SECTORS = [
   { value: "すべて", key: "sec.all" },
@@ -24,6 +25,12 @@ export default function ResearchHub() {
   useEffect(() => {
     base44.entities.Research.list("-published_date", 60).then((res) => { setReports(res); setLoading(false); }).catch(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (!q && sector === "すべて") return;
+    const id = setTimeout(() => track("research_search", { keyword: q, category: sector }), 900);
+    return () => clearTimeout(id);
+  }, [q, sector]);
 
   const filtered = reports.filter((r) => {
     const matchS = sector === "すべて" || r.sector === sector;

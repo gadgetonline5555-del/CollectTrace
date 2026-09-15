@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ResourceManager from "@/components/admin/ResourceManager";
+import InsightsDashboard from "@/components/admin/InsightsDashboard";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const MANGA_FIELDS = [
@@ -47,10 +48,12 @@ export default function Admin() {
           <TabsTrigger value="manga">漫画</TabsTrigger>
           <TabsTrigger value="research">調査レポート</TabsTrigger>
           <TabsTrigger value="glossary">用語集</TabsTrigger>
+          <TabsTrigger value="insights">ユーザー分析</TabsTrigger>
         </TabsList>
         <TabsContent value="manga" className="mt-6"><ResourceManager entityName="Manga" fields={MANGA_FIELDS} /></TabsContent>
         <TabsContent value="research" className="mt-6"><ResourceManager entityName="Research" fields={RESEARCH_FIELDS} /></TabsContent>
         <TabsContent value="glossary" className="mt-6"><ResourceManager entityName="Glossary" fields={GLOSSARY_FIELDS} /></TabsContent>
+        <TabsContent value="insights" className="mt-6"><InsightsDashboard /></TabsContent>
       </Tabs>
     </div>
   );

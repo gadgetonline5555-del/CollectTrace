@@ -1,0 +1,65 @@
+{
+  "name": "UserActivity",
+  "type": "object",
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "manga_view",
+        "research_view",
+        "manga_search",
+        "research_search",
+        "glossary_search",
+        "watchlist_add",
+        "portfolio_add",
+        "pricing_view",
+        "plan_upgrade"
+      ]
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "target_type": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "keyword": {
+      "type": "string"
+    },
+    "ticker": {
+      "type": "string"
+    },
+    "content_tier": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_type"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

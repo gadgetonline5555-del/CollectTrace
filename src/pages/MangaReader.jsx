@@ -5,6 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
+import { track } from "@/lib/track";
 
 export default function MangaReader() {
   const { t, lang } = useI18n();
@@ -14,7 +15,7 @@ export default function MangaReader() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    base44.entities.Manga.get(id).then((m) => { setManga(m); setLoading(false); }).catch(() => setLoading(false));
+    base44.entities.Manga.get(id).then((m) => { setManga(m); setLoading(false); track("manga_view", { target_id: m?.id, target_type: "manga", title: m?.title, category: m?.category, content_tier: m?.plan_tier }); }).catch(() => setLoading(false));
   }, [id]);
 
   if (loading) return <div className="max-w-3xl mx-auto px-6 py-20 text-center text-slate-400">{t("reader.loading")}</div>;

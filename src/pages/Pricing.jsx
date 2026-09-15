@@ -5,12 +5,15 @@ import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { PLANS } from "@/lib/plans";
 import PricingTiers from "@/components/PricingTiers";
+import { track } from "@/lib/track";
 
 export default function Pricing() {
   const { toast } = useToast();
   const { t, lang } = useI18n();
   const [current, setCurrent] = useState("free");
   const [busy, setBusy] = useState(null);
+
+  useEffect(() => { track("pricing_view"); }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -25,6 +28,7 @@ export default function Pricing() {
       toast({ title: t("pt.iframe_title"), description: t("pt.iframe_desc"), variant: "destructive" });
       return;
     }
+    track("plan_upgrade", { content_tier: planId });
     setBusy(planId);
     try {
       const res = await base44.functions.invoke("createCheckout", { plan_tier: planId });
