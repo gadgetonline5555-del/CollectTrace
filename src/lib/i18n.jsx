@@ -182,6 +182,7 @@ const DICT = {
   "wl.add": { jp: "追加", en: "Add" },
   "wl.empty": { jp: "ウォッチリストが空です。銘柄を追加してください。", en: "Your watchlist is empty. Add a stock to start." },
   "wl.remove": { jp: "削除", en: "Remove" },
+  "wl.err": { jp: "操作に失敗しました", en: "Operation failed" },
 
   "pf.h": { jp: "ポートフォリオ", en: "Portfolio" },
   "pf.p": { jp: "保有銘柄を入力。現在価値と損益を一括で把握。", en: "Enter your holdings. See total value and P/L at a glance." },
@@ -199,6 +200,7 @@ const DICT = {
   "pf.pnl": { jp: "損益", en: "P/L" },
   "pf.current": { jp: "現在値", en: "Current" },
   "pf.noprice": { jp: "現在値なし", en: "n/a" },
+  "pf.err": { jp: "操作に失敗しました", en: "Operation failed" },
 
   "api.h": { jp: "APIアクセス", en: "API access" },
   "api.p": { jp: "エリートプラン専用。市場データと調査レポートをAPIで取得。", en: "Elite-plan exclusive. Pull market data and research via API." },

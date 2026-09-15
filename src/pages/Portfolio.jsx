@@ -5,10 +5,12 @@ import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
 import TierGate from "@/components/TierGate";
 import { track } from "@/lib/track";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Portfolio() {
   const { t } = useI18n();
   const { can } = useUserTier();
+  const { toast } = useToast();
   const [items, setItems] = useState([]);
   const [prices, setPrices] = useState({});
   const [loading, setLoading] = useState(true);
@@ -36,16 +38,33 @@ export default function Portfolio() {
   const add = async (e) => {
     e.preventDefault();
     if (!form.ticker || !form.shares) return;
-    await base44.entities.Portfolio.create({
+    const payload = {
       ticker: form.ticker.toUpperCase(),
       shares: Number(form.shares),
       buy_price: form.buy_price ? Number(form.buy_price) : null,
-    });
-    track("portfolio_add", { ticker: form.ticker.toUpperCase() });
+    };
+    const tempId = `temp_${Date.now()}`;
+    setItems((prev) => [{ id: tempId, ...payload }, ...prev]);
     setForm({ ticker: "", shares: "", buy_price: "" });
-    load();
+    track("portfolio_add", { ticker: payload.ticker });
+    try {
+      const created = await base44.entities.Portfolio.create(payload);
+      setItems((prev) => prev.map((it) => (it.id === tempId ? created : it)));
+    } catch (err) {
+      setItems((prev) => prev.filter((it) => it.id !== tempId));
+      toast({ title: t("pf.err"), variant: "destructive" });
+    }
   };
-  const remove = async (id) => { await base44.entities.Portfolio.delete(id); load(); };
+  const remove = async (id) => {
+    const prev = items;
+    setItems((cur) => cur.filter((it) => it.id !== id));
+    try {
+      await base44.entities.Portfolio.delete(id);
+    } catch (err) {
+      setItems(prev);
+      toast({ title: t("pf.err"), variant: "destructive" });
+    }
+  };
 
   const rows = items.map((p) => {
     const cur = prices[p.ticker] ?? null;

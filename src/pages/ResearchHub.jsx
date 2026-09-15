@@ -4,6 +4,7 @@ import { base44 } from "@/api/base44Client";
 import ResearchCard from "@/components/ResearchCard";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
+import PullToRefresh from "@/components/PullToRefresh";
 
 const SECTORS = [
   { value: "すべて", key: "sec.all" },
@@ -22,9 +23,11 @@ export default function ResearchHub() {
   const [q, setQ] = useState("");
   const [sector, setSector] = useState("すべて");
 
-  useEffect(() => {
-    base44.entities.Research.list("-published_date", 60).then((res) => { setReports(res); setLoading(false); }).catch(() => setLoading(false));
-  }, []);
+  const load = () => {
+    setLoading(true);
+    return base44.entities.Research.list("-published_date", 60).then((res) => { setReports(res); setLoading(false); }).catch(() => setLoading(false));
+  };
+  useEffect(() => { load(); }, []);
 
   useEffect(() => {
     if (!q && sector === "すべて") return;
@@ -39,6 +42,7 @@ export default function ResearchHub() {
   });
 
   return (
+    <PullToRefresh onRefresh={load}>
     <div className="max-w-7xl mx-auto px-6 py-12">
       <div className="mb-8">
         <h1 className="font-display text-4xl font-bold text-white">{t("hub.h")}</h1>
@@ -72,5 +76,6 @@ export default function ResearchHub() {
         </div>
       )}
     </div>
+    </PullToRefresh>
   );
 }

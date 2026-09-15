@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import ResourceManager from "@/components/admin/ResourceManager";
-import InsightsDashboard from "@/components/admin/InsightsDashboard";
+const InsightsDashboard = lazy(() => import("@/components/admin/InsightsDashboard"));
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const MANGA_FIELDS = [
@@ -53,7 +53,7 @@ export default function Admin() {
         <TabsContent value="manga" className="mt-6"><ResourceManager entityName="Manga" fields={MANGA_FIELDS} /></TabsContent>
         <TabsContent value="research" className="mt-6"><ResourceManager entityName="Research" fields={RESEARCH_FIELDS} /></TabsContent>
         <TabsContent value="glossary" className="mt-6"><ResourceManager entityName="Glossary" fields={GLOSSARY_FIELDS} /></TabsContent>
-        <TabsContent value="insights" className="mt-6"><InsightsDashboard /></TabsContent>
+        <TabsContent value="insights" className="mt-6"><Suspense fallback={<div className="flex items-center justify-center py-20"><div className="w-8 h-8 border-4 border-slate-700 border-t-violet-400 rounded-full animate-spin" /></div>}><InsightsDashboard /></Suspense></TabsContent>
       </Tabs>
     </div>
   );

@@ -3,6 +3,7 @@ import { Search, RefreshCw, History, Sparkles, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
+import PullToRefresh from "@/components/PullToRefresh";
 import AiSnapshotCard from "@/components/AiSnapshotCard";
 import AiSummaryCard from "@/components/AiSummaryCard";
 import QuotaNotice from "@/components/QuotaNotice";
@@ -99,6 +100,7 @@ export default function AiResearch() {
   const stale = latest ? Date.now() - new Date(latest.created_date).getTime() > 30 * 60 * 1000 : true;
 
   return (
+    <PullToRefresh onRefresh={() => (query ? handleRefresh() : Promise.resolve())}>
     <div className="max-w-4xl mx-auto px-6 py-12">
       <div className="mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-semibold mb-4">
@@ -222,5 +224,6 @@ export default function AiResearch() {
         </>
       )}
     </div>
+    </PullToRefresh>
   );
 }

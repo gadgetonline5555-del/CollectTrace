@@ -6,6 +6,7 @@ import QuotaNotice from "@/components/QuotaNotice";
 import ShareBar from "@/components/ShareBar";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
+import PullToRefresh from "@/components/PullToRefresh";
 import { useSearchParams } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { ja, enUS } from "date-fns/locale";
@@ -97,6 +98,7 @@ export default function IpoTracker() {
   const stale = latest ? Date.now() - new Date(latest.created_date).getTime() > 30 * 60 * 1000 : true;
 
   return (
+    <PullToRefresh onRefresh={() => (query ? handleRefresh() : Promise.resolve())}>
     <div className="max-w-4xl mx-auto px-6 py-12">
       <div className="mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-400/30 text-violet-300 text-xs font-semibold mb-4">
@@ -215,5 +217,6 @@ export default function IpoTracker() {
         </>
       )}
     </div>
+    </PullToRefresh>
   );
 }

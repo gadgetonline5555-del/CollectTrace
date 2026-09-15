@@ -5,10 +5,12 @@ import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
 import TierGate from "@/components/TierGate";
 import { track } from "@/lib/track";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Watchlist() {
   const { t } = useI18n();
   const { can } = useUserTier();
+  const { toast } = useToast();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({ ticker: "", title: "", target_price: "", note: "" });
@@ -22,17 +24,34 @@ export default function Watchlist() {
   const add = async (e) => {
     e.preventDefault();
     if (!form.ticker) return;
-    await base44.entities.Watchlist.create({
+    const payload = {
       ticker: form.ticker.toUpperCase(),
       title: form.title || form.ticker.toUpperCase(),
       target_price: form.target_price ? Number(form.target_price) : null,
       note: form.note,
-    });
-    track("watchlist_add", { ticker: form.ticker.toUpperCase(), title: form.title || form.ticker.toUpperCase() });
+    };
+    const tempId = `temp_${Date.now()}`;
+    setItems((prev) => [{ id: tempId, ...payload }, ...prev]);
     setForm({ ticker: "", title: "", target_price: "", note: "" });
-    load();
+    track("watchlist_add", { ticker: payload.ticker, title: payload.title });
+    try {
+      const created = await base44.entities.Watchlist.create(payload);
+      setItems((prev) => prev.map((it) => (it.id === tempId ? created : it)));
+    } catch (err) {
+      setItems((prev) => prev.filter((it) => it.id !== tempId));
+      toast({ title: t("wl.err"), description: err?.message, variant: "destructive" });
+    }
   };
-  const remove = async (id) => { await base44.entities.Watchlist.delete(id); load(); };
+  const remove = async (id) => {
+    const prev = items;
+    setItems((cur) => cur.filter((it) => it.id !== id));
+    try {
+      await base44.entities.Watchlist.delete(id);
+    } catch (err) {
+      setItems(prev);
+      toast({ title: t("wl.err"), variant: "destructive" });
+    }
+  };
 
   return (
     <TierGate requiredTier="starter" title={t("wl.locked_h")} description={t("wl.locked_p")}>

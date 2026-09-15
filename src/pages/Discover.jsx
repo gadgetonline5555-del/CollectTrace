@@ -3,6 +3,7 @@ import { Sparkles, RefreshCw, Compass, ShieldCheck } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
+import PullToRefresh from "@/components/PullToRefresh";
 import TopicCard from "@/components/TopicCard";
 import QuotaNotice from "@/components/QuotaNotice";
 
@@ -44,6 +45,7 @@ export default function Discover() {
   };
 
   return (
+    <PullToRefresh onRefresh={() => generate(mode)}>
     <div className="max-w-7xl mx-auto px-6 py-12">
       <div className="mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-400/30 text-violet-300 text-xs font-semibold mb-4">
@@ -101,5 +103,6 @@ export default function Discover() {
         </div>
       )}
     </div>
+    </PullToRefresh>
   );
 }

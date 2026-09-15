@@ -6,30 +6,31 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
-// Add page imports here
-import Home from '@/pages/Home';
-import MangaLibrary from '@/pages/MangaLibrary';
-import MangaReader from '@/pages/MangaReader';
-import ResearchHub from '@/pages/ResearchHub';
-import ResearchDetail from '@/pages/ResearchDetail';
-import Pricing from '@/pages/Pricing';
-import Admin from '@/pages/Admin';
-import Glossary from '@/pages/Glossary';
-import AiResearch from '@/pages/AiResearch';
-import Discover from '@/pages/Discover';
-import WealthTracker from '@/pages/WealthTracker';
-import CompanyIntel from '@/pages/CompanyIntel';
-import IpoTracker from '@/pages/IpoTracker';
-import Invite from '@/pages/Invite';
-import SnapshotView from '@/pages/SnapshotView';
-import Watchlist from '@/pages/Watchlist';
-import Portfolio from '@/pages/Portfolio';
-import ApiAccess from '@/pages/ApiAccess';
-import Settings from '@/pages/Settings';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
-import ForgotPassword from '@/pages/ForgotPassword';
-import ResetPassword from '@/pages/ResetPassword';
+// Add page imports here (lazy-loaded for code splitting)
+import { lazy, Suspense } from 'react';
+const Home = lazy(() => import('@/pages/Home'));
+const MangaLibrary = lazy(() => import('@/pages/MangaLibrary'));
+const MangaReader = lazy(() => import('@/pages/MangaReader'));
+const ResearchHub = lazy(() => import('@/pages/ResearchHub'));
+const ResearchDetail = lazy(() => import('@/pages/ResearchDetail'));
+const Pricing = lazy(() => import('@/pages/Pricing'));
+const Admin = lazy(() => import('@/pages/Admin'));
+const Glossary = lazy(() => import('@/pages/Glossary'));
+const AiResearch = lazy(() => import('@/pages/AiResearch'));
+const Discover = lazy(() => import('@/pages/Discover'));
+const WealthTracker = lazy(() => import('@/pages/WealthTracker'));
+const CompanyIntel = lazy(() => import('@/pages/CompanyIntel'));
+const IpoTracker = lazy(() => import('@/pages/IpoTracker'));
+const Invite = lazy(() => import('@/pages/Invite'));
+const SnapshotView = lazy(() => import('@/pages/SnapshotView'));
+const Watchlist = lazy(() => import('@/pages/Watchlist'));
+const Portfolio = lazy(() => import('@/pages/Portfolio'));
+const ApiAccess = lazy(() => import('@/pages/ApiAccess'));
+const Settings = lazy(() => import('@/pages/Settings'));
+const Login = lazy(() => import('@/pages/Login'));
+const Register = lazy(() => import('@/pages/Register'));
+const ForgotPassword = lazy(() => import('@/pages/ForgotPassword'));
+const ResetPassword = lazy(() => import('@/pages/ResetPassword'));
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Layout from '@/components/Layout';
 import { I18nProvider } from '@/lib/i18n';
@@ -60,6 +61,7 @@ const AuthenticatedApp = () => {
 
   // Render the main app
   return (
+    <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center"><div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin" /></div>}>
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -90,6 +92,7 @@ const AuthenticatedApp = () => {
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
+    </Suspense>
   );
 };
 

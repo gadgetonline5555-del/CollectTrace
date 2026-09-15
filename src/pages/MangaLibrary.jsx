@@ -5,6 +5,7 @@ import MangaCard from "@/components/MangaCard";
 import { PLANS } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
+import PullToRefresh from "@/components/PullToRefresh";
 
 const CATEGORIES = [
   { value: "すべて", key: "cat.all" },
@@ -22,9 +23,11 @@ export default function MangaLibrary() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("すべて");
 
-  useEffect(() => {
-    base44.entities.Manga.list("-rating", 50).then((res) => { setMangas(res); setLoading(false); }).catch(() => setLoading(false));
-  }, []);
+  const load = () => {
+    setLoading(true);
+    return base44.entities.Manga.list("-rating", 50).then((res) => { setMangas(res); setLoading(false); }).catch(() => setLoading(false));
+  };
+  useEffect(() => { load(); }, []);
 
   useEffect(() => {
     if (!q && cat === "すべて") return;
@@ -39,6 +42,7 @@ export default function MangaLibrary() {
   });
 
   return (
+    <PullToRefresh onRefresh={load}>
     <div className="max-w-7xl mx-auto px-6 py-12">
       <div className="mb-8">
         <h1 className="font-display text-4xl font-bold text-white">{t("lib.h")}</h1>
@@ -75,5 +79,6 @@ export default function MangaLibrary() {
         ))}
       </div>
     </div>
+    </PullToRefresh>
   );
 }
