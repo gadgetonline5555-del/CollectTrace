@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <div>
-      <section className="max-w-7xl mx-auto px-6 pt-20 pb-16 text-center">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur text-xs text-slate-300 mb-6">
           <Sparkles className="w-3.5 h-3.5 text-amber-300" />
           {t("hero.badge")}
@@ -45,7 +45,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 pb-16">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {STAT_TILES.map((s) => (
             <div key={s.label} className="rounded-2xl p-5 bg-slate-900/50 border border-white/10 backdrop-blur">
@@ -58,7 +58,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
         <div className="flex items-end justify-between mb-6">
           <div>
             <h2 className="font-display text-3xl font-bold text-white">{t("home.featured_h")}</h2>
@@ -73,7 +73,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
         <div className="flex items-end justify-between mb-6">
           <div>
             <h2 className="font-display text-3xl font-bold text-white">{t("home.research_h")}</h2>
@@ -90,7 +90,7 @@ export default function Home() {
 
       <LatestResearch />
 
-      <section className="max-w-5xl mx-auto px-6 pb-24">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-24">
         <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-gradient-to-br from-violet-900/40 via-slate-900 to-cyan-900/30 p-10 text-center">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-white">{t("home.cta_h")}</h2>
           <p className="text-slate-300 mt-3 max-w-xl mx-auto">{t("home.cta_p")}</p>

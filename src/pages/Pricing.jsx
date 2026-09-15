@@ -52,7 +52,7 @@ export default function Pricing() {
   const cell = (v) => v === "yes" ? <Check className="w-4 h-4 text-emerald-400 mx-auto" /> : v === "no" ? <X className="w-4 h-4 text-slate-600 mx-auto" /> : v;
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
       <div className="text-center mb-12">
         <h1 className="font-display text-5xl font-bold text-white">{t("pricing.h1")}</h1>
         <p className="text-slate-400 mt-4 max-w-2xl mx-auto text-lg">{t("pricing.p")}</p>
@@ -66,7 +66,8 @@ export default function Pricing() {
 
       <div className="mt-20">
         <h2 className="font-display text-2xl font-bold text-white text-center mb-8">{t("pricing.compare_h")}</h2>
-        <div className="relative overflow-x-auto rounded-2xl border border-white/10">
+        <div className="-mx-4 sm:mx-0">
+        <div className="relative overflow-x-auto overscroll-x-auto touch-pan-x rounded-2xl border border-white/10">
           <div aria-hidden className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-r from-slate-950/90 to-transparent" />
           <div aria-hidden className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-l from-slate-950/90 to-transparent" />
           <table className="w-full text-sm">
@@ -85,6 +86,7 @@ export default function Pricing() {
               ))}
             </tbody>
           </table>
+        </div>
         </div>
       </div>
     </div>

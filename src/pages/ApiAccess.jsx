@@ -16,7 +16,7 @@ export default function ApiAccess() {
 
   return (
     <TierGate requiredTier="elite" title={t("api.locked_h")} description={t("api.locked_p")}>
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
         <div className="mb-8">
           <h1 className="font-display text-4xl font-bold text-white">{t("api.h")}</h1>
           <p className="text-slate-400 mt-2">{t("api.p")}</p>
@@ -33,7 +33,7 @@ export default function ApiAccess() {
             ) : (
               <p className="text-slate-500 text-sm">{t("api.pending")}</p>
             )}
-            <p className="text-slate-500 text-xs mt-2">{t("api.key_desc")}</p>
+            <p className="text-slate-500 text-sm mt-2">{t("api.key_desc")}</p>
           </div>
           <div className="rounded-2xl p-5 bg-slate-950 border border-white/10">
             <div className="flex items-center justify-between mb-2">

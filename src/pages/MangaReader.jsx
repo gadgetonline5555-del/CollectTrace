@@ -18,14 +18,14 @@ export default function MangaReader() {
     base44.entities.Manga.get(id).then((m) => { setManga(m); setLoading(false); track("manga_view", { target_id: m?.id, target_type: "manga", title: m?.title, category: m?.category, content_tier: m?.plan_tier }); }).catch(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <div className="max-w-3xl mx-auto px-6 py-20 text-center text-slate-400">{t("reader.loading")}</div>;
-  if (!manga) return <div className="max-w-3xl mx-auto px-6 py-20 text-center text-slate-400">{t("reader.notfound")}</div>;
+  if (loading) return <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 text-center text-slate-400">{t("reader.loading")}</div>;
+  if (!manga) return <div className="max-w-3xl mx-auto px-4 sm:px-6 py-20 text-center text-slate-400">{t("reader.notfound")}</div>;
 
   const plan = getPlan(manga.plan_tier);
   const access = can(manga.plan_tier);
 
   return (
-    <article className="max-w-3xl mx-auto px-6 py-12">
+    <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       <Link to="/manga" className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white mb-6">
         <ArrowLeft className="w-4 h-4" /> {t("reader.back")}
       </Link>

@@ -102,7 +102,7 @@ export default function WealthTracker() {
 
   return (
     <PullToRefresh onRefresh={() => (query ? handleRefresh() : Promise.resolve())}>
-    <div className="max-w-4xl mx-auto px-6 py-12">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
       <div className="mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-xs font-semibold mb-4">
           <Crown className="w-3.5 h-3.5" /> {t("wealth.badge")}
@@ -206,7 +206,7 @@ export default function WealthTracker() {
                         <span className="text-xs font-mono text-slate-400">v{h.version}</span>
                         <span className="text-xs px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 capitalize">{h.profile_type}</span>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 truncate">{h.summary || h.net_worth}</p>
+                      <p className="text-sm text-slate-500 mt-1 truncate">{h.summary || h.net_worth}</p>
                     </div>
                     <span className="text-xs text-slate-500 shrink-0">
                       {formatDistanceToNow(new Date(h.created_date), { addSuffix: true, locale })}

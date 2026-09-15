@@ -28,7 +28,7 @@ export default function Invite() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-12">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-xs font-semibold mb-4">
         <Gift className="w-3.5 h-3.5" /> {t("invite.badge")}
       </div>
@@ -74,7 +74,7 @@ export default function Invite() {
                 {copied ? t("invite.copied") : t("invite.copy")}
               </button>
             </div>
-            <p className="text-xs text-slate-500 mt-2">{t("invite.link_hint")}</p>
+            <p className="text-sm text-slate-500 mt-2">{t("invite.link_hint")}</p>
 
             <div className="mt-4">
               <ShareBar url={link} text={t("invite.share_text")} />
@@ -94,7 +94,7 @@ export default function Invite() {
         </>
       )}
 
-      <p className="mt-8 text-xs text-slate-600 leading-relaxed">{t("invite.disclaimer")}</p>
+      <p className="mt-8 text-sm text-slate-600 leading-relaxed">{t("invite.disclaimer")}</p>
     </div>
   );
 }

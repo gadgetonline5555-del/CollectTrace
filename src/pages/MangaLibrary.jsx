@@ -43,7 +43,7 @@ export default function MangaLibrary() {
 
   return (
     <PullToRefresh onRefresh={load}>
-    <div className="max-w-7xl mx-auto px-6 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <div className="mb-8">
         <h1 className="font-display text-4xl font-bold text-white">{t("lib.h")}</h1>
         <p className="text-slate-400 mt-2">{t("lib.p")}</p>
@@ -55,7 +55,7 @@ export default function MangaLibrary() {
         </div>
         <div className="flex flex-wrap gap-2">
           {CATEGORIES.map((c) => (
-            <button key={c.value} onClick={() => setCat(c.value)} className={`min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${cat === c.value ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
+            <button key={c.value} onClick={() => setCat(c.value)} className={`min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${cat === c.value ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
               {t(c.key)}
             </button>
           ))}

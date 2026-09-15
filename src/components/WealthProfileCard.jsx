@@ -117,7 +117,7 @@ export default function WealthProfileCard({ profile, live = false }) {
                             <Icon className="w-4 h-4 text-slate-400 shrink-0" />
                             <div className="min-w-0">
                               <div className="truncate">{h.name}</div>
-                              {h.note && <div className="text-xs text-slate-500 truncate">{h.note}</div>}
+                              {h.note && <div className="text-sm text-slate-500 truncate">{h.note}</div>}
                             </div>
                           </div>
                         </td>
@@ -160,7 +160,7 @@ export default function WealthProfileCard({ profile, live = false }) {
                       <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
                         <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500" style={{ width: `${w}%` }} />
                       </div>
-                      {p.value && <div className="text-xs text-slate-500 mt-0.5">{p.value}{p.note ? ` — ${p.note}` : ""}</div>}
+                      {p.value && <div className="text-sm text-slate-500 mt-0.5">{p.value}{p.note ? ` — ${p.note}` : ""}</div>}
                     </div>
                   );
                 })}

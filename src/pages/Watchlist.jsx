@@ -55,7 +55,7 @@ export default function Watchlist() {
 
   return (
     <TierGate requiredTier="starter" title={t("wl.locked_h")} description={t("wl.locked_p")}>
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         <div className="mb-8">
           <h1 className="font-display text-4xl font-bold text-white">{t("wl.h")}</h1>
           <p className="text-slate-400 mt-2">{t("wl.p")}</p>

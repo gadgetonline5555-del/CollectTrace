@@ -40,7 +40,7 @@ const GLOSSARY_FIELDS = [
 export default function Admin() {
   const [tab, setTab] = useState("manga");
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
       <h1 className="font-display text-3xl font-bold text-white mb-2">管理画面</h1>
       <p className="text-slate-400 mb-8">漫画・調査レポートのコンテンツを管理します。</p>
       <Tabs value={tab} onValueChange={setTab}>

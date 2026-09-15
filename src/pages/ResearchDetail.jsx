@@ -18,8 +18,8 @@ export default function ResearchDetail() {
     base44.entities.Research.get(id).then((r) => { setReport(r); setLoading(false); track("research_view", { target_id: r?.id, target_type: "research", title: r?.title, category: r?.sector, ticker: r?.ticker, content_tier: r?.plan_tier }); }).catch(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <div className="max-w-4xl mx-auto px-6 py-20 text-center text-slate-400">{t("rd.loading")}</div>;
-  if (!report) return <div className="max-w-4xl mx-auto px-6 py-20 text-center text-slate-400">{t("rd.notfound")}</div>;
+  if (loading) return <div className="max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center text-slate-400">{t("rd.loading")}</div>;
+  if (!report) return <div className="max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center text-slate-400">{t("rd.notfound")}</div>;
 
   const plan = getPlan(report.plan_tier);
   const access = can(report.plan_tier);
@@ -34,7 +34,7 @@ export default function ResearchDetail() {
   ];
 
   return (
-    <article className="max-w-4xl mx-auto px-6 py-12">
+    <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
       <Link to="/research" className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white mb-6">
         <ArrowLeft className="w-4 h-4" /> {t("rd.back")}
       </Link>

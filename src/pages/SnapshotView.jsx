@@ -65,7 +65,7 @@ export default function SnapshotView() {
   const shareText = data?.query ? t("share.research", { q: data.query }) : "";
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-10">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
       <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white mb-6">
         <ArrowLeft className="w-4 h-4" /> {t("snap.back")}
       </Link>

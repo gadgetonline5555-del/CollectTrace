@@ -99,7 +99,7 @@ export default function IpoTracker() {
 
   return (
     <PullToRefresh onRefresh={() => (query ? handleRefresh() : Promise.resolve())}>
-    <div className="max-w-4xl mx-auto px-6 py-12">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
       <div className="mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-400/30 text-violet-300 text-xs font-semibold mb-4">
           <Rocket className="w-3.5 h-3.5" /> {t("ipo.badge")}
@@ -204,7 +204,7 @@ export default function IpoTracker() {
                         {h.status && <span className="text-xs px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">{h.status}</span>}
                         {h.ticker && <span className="text-xs font-mono text-slate-400">{h.ticker}</span>}
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 truncate">{h.summary || h.company_name}</p>
+                      <p className="text-sm text-slate-500 mt-1 truncate">{h.summary || h.company_name}</p>
                     </div>
                     <span className="text-xs text-slate-500 shrink-0">
                       {formatDistanceToNow(new Date(h.created_date), { addSuffix: true, locale })}

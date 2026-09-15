@@ -41,7 +41,7 @@ export default function LatestResearch() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-6 pb-20">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
       <div className="mb-6">
         <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-300 mb-1">
           <Sparkles className="w-3.5 h-3.5" /> {t("home.live_badge")}

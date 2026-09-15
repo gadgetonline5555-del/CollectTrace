@@ -79,7 +79,7 @@ export default function Portfolio() {
 
   return (
     <TierGate requiredTier="pro" title={t("pf.locked_h")} description={t("pf.locked_p")}>
-      <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
         <div className="mb-8">
           <h1 className="font-display text-4xl font-bold text-white">{t("pf.h")}</h1>
           <p className="text-slate-400 mt-2">{t("pf.p")}</p>

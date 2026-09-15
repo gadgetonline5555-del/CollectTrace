@@ -13,7 +13,7 @@ export default function MangaCard({ manga }) {
   return (
     <Link
       to={`/manga/${manga.id}`}
-      className="group relative rounded-2xl overflow-hidden bg-slate-900 border border-white/10 hover:border-white/25 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-violet-500/10"
+      className="group relative rounded-2xl overflow-hidden bg-slate-900 border border-white/10 hover:border-white/25 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-violet-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <div className="relative aspect-[3/4] overflow-hidden">
         <div
@@ -37,7 +37,7 @@ export default function MangaCard({ manga }) {
             <span className="text-slate-400 ml-2 flex items-center gap-1"><BookOpen className="w-3.5 h-3.5" />{manga.episodes}{t("mc.ep")}</span>
           </div>
           <h3 className="font-display font-bold text-white text-lg leading-tight line-clamp-2">{manga.title}</h3>
-          <p className="text-slate-400 text-xs mt-0.5">{manga.author}</p>
+          <p className="text-slate-400 text-sm mt-0.5">{manga.author}</p>
         </div>
       </div>
     </Link>

@@ -33,10 +33,10 @@ export default function TopicCard({ topic }) {
       </div>
       <h3 className="font-display text-lg font-bold text-white leading-snug">{topic.title}</h3>
       {topic.hook && <p className="text-slate-300 text-sm leading-relaxed mt-2">{topic.hook}</p>}
-      {topic.angle && <p className="text-slate-500 text-xs leading-relaxed mt-2 italic">{topic.angle}</p>}
+      {topic.angle && <p className="text-slate-500 text-sm leading-relaxed mt-2 italic">{topic.angle}</p>}
       <div className="mt-4 pt-4 border-t border-white/5">
         <Link to={`/ai-research?query=${encodeURIComponent(topic.drill_query || topic.title)}&type=${drillType}`}
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-300 hover:text-cyan-200">
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-300 hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
           {t("disc.deep_dive")} <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
         </Link>
       </div>

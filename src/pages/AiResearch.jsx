@@ -101,7 +101,7 @@ export default function AiResearch() {
 
   return (
     <PullToRefresh onRefresh={() => (query ? handleRefresh() : Promise.resolve())}>
-    <div className="max-w-4xl mx-auto px-6 py-12">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
       <div className="mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-semibold mb-4">
           <Sparkles className="w-3.5 h-3.5" /> {t("air.badge")}
@@ -211,7 +211,7 @@ export default function AiResearch() {
                         <span className="text-xs font-mono text-slate-400">v{h.version}</span>
                         <span className={`text-xs px-1.5 py-0.5 rounded ${h.sentiment === "bullish" ? "text-emerald-300" : h.sentiment === "bearish" ? "text-rose-300" : "text-slate-400"}`}>{h.sentiment}</span>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 truncate">{h.summary}</p>
+                      <p className="text-sm text-slate-500 mt-1 truncate">{h.summary}</p>
                     </div>
                     <span className="text-xs text-slate-500 shrink-0">
                       {formatDistanceToNow(new Date(h.created_date), { addSuffix: true, locale })}

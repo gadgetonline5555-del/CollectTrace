@@ -18,7 +18,7 @@ export default function ResearchCard({ research }) {
   return (
     <Link
       to={`/research/${research.id}`}
-      className="group relative rounded-2xl p-5 bg-gradient-to-br from-slate-900 to-slate-900/40 border border-white/10 hover:border-white/25 transition-all hover:-translate-y-1"
+      className="group relative rounded-2xl p-5 bg-gradient-to-br from-slate-900 to-slate-900/40 border border-white/10 hover:border-white/25 transition-all hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <div>

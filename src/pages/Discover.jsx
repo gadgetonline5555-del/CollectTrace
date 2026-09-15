@@ -46,7 +46,7 @@ export default function Discover() {
 
   return (
     <PullToRefresh onRefresh={() => generate(mode)}>
-    <div className="max-w-7xl mx-auto px-6 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <div className="mb-8">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-400/30 text-violet-300 text-xs font-semibold mb-4">
           <Compass className="w-3.5 h-3.5" /> {t("disc.badge")}
