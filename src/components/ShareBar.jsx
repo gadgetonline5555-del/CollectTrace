@@ -43,10 +43,10 @@ export default function ShareBar({ url, title, text, compact = false }) {
         <Share2 className="w-3.5 h-3.5" /> {t("share.label")}
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <a href={`https://twitter.com/intent/tweet?text=${full}`} target="_blank" rel="noreferrer" className={`${btn} px-4 py-2 text-sm`}>
+        <a href={`https://twitter.com/intent/tweet?text=${full}`} target="_blank" rel="noreferrer" aria-label="Xでシェア" className={`${btn} px-4 py-2 text-sm`}>
           <Twitter className="w-4 h-4" /> X
         </a>
-        <a href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`} target="_blank" rel="noreferrer" className={`${btn} px-4 py-2 text-sm text-[#06C755]`}>
+        <a href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`} target="_blank" rel="noreferrer" aria-label="LINEでシェア" className={`${btn} px-4 py-2 text-sm text-[#06C755]`}>
           <LineIcon className="w-4 h-4" /> LINE
         </a>
         <button onClick={onCopy} className={`${btn} px-4 py-2 text-sm`}>

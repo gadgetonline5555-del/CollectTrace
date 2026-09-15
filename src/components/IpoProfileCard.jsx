@@ -74,25 +74,25 @@ export default function IpoProfileCard({ ipo, live = false }) {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {ipo.ipo_date && (
             <div className="rounded-xl p-4 bg-slate-900/60 border border-white/5">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 uppercase tracking-wide"><CalendarDays className="w-3.5 h-3.5" /> {t("ipo.ipo_date")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><CalendarDays className="w-3.5 h-3.5" /> {t("ipo.ipo_date")}</div>
               <div className="font-display text-base font-bold text-white mt-1">{ipo.ipo_date}</div>
             </div>
           )}
           {ipo.offering_price && (
             <div className="rounded-xl p-4 bg-slate-900/60 border border-white/5">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("ipo.offering_price")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("ipo.offering_price")}</div>
               <div className="font-display text-base font-bold text-white mt-1">{ipo.offering_price}</div>
             </div>
           )}
           {ipo.offering_size && (
             <div className="rounded-xl p-4 bg-slate-900/60 border border-white/5">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 uppercase tracking-wide"><Landmark className="w-3.5 h-3.5" /> {t("ipo.offering_size")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><Landmark className="w-3.5 h-3.5" /> {t("ipo.offering_size")}</div>
               <div className="font-display text-base font-bold text-white mt-1">{ipo.offering_size}</div>
             </div>
           )}
           {ipo.valuation && (
             <div className="rounded-xl p-4 bg-slate-900/60 border border-violet-400/20">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 uppercase tracking-wide"><TrendingUp className="w-3.5 h-3.5" /> {t("ipo.valuation")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><TrendingUp className="w-3.5 h-3.5" /> {t("ipo.valuation")}</div>
               <div className="font-display text-base font-bold text-violet-300 mt-1">{ipo.valuation}</div>
             </div>
           )}

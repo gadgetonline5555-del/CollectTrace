@@ -76,13 +76,13 @@ export default function CompanyIntelCard({ intel, live = false }) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {intel.market_cap && (
             <div className="rounded-xl p-4 bg-slate-900/60 border border-white/5">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("intel.market_cap")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("intel.market_cap")}</div>
               <div className="font-display text-base font-bold text-white mt-1">{intel.market_cap}</div>
             </div>
           )}
           {intel.growth_rate && (
             <div className="rounded-xl p-4 bg-slate-900/60 border border-emerald-400/20">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 uppercase tracking-wide"><TrendingUp className="w-3.5 h-3.5" /> {t("intel.growth_rate")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><TrendingUp className="w-3.5 h-3.5" /> {t("intel.growth_rate")}</div>
               <div className="font-display text-base font-bold text-emerald-300 mt-1">{intel.growth_rate}</div>
             </div>
           )}

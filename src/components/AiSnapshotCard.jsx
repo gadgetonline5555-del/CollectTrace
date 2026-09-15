@@ -59,7 +59,7 @@ export default function AiSnapshotCard({ snapshot, live = false }) {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {Object.entries(metrics).slice(0, 6).map(([k, v]) => (
                 <div key={k} className="rounded-xl p-3 bg-slate-800/60 border border-white/5">
-                  <div className="text-[11px] text-slate-500 uppercase tracking-wide">{k.replace(/_/g, " ")}</div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wide">{k.replace(/_/g, " ")}</div>
                   <div className="font-display text-lg font-bold text-white mt-0.5">{String(v)}</div>
                 </div>
               ))}

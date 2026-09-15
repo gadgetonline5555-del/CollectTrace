@@ -66,7 +66,9 @@ export default function Pricing() {
 
       <div className="mt-20">
         <h2 className="font-display text-2xl font-bold text-white text-center mb-8">{t("pricing.compare_h")}</h2>
-        <div className="overflow-x-auto rounded-2xl border border-white/10">
+        <div className="relative overflow-x-auto rounded-2xl border border-white/10">
+          <div aria-hidden className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-r from-slate-950/90 to-transparent" />
+          <div aria-hidden className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-l from-slate-950/90 to-transparent" />
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-slate-900/80 text-slate-300">

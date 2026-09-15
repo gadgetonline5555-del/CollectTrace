@@ -77,19 +77,19 @@ export default function WealthProfileCard({ profile, live = false }) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {profile.net_worth && (
             <div className="rounded-xl p-4 bg-slate-900/60 border border-amber-400/20">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 uppercase tracking-wide"><Crown className="w-3.5 h-3.5" /> {t("wealth.net_worth")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><Crown className="w-3.5 h-3.5" /> {t("wealth.net_worth")}</div>
               <div className="font-display text-xl font-bold text-amber-300 mt-1">{profile.net_worth}</div>
             </div>
           )}
           {profile.annual_income && (
             <div className="rounded-xl p-4 bg-slate-900/60 border border-white/5">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("wealth.annual_income")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("wealth.annual_income")}</div>
               <div className="font-display text-base font-bold text-white mt-1">{profile.annual_income}</div>
             </div>
           )}
           {profile.compensation && (
             <div className="rounded-xl p-4 bg-slate-900/60 border border-white/5">
-              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 uppercase tracking-wide"><Briefcase className="w-3.5 h-3.5" /> {t("wealth.compensation")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><Briefcase className="w-3.5 h-3.5" /> {t("wealth.compensation")}</div>
               <div className="font-display text-base font-bold text-white mt-1">{profile.compensation}</div>
             </div>
           )}
