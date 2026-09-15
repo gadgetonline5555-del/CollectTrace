@@ -58,7 +58,7 @@ export default function ResearchHub() {
         </div>
         <div className="flex flex-wrap gap-2">
           {SECTORS.map((s) => (
-            <button key={s.value} onClick={() => setSector(s.value)} className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${sector === s.value ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
+            <button key={s.value} onClick={() => setSector(s.value)} className={`min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${sector === s.value ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
               {t(s.key)}
             </button>
           ))}

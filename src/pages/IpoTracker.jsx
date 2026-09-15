@@ -112,7 +112,7 @@ export default function IpoTracker() {
         <div className="flex flex-wrap gap-2 mb-3">
           {REGIONS.map((r) => (
             <button key={r.id} type="button" onClick={() => setRegion(r.id)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${region === r.id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
+              className={`min-h-11 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${region === r.id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
               {t(r.key)}
             </button>
           ))}
@@ -130,7 +130,7 @@ export default function IpoTracker() {
           <div className="flex flex-wrap gap-2">
             {(SUGGESTIONS_BY_REGION[region] || []).map((s) => (
               <button key={s} onClick={() => { setInput(s); setQuery(s); }}
-                className="px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10 transition-colors">
+                className="min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10 transition-colors">
                 {s}
               </button>
             ))}

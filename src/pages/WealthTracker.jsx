@@ -115,7 +115,7 @@ export default function WealthTracker() {
         <div className="flex flex-wrap gap-2 mb-3">
           {PTYPES.map((pt) => (
             <button key={pt.id} type="button" onClick={() => setProfileType(pt.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${profileType === pt.id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
+              className={`min-h-11 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${profileType === pt.id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10"}`}>
               {t(pt.key)}
             </button>
           ))}
@@ -133,7 +133,7 @@ export default function WealthTracker() {
           <div className="flex flex-wrap gap-2">
             {SUGGESTIONS.map((s) => (
               <button key={s} onClick={() => { setInput(s); setQuery(s); }}
-                className="px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10 transition-colors">
+                className="min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium bg-slate-900 text-slate-300 hover:bg-slate-800 border border-white/10 transition-colors">
                 {s}
               </button>
             ))}

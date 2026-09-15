@@ -61,11 +61,11 @@ export default function Discover() {
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
         <div className="inline-flex rounded-xl bg-slate-900 border border-white/10 p-1">
           <button onClick={() => switchMode("personalized")}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${mode === "personalized" ? "bg-white text-slate-950" : "text-slate-300 hover:text-white"}`}>
+            className={`min-h-11 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${mode === "personalized" ? "bg-white text-slate-950" : "text-slate-300 hover:text-white"}`}>
             {t("disc.mode_personalized")}
           </button>
           <button onClick={() => switchMode("default")}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${mode === "default" ? "bg-white text-slate-950" : "text-slate-300 hover:text-white"}`}>
+            className={`min-h-11 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${mode === "default" ? "bg-white text-slate-950" : "text-slate-300 hover:text-white"}`}>
             {t("disc.mode_default")}
           </button>
         </div>

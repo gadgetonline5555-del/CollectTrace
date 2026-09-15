@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Home, BookOpen, BarChart3, Compass, MoreHorizontal, ChevronRight } from "lucide-react";
 import {
@@ -32,6 +32,14 @@ const MORE = [
   { to: "/settings", key: "mnav.settings" },
 ];
 
+// Resolve which primary tab (if any) owns a given pathname.
+const findTab = (pathname) => {
+  for (const tab of TABS) {
+    if (tab.exact ? pathname === tab.to : pathname.startsWith(tab.to)) return tab.to;
+  }
+  return null;
+};
+
 export default function MobileBottomNav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -39,15 +47,37 @@ export default function MobileBottomNav() {
   const [open, setOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // Per-tab navigation stack retention. Each tab keeps its own history of
+  // visited paths; switching back to a tab restores its last position.
+  const tabStacksRef = useRef(Object.fromEntries(TABS.map((tab) => [tab.to, [tab.to]])));
+  const prevTabRef = useRef(findTab(pathname));
+
   useEffect(() => {
     base44.auth.me().then((u) => setIsAdmin(u?.role === "admin")).catch(() => {});
   }, []);
 
+  // Record every navigation into the owning tab's stack (deduped).
+  useEffect(() => {
+    const owner = findTab(pathname);
+    if (!owner) return; // non-tab pages (glossary, wealth, pricing, ...) don't touch stacks
+    const stack = tabStacksRef.current[owner];
+    if (stack[stack.length - 1] !== pathname) stack.push(pathname);
+    prevTabRef.current = owner;
+  }, [pathname]);
+
   const isActive = (to, exact) => (exact ? pathname === to : pathname.startsWith(to));
 
   const go = (to, exact) => {
-    if (isActive(to, exact)) window.scrollTo({ top: 0, behavior: "smooth" });
-    else navigate(to);
+    if (isActive(to, exact)) {
+      // Re-selecting the active tab: pop to that tab's root path.
+      tabStacksRef.current[to] = [to];
+      if (pathname !== to) navigate(to);
+    } else {
+      // Switching tabs: restore that tab's previous stack top.
+      const stack = tabStacksRef.current[to];
+      const dest = stack[stack.length - 1] || to;
+      navigate(dest);
+    }
   };
 
   const moreItems = isAdmin ? [...MORE, { to: "/admin", key: "nav.admin" }] : MORE;
