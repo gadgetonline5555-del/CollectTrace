@@ -10,8 +10,9 @@ import { ja, enUS } from "date-fns/locale";
 
 const SUGGESTIONS = [
   "Elon Musk", "Bernard Arnault", "Jeff Bezos", "Bill Gates", "Warren Buffett",
-  "世界長者番付 2025", "日本長者番付 2025", "BlackRock", "Berkshire Hathaway",
-  "ノルウェー政府年金基金", "孫正義", "柳井正", "Mark Zuckerberg", "NVIDIA 主要株主"
+  "Berkshire Hathaway", "BlackRock", "Vanguard", "Sequoia Capital", "SoftBank ビジョンファンド",
+  "世界長者番付 2025", "日本長者番付 2025", "ノルウェー政府年金基金 (GPFG)", "Mubadala",
+  "孫正義", "柳井正", "Mark Zuckerberg", "NVIDIA 主要株主", "Apple 主要株主"
 ];
 
 const PTYPES = [

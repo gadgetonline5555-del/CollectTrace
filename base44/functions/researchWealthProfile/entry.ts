@@ -38,6 +38,13 @@ Return JSON with this exact shape:
   "holdings": [
     { "name": "holder or holding name", "stake": "ownership % or amount", "type": "individual|corporate|institutional|sovereign", "note": "short context (optional)" }
   ],
+  "portfolio": [
+    { "name": "holding/asset name", "ticker": "ticker if listed, else ''", "sector": "sector/industry", "allocation_pct": "approx weight in the portfolio as a number (e.g. 40.2), estimated if needed", "value": "approx value with currency if known, else ''", "note": "thesis/context (optional)" }
+  ],
+  "portfolio_summary": "A short analytical read of the portfolio: concentration level, style (value/growth/index), top bets, geographic/sector tilt, and how it has shifted recently. If the subject has no public investable portfolio, state '公開されている投資ポートフォリオなし'.",
+  "sector_allocation": [
+    { "sector": "sector name", "allocation_pct": "approx percentage as number" }
+  ],
   "philanthropy": "Philanthropic activities, foundations, focus areas (climate, education, health, etc.). What causes/businesses they pay attention to.",
   "lifestyle": "Notable assets: cars, real estate/houses, yachts, aircraft, art collections — only publicly reported.",
   "recent_activity": "What they have been doing recently (last ~1-2 years): deals, statements, investments, public moves.",
@@ -71,6 +78,33 @@ For holdings: if the subject is a COMPANY, list major shareholders (individual, 
               required: ["name", "type"]
             }
           },
+          portfolio: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                ticker: { type: "string" },
+                sector: { type: "string" },
+                allocation_pct: { type: "number" },
+                value: { type: "string" },
+                note: { type: "string" }
+              },
+              required: ["name"]
+            }
+          },
+          portfolio_summary: { type: "string" },
+          sector_allocation: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                sector: { type: "string" },
+                allocation_pct: { type: "number" }
+              },
+              required: ["sector"]
+            }
+          },
           philanthropy: { type: "string" },
           lifestyle: { type: "string" },
           recent_activity: { type: "string" },
@@ -92,6 +126,9 @@ For holdings: if the subject is a COMPANY, list major shareholders (individual, 
       annual_income: String(llm.annual_income || ""),
       compensation: String(llm.compensation || ""),
       holdings: JSON.stringify(llm.holdings || []),
+      portfolio: JSON.stringify(llm.portfolio || []),
+      portfolio_summary: String(llm.portfolio_summary || ""),
+      sector_allocation: JSON.stringify(llm.sector_allocation || []),
       philanthropy: String(llm.philanthropy || ""),
       lifestyle: String(llm.lifestyle || ""),
       recent_activity: String(llm.recent_activity || ""),

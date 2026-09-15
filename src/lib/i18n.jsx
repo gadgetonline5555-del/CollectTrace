@@ -255,6 +255,8 @@ const DICT = {
   "wealth.annual_income": { jp: "年収/収益", en: "Annual income" },
   "wealth.compensation": { jp: "報酬/配当", en: "Comp/Dividends" },
   "wealth.holdings": { jp: "株式保有比率", en: "Holdings / Ownership" },
+  "wealth.portfolio": { jp: "投資ポートフォリオ分析", en: "Investment portfolio analysis" },
+  "wealth.sector_alloc": { jp: "セクター配分", en: "Sector allocation" },
   "wealth.philanthropy": { jp: "慈善事業", en: "Philanthropy" },
   "wealth.lifestyle": { jp: "資産・持ち物", en: "Assets" },
   "wealth.recent_activity": { jp: "最近の動向", en: "Recent activity" },

@@ -1,5 +1,5 @@
 import React from "react";
-import { ExternalLink, Clock, Crown, DollarSign, Briefcase, Heart, Car, Activity, BookOpen, Landmark, Building2, User, Users, Globe } from "lucide-react";
+import { ExternalLink, Clock, Crown, DollarSign, Briefcase, Heart, Car, Activity, BookOpen, Landmark, Building2, User, Users, Globe, PieChart } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { formatDistanceToNow } from "date-fns";
 import { ja, enUS } from "date-fns/locale";
@@ -42,8 +42,13 @@ export default function WealthProfileCard({ profile, live = false }) {
 
   const keyPoints = safeParse(profile.key_points, []);
   const holdings = safeParse(profile.holdings, []);
+  const portfolio = safeParse(profile.portfolio, []);
+  const sectors = safeParse(profile.sector_allocation, []);
   const sources = safeParse(profile.sources, []);
   const locale = lang === "en" ? enUS : ja;
+
+  const hasPortfolio = portfolio.length > 0 || !!profile.portfolio_summary;
+  const maxAlloc = Math.max(100, ...portfolio.map((p) => Number(p.allocation_pct) || 0));
 
   return (
     <article className="rounded-3xl border border-amber-400/20 bg-gradient-to-br from-amber-500/5 to-violet-500/5 overflow-hidden">
@@ -127,6 +132,63 @@ export default function WealthProfileCard({ profile, live = false }) {
               </table>
             </div>
           </Section>
+        )}
+
+        {hasPortfolio && (
+          <div className="rounded-2xl border border-amber-400/30 bg-amber-500/5 p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <PieChart className="w-4 h-4 text-amber-300" />
+              <h3 className="text-sm font-semibold text-amber-200">{t("wealth.portfolio")}</h3>
+            </div>
+            {profile.portfolio_summary && (
+              <p className="text-slate-200 leading-relaxed whitespace-pre-line mb-4">{profile.portfolio_summary}</p>
+            )}
+            {portfolio.length > 0 && (
+              <div className="space-y-2.5">
+                {portfolio.map((p, i) => {
+                  const w = Math.min(100, ((Number(p.allocation_pct) || 0) / maxAlloc) * 100);
+                  return (
+                    <div key={i}>
+                      <div className="flex items-center justify-between text-sm mb-1">
+                        <span className="text-slate-200 truncate flex items-center gap-2">
+                          <span className="truncate">{p.name}</span>
+                          {p.ticker && <span className="text-xs font-mono text-slate-500">{p.ticker}</span>}
+                          {p.sector && <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">{p.sector}</span>}
+                        </span>
+                        <span className="font-mono text-slate-300 shrink-0 ml-2">{Number(p.allocation_pct) || 0}%</span>
+                      </div>
+                      <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500" style={{ width: `${w}%` }} />
+                      </div>
+                      {p.value && <div className="text-xs text-slate-500 mt-0.5">{p.value}{p.note ? ` — ${p.note}` : ""}</div>}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            {sectors.length > 0 && (
+              <div className="mt-5 pt-4 border-t border-amber-400/20">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">{t("wealth.sector_alloc")}</h4>
+                <div className="flex h-3 rounded-full overflow-hidden bg-slate-800">
+                  {sectors.map((s, i) => {
+                    const palette = ["bg-amber-400", "bg-orange-500", "bg-rose-400", "bg-violet-400", "bg-cyan-400", "bg-emerald-400", "bg-slate-400"];
+                    const w = Math.max(0.5, Number(s.allocation_pct) || 0);
+                    return <div key={i} className={palette[i % palette.length]} style={{ width: `${w}%` }} title={`${s.sector}: ${s.allocation_pct}%`} />;
+                  })}
+                </div>
+                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+                  {sectors.map((s, i) => {
+                    const palette = ["bg-amber-400", "bg-orange-500", "bg-rose-400", "bg-violet-400", "bg-cyan-400", "bg-emerald-400", "bg-slate-400"];
+                    return (
+                      <div key={i} className="flex items-center gap-1.5 text-xs text-slate-400">
+                        <span className={`w-2 h-2 rounded-full ${palette[i % palette.length]}`} /> {s.sector} <span className="font-mono text-slate-300">{Number(s.allocation_pct) || 0}%</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
         )}
 
         <Section icon={Heart} title={t("wealth.philanthropy")}>

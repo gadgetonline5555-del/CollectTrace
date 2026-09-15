@@ -35,6 +35,15 @@
     "holdings": {
       "type": "string"
     },
+    "portfolio": {
+      "type": "string"
+    },
+    "portfolio_summary": {
+      "type": "string"
+    },
+    "sector_allocation": {
+      "type": "string"
+    },
     "philanthropy": {
       "type": "string"
     },
