@@ -18,6 +18,7 @@ import Glossary from '@/pages/Glossary';
 import AiResearch from '@/pages/AiResearch';
 import Discover from '@/pages/Discover';
 import WealthTracker from '@/pages/WealthTracker';
+import CompanyIntel from '@/pages/CompanyIntel';
 import Watchlist from '@/pages/Watchlist';
 import Portfolio from '@/pages/Portfolio';
 import ApiAccess from '@/pages/ApiAccess';
@@ -66,6 +67,7 @@ const AuthenticatedApp = () => {
         <Route path="/ai-research" element={<AiResearch />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/wealth" element={<WealthTracker />} />
+        <Route path="/company-intel" element={<CompanyIntel />} />
         <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
           <Route path="/manga" element={<MangaLibrary />} />
           <Route path="/watchlist" element={<Watchlist />} />

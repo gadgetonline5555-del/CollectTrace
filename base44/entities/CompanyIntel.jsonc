@@ -1,0 +1,89 @@
+{
+  "name": "CompanyIntel",
+  "type": "object",
+  "properties": {
+    "query": {
+      "type": "string"
+    },
+    "company_type": {
+      "type": "string",
+      "enum": [
+        "listed",
+        "private",
+        "subsidiary"
+      ],
+      "default": "listed"
+    },
+    "language": {
+      "type": "string",
+      "default": "jp"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "market_cap": {
+      "type": "string"
+    },
+    "intrinsic_value": {
+      "type": "string"
+    },
+    "index_lift": {
+      "type": "string"
+    },
+    "growth_rate": {
+      "type": "string"
+    },
+    "investors": {
+      "type": "string"
+    },
+    "investments": {
+      "type": "string"
+    },
+    "partnerships": {
+      "type": "string"
+    },
+    "corporate_structure": {
+      "type": "string"
+    },
+    "growth_story": {
+      "type": "string"
+    },
+    "key_points": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number",
+      "default": 1
+    },
+    "previous_version_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
