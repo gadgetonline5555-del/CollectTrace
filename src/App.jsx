@@ -20,6 +20,7 @@ import Discover from '@/pages/Discover';
 import WealthTracker from '@/pages/WealthTracker';
 import CompanyIntel from '@/pages/CompanyIntel';
 import IpoTracker from '@/pages/IpoTracker';
+import Invite from '@/pages/Invite';
 import Watchlist from '@/pages/Watchlist';
 import Portfolio from '@/pages/Portfolio';
 import ApiAccess from '@/pages/ApiAccess';
@@ -70,6 +71,7 @@ const AuthenticatedApp = () => {
         <Route path="/wealth" element={<WealthTracker />} />
         <Route path="/company-intel" element={<CompanyIntel />} />
         <Route path="/ipo" element={<IpoTracker />} />
+        <Route path="/invite" element={<Invite />} />
         <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
           <Route path="/manga" element={<MangaLibrary />} />
           <Route path="/watchlist" element={<Watchlist />} />

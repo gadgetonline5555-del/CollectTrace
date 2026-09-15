@@ -1,0 +1,44 @@
+{
+  "name": "Referral",
+  "type": "object",
+  "properties": {
+    "referrer_id": {
+      "type": "string",
+      "description": "\u7d39\u4ecb\u8005\uff08\u62db\u5f85\u3057\u305f\u4eba\uff09\u306e\u30e6\u30fc\u30b6\u30fcID"
+    },
+    "referred_id": {
+      "type": "string",
+      "description": "\u88ab\u7d39\u4ecb\u8005\uff08\u62db\u5f85\u3055\u308c\u305f\u4eba\uff09\u306e\u30e6\u30fc\u30b6\u30fcID"
+    },
+    "status": {
+      "type": "string",
+      "default": "active"
+    }
+  },
+  "required": [
+    "referrer_id",
+    "referred_id"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -2,8 +2,10 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useReferralCapture } from "@/hooks/useReferralCapture";
 
 export default function Layout() {
+  useReferralCapture();
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 antialiased relative overflow-x-hidden">
       <div className="pointer-events-none fixed inset-0 opacity-60">

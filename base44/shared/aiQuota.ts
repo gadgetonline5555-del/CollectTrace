@@ -27,17 +27,28 @@ export async function resolveIdentity(base44: any, req: Request) {
 export async function checkQuota(base44: any, req: Request, functionName = "ai") {
   const identity = await resolveIdentity(base44, req);
   if (PAID.has(identity.tier)) {
-    return { allowed: true, identity, limit: Infinity, remaining: Infinity, used: 0 };
+    return { allowed: true, identity, limit: Infinity, remaining: Infinity, used: 0, bonus: 0 };
   }
-  const limit = LIMITS[identity.tier] ?? LIMITS.anonymous;
+  const baseLimit = LIMITS[identity.tier] ?? LIMITS.anonymous;
   const key = identity.userId || `ip:${identity.ip}`;
   const date = todayStrUTC();
+
+  // Referral bonus: +3 calls/day per active referral, capped at 10 referrals (+30)
+  let bonus = 0;
+  if (identity.userId) {
+    try {
+      const refs = await base44.asServiceRole.entities.Referral.filter({ referrer_id: identity.userId }, "-created_date", 500);
+      bonus = Math.min(refs.length, 10) * 3;
+    } catch { /* non-fatal */ }
+  }
+  const limit = baseLimit + bonus;
+
   const todayCalls = await base44.asServiceRole.entities.AiCall.filter({ identity: key, date }, "-created_date", 500);
   const used = todayCalls.length;
   if (used >= limit) {
-    return { allowed: false, identity, limit, remaining: 0, used };
+    return { allowed: false, identity, limit, remaining: 0, used, bonus };
   }
-  return { allowed: true, identity, limit, remaining: limit - used, used };
+  return { allowed: true, identity, limit, remaining: limit - used, used, bonus };
 }
 
 export async function logCall(base44: any, identity: any, functionName = "ai") {

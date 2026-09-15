@@ -6,6 +6,7 @@ import { track } from "@/lib/track";
 import AiSnapshotCard from "@/components/AiSnapshotCard";
 import AiSummaryCard from "@/components/AiSummaryCard";
 import QuotaNotice from "@/components/QuotaNotice";
+import ShareBar from "@/components/ShareBar";
 import { useSearchParams } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { ja, enUS } from "date-fns/locale";
@@ -165,6 +166,7 @@ export default function AiResearch() {
             )}
           </div>
 
+          {query && !refreshing && !loading && <div className="mb-5"><ShareBar url={`${window.location.origin}/ai-research?query=${encodeURIComponent(query)}`} text={t("share.research", { q: query })} /></div>}
           {quota ? <div className="mb-5"><QuotaNotice used={quota.used} limit={quota.limit} /></div> : error ? <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-4 text-rose-300 text-sm mb-5">{error}</div> : null}
 
           {refreshing ? (

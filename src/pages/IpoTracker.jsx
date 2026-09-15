@@ -3,6 +3,7 @@ import { Search, RefreshCw, History, Rocket, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import IpoProfileCard from "@/components/IpoProfileCard";
 import QuotaNotice from "@/components/QuotaNotice";
+import ShareBar from "@/components/ShareBar";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
 import { useSearchParams } from "react-router-dom";
@@ -157,6 +158,7 @@ export default function IpoTracker() {
             )}
           </div>
 
+          {query && !refreshing && !loading && <div className="mb-5"><ShareBar url={`${window.location.origin}/ipo?query=${encodeURIComponent(query)}&region=${region}`} text={t("share.research", { q: query })} /></div>}
           {quota ? <div className="mb-5"><QuotaNotice used={quota.used} limit={quota.limit} /></div> : error ? <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-4 text-rose-300 text-sm mb-5">{error}</div> : null}
 
           {refreshing ? (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck, Globe, ChevronDown, Lock, Star, Briefcase, Terminal, Sparkles, Compass, Crown, Network, Rocket } from "lucide-react";
+import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck, Globe, ChevronDown, Lock, Star, Briefcase, Terminal, Sparkles, Compass, Crown, Network, Rocket, Gift } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
@@ -20,6 +20,7 @@ const TOOLS = [
   { to: "/wealth", key: "nav.wealth", tier: "free", icon: Crown },
   { to: "/company-intel", key: "nav.intel", tier: "free", icon: Network },
   { to: "/ipo", key: "nav.ipo", tier: "free", icon: Rocket },
+  { to: "/invite", key: "nav.invite", tier: "free", icon: Gift },
   { to: "/watchlist", key: "nav.watchlist", tier: "starter", icon: Star },
   { to: "/portfolio", key: "nav.portfolio", tier: "pro", icon: Briefcase },
   { to: "/api-access", key: "nav.api", tier: "elite", icon: Terminal },

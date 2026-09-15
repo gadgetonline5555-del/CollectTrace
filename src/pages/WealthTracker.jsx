@@ -3,6 +3,7 @@ import { Search, RefreshCw, History, Crown, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import WealthProfileCard from "@/components/WealthProfileCard";
 import QuotaNotice from "@/components/QuotaNotice";
+import ShareBar from "@/components/ShareBar";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
 import { useSearchParams } from "react-router-dom";
@@ -160,6 +161,7 @@ export default function WealthTracker() {
             )}
           </div>
 
+          {query && !refreshing && !loading && <div className="mb-5"><ShareBar url={`${window.location.origin}/wealth?query=${encodeURIComponent(query)}`} text={t("share.research", { q: query })} /></div>}
           {quota ? <div className="mb-5"><QuotaNotice used={quota.used} limit={quota.limit} /></div> : error ? <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-4 text-rose-300 text-sm mb-5">{error}</div> : null}
 
           {refreshing ? (
