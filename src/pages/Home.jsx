@@ -5,6 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import MangaCard from "@/components/MangaCard";
 import ResearchCard from "@/components/ResearchCard";
+import LatestResearch from "@/components/LatestResearch";
 
 export default function Home() {
   const { t } = useI18n();
@@ -86,6 +87,8 @@ export default function Home() {
           {reports.map((r) => <ResearchCard key={r.id} research={r} />)}
         </div>
       </section>
+
+      <LatestResearch />
 
       <section className="max-w-5xl mx-auto px-6 pb-24">
         <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-gradient-to-br from-violet-900/40 via-slate-900 to-cyan-900/30 p-10 text-center">

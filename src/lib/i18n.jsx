@@ -346,6 +346,17 @@ const DICT = {
   "share.copied": { jp: "コピーしました", en: "Copied" },
   "share.research": { jp: "「{q}」のAI投資調査 — Collect Trace", en: "AI investment research on \"{q}\" — Collect Trace" },
 
+  "snap.back": { jp: "ホームに戻る", en: "Back to home" },
+  "snap.notfound": { jp: "この調査は見つかりませんでした。", en: "This research could not be found." },
+  "snap.type_ai": { jp: "AI調査", en: "AI Research" },
+  "snap.type_wealth": { jp: "資産追跡", en: "Wealth" },
+  "snap.type_intel": { jp: "企業構図", en: "Company Intel" },
+  "snap.type_ipo": { jp: "IPO調査", en: "IPO" },
+
+  "home.live_badge": { jp: "リアルタイム更新", en: "Live & auto-updating" },
+  "home.live_h": { jp: "みんなが今調べている投資調査", en: "Research happening right now" },
+  "home.live_p": { jp: "世界中のユーザーがAIで調べた最新の銘柄・資産・IPO。クリックで詳細を閲覧できます。", en: "The latest stocks, wealth and IPOs researched by users worldwide. Click to open any report." },
+
   "invite.badge": { jp: "友達を招待して無料枠を拡大", en: "Invite friends, grow your free quota" },
   "invite.h": { jp: "紹介で無料AI調査枠が増える", en: "Get more free AI research by inviting friends" },
   "invite.p": { jp: "広告費0円で成り立つ仕組みです。あなたの招待リンク経由で友達が参加するたびに、あなたの無料AI調査枠が1日+3回追加されます（最大10人・+30回/日）。", en: "Zero ad spend. Each friend who joins via your link adds +3 AI research calls/day to your free quota (max 10 friends · +30/day)." },
