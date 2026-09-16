@@ -35,25 +35,25 @@ export default function MobileTopBar() {
   const isRoot = pathname === "/";
 
   return (
-    <div className="md:hidden sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-white/10 pt-safe">
+    <div className="md:hidden sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border pt-safe">
       <div className="h-12 flex items-center gap-1 px-2">
         {isRoot ? (
           <Link to="/" className="flex items-center gap-2 pl-1" aria-label="Collect Trace">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-400 via-violet-500 to-amber-400 flex items-center justify-center">
               <TrendingUp className="w-4 h-4 text-slate-950" strokeWidth={2.5} />
             </div>
-            <span className="font-display font-bold text-white tracking-tight">Collect Trace</span>
+            <span className="font-display font-bold text-foreground tracking-tight">Collect Trace</span>
           </Link>
         ) : (
           <>
             <button
               onClick={() => navigate(-1)}
               aria-label="戻る"
-              className="min-h-11 min-w-11 flex items-center justify-center rounded-lg text-slate-200 hover:bg-white/5"
+              className="min-h-11 min-w-11 flex items-center justify-center rounded-lg text-foreground hover:bg-foreground/5"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <span className="font-display font-semibold text-white truncate pr-2">{titleFor(pathname, t)}</span>
+            <span className="font-display font-semibold text-foreground truncate pr-2">{titleFor(pathname, t)}</span>
           </>
         )}
       </div>

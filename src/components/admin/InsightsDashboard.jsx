@@ -6,7 +6,7 @@ import { PLANS } from "@/lib/plans";
 const ChartComponents = lazy(() => import("./ChartComponents"));
 const ChartFallback = () => (
   <div className="flex items-center justify-center" style={{ height: 200 }}>
-    <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+    <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
   </div>
 );
 
@@ -28,20 +28,20 @@ function topEntries(map, n = 8) {
 
 function Kpi({ icon: Icon, label, value, sub, accent }) {
   return (
-    <div className="rounded-2xl p-5 bg-slate-900/60 border border-white/10">
-      <div className="flex items-center gap-2 text-slate-400 text-xs mb-2">
+    <div className="rounded-2xl p-5 bg-card/60 border border-border">
+      <div className="flex items-center gap-2 text-muted-foreground text-xs mb-2">
         <Icon className={`w-4 h-4 ${accent}`} /> {label}
       </div>
-      <div className="font-display text-2xl font-bold text-white">{value}</div>
-      {sub && <div className="text-xs text-slate-500 mt-1">{sub}</div>}
+      <div className="font-display text-2xl font-bold text-foreground">{value}</div>
+      {sub && <div className="text-xs text-muted-foreground/70 mt-1">{sub}</div>}
     </div>
   );
 }
 
 function Section({ title, icon: Icon, children }) {
   return (
-    <div className="rounded-2xl p-5 bg-slate-900/60 border border-white/10">
-      <h3 className="flex items-center gap-2 font-display text-lg font-bold text-white mb-4">
+    <div className="rounded-2xl p-5 bg-card/60 border border-border">
+      <h3 className="flex items-center gap-2 font-display text-lg font-bold text-foreground mb-4">
         <Icon className="w-4 h-4 text-violet-400" /> {title}
       </h3>
       {children}
@@ -50,18 +50,18 @@ function Section({ title, icon: Icon, children }) {
 }
 
 function RankList({ items, unit }) {
-  if (!items.length) return <div className="text-slate-500 text-sm py-4 text-center">データなし</div>;
+  if (!items.length) return <div className="text-muted-foreground/70 text-sm py-4 text-center">データなし</div>;
   const max = items[0][1];
   return (
     <div className="space-y-2">
       {items.map(([k, v], i) => (
         <div key={k} className="flex items-center gap-3">
-          <span className="w-6 text-slate-500 text-sm font-mono">{i + 1}</span>
-          <span className="w-40 truncate text-slate-200 text-sm">{k}</span>
+          <span className="w-6 text-muted-foreground/70 text-sm font-mono">{i + 1}</span>
+          <span className="w-40 truncate text-foreground text-sm">{k}</span>
           <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
             <div className="h-full rounded-full bg-gradient-to-r from-violet-400 to-cyan-400" style={{ width: `${(v / max) * 100}%` }} />
           </div>
-          <span className="w-10 text-right text-slate-300 text-sm font-mono">{v}{unit || ""}</span>
+          <span className="w-10 text-right text-muted-foreground text-sm font-mono">{v}{unit || ""}</span>
         </div>
       ))}
     </div>
@@ -128,7 +128,7 @@ export default function InsightsDashboard() {
   const recent = useMemo(() => acts.slice(0, 12), [acts]);
 
   if (loading) {
-    return <div className="flex items-center justify-center py-20 text-slate-400"><Loader2 className="w-6 h-6 animate-spin mr-2" /> 分析データを取得中…</div>;
+    return <div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="w-6 h-6 animate-spin mr-2" /> 分析データを取得中…</div>;
   }
 
   const evtLabel = {
@@ -148,7 +148,7 @@ export default function InsightsDashboard() {
 
       <div className="grid md:grid-cols-2 gap-6">
         <Section title="プラン別ユーザー分布" icon={Crown}>
-          {stats.totalUsers === 0 ? <div className="text-slate-500 text-sm py-8 text-center">ユーザーなし</div> : (
+          {stats.totalUsers === 0 ? <div className="text-muted-foreground/70 text-sm py-8 text-center">ユーザーなし</div> : (
             <Suspense fallback={<ChartFallback />}>
               <ChartComponents variant="plan" data={planData} />
             </Suspense>
@@ -157,26 +157,26 @@ export default function InsightsDashboard() {
 
         <Section title="収益予測" icon={TrendingUp}>
           <div className="space-y-3 text-sm">
-            <div className="flex justify-between p-3 rounded-xl bg-slate-950/60 border border-white/5">
-              <span className="text-slate-400">現在のMRR</span>
-              <span className="font-display font-bold text-white">¥{stats.mrr.toLocaleString()}</span>
+            <div className="flex justify-between p-3 rounded-xl bg-background/60 border border-white/5">
+              <span className="text-muted-foreground">現在のMRR</span>
+              <span className="font-display font-bold text-foreground">¥{stats.mrr.toLocaleString()}</span>
             </div>
-            <div className="flex justify-between p-3 rounded-xl bg-slate-950/60 border border-white/5">
-              <span className="text-slate-400">無料ユーザーの5%が転換した場合の追加MRR</span>
+            <div className="flex justify-between p-3 rounded-xl bg-background/60 border border-white/5">
+              <span className="text-muted-foreground">無料ユーザーの5%が転換した場合の追加MRR</span>
               <span className="font-display font-bold text-emerald-400">+¥{stats.projectedConv5.toLocaleString()}</span>
             </div>
-            <div className="flex justify-between p-3 rounded-xl bg-slate-950/60 border border-white/5">
-              <span className="text-slate-400">ユーザー1,000人到達時の予想MRR（現轉換率維持）</span>
+            <div className="flex justify-between p-3 rounded-xl bg-background/60 border border-white/5">
+              <span className="text-muted-foreground">ユーザー1,000人到達時の予想MRR（現轉換率維持）</span>
               <span className="font-display font-bold text-cyan-400">¥{stats.projected1000.toLocaleString()}</span>
             </div>
-            <p className="text-xs text-slate-500 pt-1">※ 現在のプラン構成比率とARPUから試算。公開後の集客次第で変動します。</p>
+            <p className="text-xs text-muted-foreground/70 pt-1">※ 現在のプラン構成比率とARPUから試算。公開後の集客次第で変動します。</p>
           </div>
         </Section>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <Section title="漫画カテゴリ別 閲覧興味" icon={BookOpen}>
-          {mangaCatData.length === 0 ? <div className="text-slate-500 text-sm py-8 text-center">データなし</div> : (
+          {mangaCatData.length === 0 ? <div className="text-muted-foreground/70 text-sm py-8 text-center">データなし</div> : (
             <Suspense fallback={<ChartFallback />}>
               <ChartComponents variant="manga" data={mangaCatData} />
             </Suspense>
@@ -184,7 +184,7 @@ export default function InsightsDashboard() {
         </Section>
 
         <Section title="調査レポート セクター別 閲覧興味" icon={BarChart3}>
-          {researchSecData.length === 0 ? <div className="text-slate-500 text-sm py-8 text-center">データなし</div> : (
+          {researchSecData.length === 0 ? <div className="text-muted-foreground/70 text-sm py-8 text-center">データなし</div> : (
             <Suspense fallback={<ChartFallback />}>
               <ChartComponents variant="research" data={researchSecData} />
             </Suspense>
@@ -205,10 +205,10 @@ export default function InsightsDashboard() {
         <Section title="言語別アクセス分布" icon={Globe2}>
           <div className="flex flex-wrap gap-3">
             {langData.map(([k, v], i) => (
-              <div key={k} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-950/60 border border-white/5">
+              <div key={k} className="flex items-center gap-2 px-3 py-2 rounded-xl bg-background/60 border border-white/5">
                 <span className="w-2.5 h-2.5 rounded-full" style={{ background: CHART_COLORS[i % CHART_COLORS.length] }} />
-                <span className="text-slate-200 text-sm font-medium uppercase">{k}</span>
-                <span className="text-slate-400 text-sm">{v}</span>
+                <span className="text-foreground text-sm font-medium uppercase">{k}</span>
+                <span className="text-muted-foreground text-sm">{v}</span>
               </div>
             ))}
           </div>
@@ -218,8 +218,8 @@ export default function InsightsDashboard() {
           <div className="space-y-2">
             {Object.entries(activityStats.byType).sort((a, b) => b[1] - a[1]).map(([k, v]) => (
               <div key={k} className="flex justify-between text-sm">
-                <span className="text-slate-300">{evtLabel[k] || k}</span>
-                <span className="text-slate-400 font-mono">{v}</span>
+                <span className="text-muted-foreground">{evtLabel[k] || k}</span>
+                <span className="text-muted-foreground font-mono">{v}</span>
               </div>
             ))}
           </div>
@@ -227,13 +227,13 @@ export default function InsightsDashboard() {
       </div>
 
       <Section title="最近のアクティビティ" icon={Activity}>
-        {recent.length === 0 ? <div className="text-slate-500 text-sm py-4 text-center">記録なし</div> : (
+        {recent.length === 0 ? <div className="text-muted-foreground/70 text-sm py-4 text-center">記録なし</div> : (
           <div className="space-y-2 max-h-72 overflow-y-auto">
             {recent.map((a) => (
               <div key={a.id} className="flex items-center gap-3 text-sm py-1.5 border-b border-white/5">
-                <span className="px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 text-xs whitespace-nowrap">{evtLabel[a.event_type] || a.event_type}</span>
-                <span className="text-slate-200 truncate flex-1">{a.title || a.keyword || a.ticker || a.category || "—"}</span>
-                <span className="text-slate-500 text-xs uppercase">{a.language || ""}</span>
+                <span className="px-2 py-0.5 rounded-md bg-slate-800 text-muted-foreground text-xs whitespace-nowrap">{evtLabel[a.event_type] || a.event_type}</span>
+                <span className="text-foreground truncate flex-1">{a.title || a.keyword || a.ticker || a.category || "—"}</span>
+                <span className="text-muted-foreground/70 text-xs uppercase">{a.language || ""}</span>
                 <span className="text-slate-600 text-xs">{new Date(a.created_date).toLocaleString("ja-JP")}</span>
               </div>
             ))}

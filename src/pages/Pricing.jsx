@@ -61,9 +61,9 @@ export default function Pricing() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
       <div className="text-center mb-12">
-        <h1 className="font-display text-5xl font-bold text-white">{t("pricing.h1")}</h1>
-        <p className="text-slate-400 mt-4 max-w-2xl mx-auto text-lg">{t("pricing.p")}</p>
-        <div className="inline-flex items-center gap-2 mt-6 px-4 py-2 rounded-full bg-slate-900 border border-white/10 text-sm text-slate-300">
+        <h1 className="font-display text-5xl font-bold text-foreground">{t("pricing.h1")}</h1>
+        <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">{t("pricing.p")}</p>
+        <div className="inline-flex items-center gap-2 mt-6 px-4 py-2 rounded-full bg-card border border-border text-sm text-muted-foreground">
           <ShieldCheck className="w-4 h-4 text-emerald-400" />
           {t("pricing.disclaimer")}
         </div>
@@ -83,22 +83,22 @@ export default function Pricing() {
       <PricingTiers currentTier={current} onUpgrade={handleUpgrade} busy={busy} />
 
       <div className="mt-20">
-        <h2 className="font-display text-2xl font-bold text-white text-center mb-8">{t("pricing.compare_h")}</h2>
+        <h2 className="font-display text-2xl font-bold text-foreground text-center mb-8">{t("pricing.compare_h")}</h2>
         <div className="hidden md:block">
-        <div className="relative overflow-x-auto overscroll-x-auto touch-pan-x rounded-2xl border border-white/10">
+        <div className="relative overflow-x-auto overscroll-x-auto touch-pan-x rounded-2xl border border-border">
           <div aria-hidden className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-r from-slate-950/90 to-transparent" />
           <div aria-hidden className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-l from-slate-950/90 to-transparent" />
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-900/80 text-slate-300">
+              <tr className="bg-card/80 text-muted-foreground">
                 <th className="text-left p-4 font-medium">{t("cmp.feature")}</th>
                 {PLANS.map((p) => <th key={p.id} className="p-4 font-medium">{p.name[lang]}</th>)}
               </tr>
             </thead>
-            <tbody className="text-slate-300">
+            <tbody className="text-muted-foreground">
               {ROWS.map((row) => (
-                <tr key={row.label} className="border-t border-white/10">
-                  <td className="p-4 text-white font-medium">{row.label}</td>
+                <tr key={row.label} className="border-t border-border">
+                  <td className="p-4 text-foreground font-medium">{row.label}</td>
                   {row.values.map((v, i) => <td key={i} className="p-4 text-center">{cell(v)}</td>)}
                 </tr>
               ))}
@@ -108,15 +108,15 @@ export default function Pricing() {
         </div>
         <div className="md:hidden -mx-4 px-4 space-y-4">
           {PLANS.map((p, pi) => (
-            <div key={p.id} className="rounded-2xl border border-white/10 bg-slate-900/60 overflow-hidden">
-              <div className="px-4 py-3 border-b border-white/10 bg-slate-900/80">
-                <h3 className="font-display text-lg font-bold text-white">{p.name[lang]}</h3>
+            <div key={p.id} className="rounded-2xl border border-border bg-card/60 overflow-hidden">
+              <div className="px-4 py-3 border-b border-border bg-card/80">
+                <h3 className="font-display text-lg font-bold text-foreground">{p.name[lang]}</h3>
               </div>
               <div className="divide-y divide-white/5">
                 {ROWS.map((row) => (
                   <div key={row.label} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
-                    <span className="text-slate-400">{row.label}</span>
-                    <span className="text-white font-medium text-right">{cell(row.values[pi])}</span>
+                    <span className="text-muted-foreground">{row.label}</span>
+                    <span className="text-foreground font-medium text-right">{cell(row.values[pi])}</span>
                   </div>
                 ))}
               </div>

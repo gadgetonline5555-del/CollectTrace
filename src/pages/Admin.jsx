@@ -41,10 +41,10 @@ export default function Admin() {
   const [tab, setTab] = useState("manga");
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-      <h1 className="font-display text-3xl font-bold text-white mb-2">管理画面</h1>
-      <p className="text-slate-400 mb-8">漫画・調査レポートのコンテンツを管理します。</p>
+      <h1 className="font-display text-3xl font-bold text-foreground mb-2">管理画面</h1>
+      <p className="text-muted-foreground mb-8">漫画・調査レポートのコンテンツを管理します。</p>
       <Tabs value={tab} onValueChange={setTab}>
-        <TabsList className="bg-slate-900 border border-white/10">
+        <TabsList className="bg-card border border-border">
           <TabsTrigger value="manga">漫画</TabsTrigger>
           <TabsTrigger value="research">調査レポート</TabsTrigger>
           <TabsTrigger value="glossary">用語集</TabsTrigger>

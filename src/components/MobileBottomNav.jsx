@@ -85,7 +85,7 @@ export default function MobileBottomNav() {
   return (
     <>
       <nav
-        className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-slate-950/90 backdrop-blur-xl border-t border-white/10 pb-safe"
+        className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-background/90 backdrop-blur-xl border-t border-border pb-safe"
         aria-label="モバイルナビゲーション"
       >
         <div className="flex">
@@ -99,8 +99,8 @@ export default function MobileBottomNav() {
                 aria-current={a ? "page" : undefined}
                 className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 min-h-11"
               >
-                <Icon className={`w-5 h-5 ${a ? "text-white" : "text-slate-400"}`} />
-                <span className={`text-[10px] font-medium ${a ? "text-white" : "text-slate-400"}`}>{t(key)}</span>
+                <Icon className={`w-5 h-5 ${a ? "text-foreground" : "text-muted-foreground"}`} />
+                <span className={`text-sm font-medium ${a ? "text-foreground" : "text-muted-foreground"}`}>{t(key)}</span>
               </button>
             );
           })}
@@ -109,26 +109,26 @@ export default function MobileBottomNav() {
             aria-label={t("mnav.more")}
             className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 min-h-11"
           >
-            <MoreHorizontal className="w-5 h-5 text-slate-400" />
-            <span className="text-[10px] font-medium text-slate-400">{t("mnav.more")}</span>
+            <MoreHorizontal className="w-5 h-5 text-muted-foreground" />
+            <span className="text-sm font-medium text-muted-foreground">{t("mnav.more")}</span>
           </button>
         </div>
       </nav>
 
       <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerContent className="bg-slate-950 border-white/10 text-slate-100 pb-safe">
+        <DrawerContent className="bg-background border-border text-slate-100 pb-safe">
           <DrawerHeader className="text-left">
-            <DrawerTitle className="text-white">{t("mnav.more")}</DrawerTitle>
+            <DrawerTitle className="text-foreground">{t("mnav.more")}</DrawerTitle>
           </DrawerHeader>
           <div className="px-2 pb-4 max-h-[60vh] overflow-y-auto">
             {moreItems.map(({ to, key }) => (
               <DrawerClose asChild key={to}>
                 <Link
                   to={to}
-                  className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-white/5 min-h-11"
+                  className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-foreground/5 min-h-11"
                 >
-                  <span className="text-sm text-slate-200">{t(key)}</span>
-                  <ChevronRight className="w-4 h-4 text-slate-500" />
+                  <span className="text-sm text-foreground">{t(key)}</span>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground/70" />
                 </Link>
               </DrawerClose>
             ))}

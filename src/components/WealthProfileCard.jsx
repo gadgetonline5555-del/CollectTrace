@@ -28,7 +28,7 @@ function Section({ icon: Icon, title, children }) {
   if (!children) return null;
   return (
     <div>
-      <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+      <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-3">
         <Icon className="w-3.5 h-3.5" /> {title}
       </h3>
       {children}
@@ -52,18 +52,18 @@ export default function WealthProfileCard({ profile, live = false }) {
 
   return (
     <article className="rounded-3xl border border-amber-400/20 bg-gradient-to-br from-amber-500/5 to-violet-500/5 overflow-hidden">
-      <div className="p-6 border-b border-white/10">
+      <div className="p-6 border-b border-border">
         <div className="flex items-center gap-2 mb-2">
-          <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 border border-white/10 text-slate-300 capitalize">{profile.profile_type}</span>
-          <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 border border-white/10 text-slate-400">v{profile.version}</span>
+          <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 border border-border text-muted-foreground capitalize">{profile.profile_type}</span>
+          <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 border border-border text-muted-foreground">v{profile.version}</span>
           {live && (
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/15 border border-amber-400/30 text-amber-300">
               <Crown className="w-3 h-3" /> {t("wealth.just_now")}
             </span>
           )}
         </div>
-        <h2 className="font-display text-3xl font-bold text-white">{profile.query}</h2>
-        <div className="flex items-center gap-1.5 mt-2 text-xs text-slate-500">
+        <h2 className="font-display text-3xl font-bold text-foreground">{profile.query}</h2>
+        <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground/70">
           <Clock className="w-3.5 h-3.5" />
           {profile.created_date ? formatDistanceToNow(new Date(profile.created_date), { addSuffix: true, locale }) : ""}
         </div>
@@ -71,35 +71,35 @@ export default function WealthProfileCard({ profile, live = false }) {
 
       <div className="p-6 space-y-6">
         {profile.summary && (
-          <p className="text-slate-200 text-lg leading-relaxed border-l-2 border-amber-400 pl-4 italic">{profile.summary}</p>
+          <p className="text-foreground text-lg leading-relaxed border-l-2 border-amber-400 pl-4 italic">{profile.summary}</p>
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {profile.net_worth && (
-            <div className="rounded-xl p-4 bg-slate-900/60 border border-amber-400/20">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><Crown className="w-3.5 h-3.5" /> {t("wealth.net_worth")}</div>
+            <div className="rounded-xl p-4 bg-card/60 border border-amber-400/20">
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/70 uppercase tracking-wide"><Crown className="w-3.5 h-3.5" /> {t("wealth.net_worth")}</div>
               <div className="font-display text-xl font-bold text-amber-300 mt-1">{profile.net_worth}</div>
             </div>
           )}
           {profile.annual_income && (
-            <div className="rounded-xl p-4 bg-slate-900/60 border border-white/5">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("wealth.annual_income")}</div>
-              <div className="font-display text-base font-bold text-white mt-1">{profile.annual_income}</div>
+            <div className="rounded-xl p-4 bg-card/60 border border-white/5">
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/70 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("wealth.annual_income")}</div>
+              <div className="font-display text-base font-bold text-foreground mt-1">{profile.annual_income}</div>
             </div>
           )}
           {profile.compensation && (
-            <div className="rounded-xl p-4 bg-slate-900/60 border border-white/5">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 uppercase tracking-wide"><Briefcase className="w-3.5 h-3.5" /> {t("wealth.compensation")}</div>
-              <div className="font-display text-base font-bold text-white mt-1">{profile.compensation}</div>
+            <div className="rounded-xl p-4 bg-card/60 border border-white/5">
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/70 uppercase tracking-wide"><Briefcase className="w-3.5 h-3.5" /> {t("wealth.compensation")}</div>
+              <div className="font-display text-base font-bold text-foreground mt-1">{profile.compensation}</div>
             </div>
           )}
         </div>
 
         {holdings.length > 0 && (
           <Section icon={Users} title={t("wealth.holdings")}>
-            <div className="rounded-2xl border border-white/10 overflow-hidden">
+            <div className="rounded-2xl border border-border overflow-hidden">
               <table className="w-full text-sm">
-                <thead className="bg-slate-900/80 text-slate-500 text-xs uppercase tracking-wide">
+                <thead className="bg-card/80 text-muted-foreground/70 text-xs uppercase tracking-wide">
                   <tr>
                     <th className="text-left px-4 py-2.5 font-medium">{lang === "en" ? "Name" : "名前"}</th>
                     <th className="text-left px-4 py-2.5 font-medium">{lang === "en" ? "Type" : "種別"}</th>
@@ -111,20 +111,20 @@ export default function WealthProfileCard({ profile, live = false }) {
                     const Icon = HOLDER_ICON[h.type] || User;
                     const color = HOLDER_COLOR[h.type] || HOLDER_COLOR.individual;
                     return (
-                      <tr key={i} className="hover:bg-white/5">
-                        <td className="px-4 py-3 text-slate-200">
+                      <tr key={i} className="hover:bg-foreground/5">
+                        <td className="px-4 py-3 text-foreground">
                           <div className="flex items-center gap-2">
-                            <Icon className="w-4 h-4 text-slate-400 shrink-0" />
+                            <Icon className="w-4 h-4 text-muted-foreground shrink-0" />
                             <div className="min-w-0">
                               <div className="truncate">{h.name}</div>
-                              {h.note && <div className="text-sm text-slate-500 truncate">{h.note}</div>}
+                              {h.note && <div className="text-sm text-muted-foreground/70 truncate">{h.note}</div>}
                             </div>
                           </div>
                         </td>
                         <td className="px-4 py-3">
                           <span className={`inline-flex px-2 py-0.5 rounded text-xs font-medium border ${color}`}>{h.type}</span>
                         </td>
-                        <td className="px-4 py-3 text-right font-mono text-slate-300">{h.stake || "—"}</td>
+                        <td className="px-4 py-3 text-right font-mono text-muted-foreground">{h.stake || "—"}</td>
                       </tr>
                     );
                   })}
@@ -141,7 +141,7 @@ export default function WealthProfileCard({ profile, live = false }) {
               <h3 className="text-sm font-semibold text-amber-200">{t("wealth.portfolio")}</h3>
             </div>
             {profile.portfolio_summary && (
-              <p className="text-slate-200 leading-relaxed whitespace-pre-line mb-4">{profile.portfolio_summary}</p>
+              <p className="text-foreground leading-relaxed whitespace-pre-line mb-4">{profile.portfolio_summary}</p>
             )}
             {portfolio.length > 0 && (
               <div className="space-y-2.5">
@@ -150,17 +150,17 @@ export default function WealthProfileCard({ profile, live = false }) {
                   return (
                     <div key={i}>
                       <div className="flex items-center justify-between text-sm mb-1">
-                        <span className="text-slate-200 truncate flex items-center gap-2">
+                        <span className="text-foreground truncate flex items-center gap-2">
                           <span className="truncate">{p.name}</span>
-                          {p.ticker && <span className="text-xs font-mono text-slate-500">{p.ticker}</span>}
-                          {p.sector && <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">{p.sector}</span>}
+                          {p.ticker && <span className="text-xs font-mono text-muted-foreground/70">{p.ticker}</span>}
+                          {p.sector && <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-muted-foreground">{p.sector}</span>}
                         </span>
-                        <span className="font-mono text-slate-300 shrink-0 ml-2">{Number(p.allocation_pct) || 0}%</span>
+                        <span className="font-mono text-muted-foreground shrink-0 ml-2">{Number(p.allocation_pct) || 0}%</span>
                       </div>
                       <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
                         <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500" style={{ width: `${w}%` }} />
                       </div>
-                      {p.value && <div className="text-sm text-slate-500 mt-0.5">{p.value}{p.note ? ` — ${p.note}` : ""}</div>}
+                      {p.value && <div className="text-sm text-muted-foreground/70 mt-0.5">{p.value}{p.note ? ` — ${p.note}` : ""}</div>}
                     </div>
                   );
                 })}
@@ -168,7 +168,7 @@ export default function WealthProfileCard({ profile, live = false }) {
             )}
             {sectors.length > 0 && (
               <div className="mt-5 pt-4 border-t border-amber-400/20">
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">{t("wealth.sector_alloc")}</h4>
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-3">{t("wealth.sector_alloc")}</h4>
                 <div className="flex h-3 rounded-full overflow-hidden bg-slate-800">
                   {sectors.map((s, i) => {
                     const palette = ["bg-amber-400", "bg-orange-500", "bg-rose-400", "bg-violet-400", "bg-cyan-400", "bg-emerald-400", "bg-slate-400"];
@@ -180,8 +180,8 @@ export default function WealthProfileCard({ profile, live = false }) {
                   {sectors.map((s, i) => {
                     const palette = ["bg-amber-400", "bg-orange-500", "bg-rose-400", "bg-violet-400", "bg-cyan-400", "bg-emerald-400", "bg-slate-400"];
                     return (
-                      <div key={i} className="flex items-center gap-1.5 text-xs text-slate-400">
-                        <span className={`w-2 h-2 rounded-full ${palette[i % palette.length]}`} /> {s.sector} <span className="font-mono text-slate-300">{Number(s.allocation_pct) || 0}%</span>
+                      <div key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <span className={`w-2 h-2 rounded-full ${palette[i % palette.length]}`} /> {s.sector} <span className="font-mono text-muted-foreground">{Number(s.allocation_pct) || 0}%</span>
                       </div>
                     );
                   })}
@@ -192,26 +192,26 @@ export default function WealthProfileCard({ profile, live = false }) {
         )}
 
         <Section icon={Heart} title={t("wealth.philanthropy")}>
-          <p className="text-slate-300 leading-relaxed whitespace-pre-line">{profile.philanthropy}</p>
+          <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{profile.philanthropy}</p>
         </Section>
 
         <Section icon={Car} title={t("wealth.lifestyle")}>
-          <p className="text-slate-300 leading-relaxed whitespace-pre-line">{profile.lifestyle}</p>
+          <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{profile.lifestyle}</p>
         </Section>
 
         <Section icon={Activity} title={t("wealth.recent_activity")}>
-          <p className="text-slate-300 leading-relaxed whitespace-pre-line">{profile.recent_activity}</p>
+          <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{profile.recent_activity}</p>
         </Section>
 
         <Section icon={BookOpen} title={t("wealth.history_sec")}>
-          <p className="text-slate-300 leading-relaxed whitespace-pre-line">{profile.history}</p>
+          <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{profile.history}</p>
         </Section>
 
         {keyPoints.length > 0 && (
           <Section icon={Crown} title={t("wealth.key_points")}>
             <ul className="space-y-2">
               {keyPoints.map((p, i) => (
-                <li key={i} className="flex gap-2.5 text-slate-300 leading-relaxed">
+                <li key={i} className="flex gap-2.5 text-muted-foreground leading-relaxed">
                   <span className="mt-2 w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                   <span>{p}</span>
                 </li>
@@ -222,7 +222,7 @@ export default function WealthProfileCard({ profile, live = false }) {
 
         {profile.content && (
           <Section icon={BookOpen} title={t("wealth.full_analysis")}>
-            <div className="text-slate-300 leading-relaxed whitespace-pre-line">{profile.content}</div>
+            <div className="text-muted-foreground leading-relaxed whitespace-pre-line">{profile.content}</div>
           </Section>
         )}
 

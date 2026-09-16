@@ -48,10 +48,10 @@ export default function Settings() {
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-8">
-      <h1 className="font-display text-2xl font-bold text-white mb-6">{t("set.h")}</h1>
+      <h1 className="font-display text-2xl font-bold text-foreground mb-6">{t("set.h")}</h1>
 
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-slate-400 mb-3">{t("set.language")}</h2>
+        <h2 className="text-sm font-semibold text-muted-foreground mb-3">{t("set.language")}</h2>
         <div className="flex gap-2">
           {[
             { id: "jp", label: "日本語" },
@@ -61,7 +61,7 @@ export default function Settings() {
               key={o.id}
               onClick={() => setLang(o.id)}
               className={`flex-1 py-3 rounded-xl text-sm font-medium min-h-11 ${
-                lang === o.id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 border border-white/10"
+                lang === o.id ? "bg-white text-slate-950" : "bg-card text-muted-foreground border border-border"
               }`}
             >
               {o.label}
@@ -71,7 +71,7 @@ export default function Settings() {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-slate-400 mb-3">{t("set.theme")}</h2>
+        <h2 className="text-sm font-semibold text-muted-foreground mb-3">{t("set.theme")}</h2>
         <div className="flex gap-2">
           {THEMES.map(({ id, icon: Icon, key }) => (
             <button
@@ -79,7 +79,7 @@ export default function Settings() {
               onClick={() => setTheme(id)}
               aria-label={t(key)}
               className={`flex-1 flex flex-col items-center gap-1 py-3 rounded-xl text-xs font-medium min-h-11 ${
-                theme === id ? "bg-white text-slate-950" : "bg-slate-900 text-slate-300 border border-white/10"
+                theme === id ? "bg-white text-slate-950" : "bg-card text-muted-foreground border border-border"
               }`}
             >
               <Icon className="w-5 h-5" />
@@ -90,12 +90,12 @@ export default function Settings() {
       </section>
 
       <section className="mb-8">
-        <h2 className="text-sm font-semibold text-slate-400 mb-3">{t("set.legal_h")}</h2>
+        <h2 className="text-sm font-semibold text-muted-foreground mb-3">{t("set.legal_h")}</h2>
         <div className="flex flex-col gap-2">
-          <Link to="/legal#privacy" className="min-h-11 flex items-center px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-sm text-slate-200 hover:bg-slate-800 transition-colors">
+          <Link to="/legal#privacy" className="min-h-11 flex items-center px-4 py-3 rounded-xl bg-card border border-border text-sm text-foreground hover:bg-slate-800 transition-colors">
             {t("set.privacy")}
           </Link>
-          <Link to="/legal#terms" className="min-h-11 flex items-center px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-sm text-slate-200 hover:bg-slate-800 transition-colors">
+          <Link to="/legal#terms" className="min-h-11 flex items-center px-4 py-3 rounded-xl bg-card border border-border text-sm text-foreground hover:bg-slate-800 transition-colors">
             {t("set.terms")}
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default function Settings() {
         <section>
           <h2 className="text-sm font-semibold text-rose-400 mb-3">{t("set.delete")}</h2>
           <div className="rounded-2xl border border-rose-400/30 bg-rose-500/5 p-4">
-            <p className="text-sm text-slate-300 mb-4">{t("set.delete_desc")}</p>
+            <p className="text-sm text-muted-foreground mb-4">{t("set.delete_desc")}</p>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <button
@@ -115,10 +115,10 @@ export default function Settings() {
                   <Trash2 className="w-4 h-4" /> {t("set.delete_btn")}
                 </button>
               </AlertDialogTrigger>
-              <AlertDialogContent className="bg-slate-950 border-white/10 text-slate-100">
+              <AlertDialogContent className="bg-background border-border text-foreground">
                 <AlertDialogHeader>
                   <AlertDialogTitle>{t("set.delete_confirm_t")}</AlertDialogTitle>
-                  <AlertDialogDescription className="text-slate-400">
+                  <AlertDialogDescription className="text-muted-foreground">
                     {t("set.delete_confirm_d")}
                   </AlertDialogDescription>
                 </AlertDialogHeader>

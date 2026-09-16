@@ -19,7 +19,7 @@ export default function AiSummaryCard({ snapshot }) {
   const sentConfig = {
     bullish: { icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-400/30", label: t("air.bullish") },
     bearish: { icon: TrendingDown, color: "text-rose-400", bg: "bg-rose-500/10 border-rose-400/30", label: t("air.bearish") },
-    neutral: { icon: Minus, color: "text-slate-300", bg: "bg-slate-500/10 border-slate-400/30", label: t("air.neutral") }
+    neutral: { icon: Minus, color: "text-muted-foreground", bg: "bg-slate-500/10 border-slate-400/30", label: t("air.neutral") }
   }[sent];
 
   return (
@@ -33,21 +33,21 @@ export default function AiSummaryCard({ snapshot }) {
         </div>
       </div>
 
-      <h2 className="font-display text-2xl font-bold text-white mb-1">{snapshot.query}</h2>
-      <p className="text-xs text-slate-500 mb-4">
+      <h2 className="font-display text-2xl font-bold text-foreground mb-1">{snapshot.query}</h2>
+      <p className="text-xs text-muted-foreground/70 mb-4">
         {snapshot.created_date ? formatDistanceToNow(new Date(snapshot.created_date), { addSuffix: true, locale }) : ""} · v{snapshot.version}
       </p>
 
       {snapshot.summary && (
-        <p className="text-slate-200 text-base leading-relaxed border-l-2 border-cyan-400 pl-4 mb-5">{snapshot.summary}</p>
+        <p className="text-foreground text-base leading-relaxed border-l-2 border-cyan-400 pl-4 mb-5">{snapshot.summary}</p>
       )}
 
       {Object.keys(metrics).length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-5">
           {Object.entries(metrics).slice(0, 6).map(([k, v]) => (
-            <div key={k} className="rounded-lg px-3 py-2 bg-slate-900/50 border border-white/5">
-              <div className="text-[10px] text-slate-500 uppercase tracking-wide">{k.replace(/_/g, " ")}</div>
-              <div className="font-display text-base font-bold text-white">{String(v)}</div>
+            <div key={k} className="rounded-lg px-3 py-2 bg-card/50 border border-white/5">
+              <div className="text-[10px] text-muted-foreground/70 uppercase tracking-wide">{k.replace(/_/g, " ")}</div>
+              <div className="font-display text-base font-bold text-foreground">{String(v)}</div>
             </div>
           ))}
         </div>
@@ -56,7 +56,7 @@ export default function AiSummaryCard({ snapshot }) {
       {keyPoints.length > 0 && (
         <ul className="space-y-1.5">
           {keyPoints.map((p, i) => (
-            <li key={i} className="flex gap-2 text-slate-300 text-sm leading-relaxed">
+            <li key={i} className="flex gap-2 text-muted-foreground text-sm leading-relaxed">
               <span className="mt-1.5 w-1 h-1 rounded-full bg-cyan-400 shrink-0" />
               <span>{p}</span>
             </li>

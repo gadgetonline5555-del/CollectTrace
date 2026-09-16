@@ -13,7 +13,7 @@ export default function MangaCard({ manga }) {
   return (
     <Link
       to={`/manga/${manga.id}`}
-      className="group relative rounded-2xl overflow-hidden bg-slate-900 border border-white/10 hover:border-white/25 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-violet-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="group relative rounded-2xl overflow-hidden bg-card border border-border hover:border-white/25 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-violet-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <div className="relative aspect-[3/4] overflow-hidden">
         <div
@@ -21,12 +21,12 @@ export default function MangaCard({ manga }) {
           style={{ backgroundImage: manga.cover_url }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur text-[11px] font-semibold text-white border border-white/15">
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/80 backdrop-blur text-[11px] font-semibold text-foreground border border-border">
           <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${plan.accent}`} />
           {plan.name[lang]}
         </div>
         {!access && (
-          <div aria-hidden="true" className="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-950/80 backdrop-blur flex items-center justify-center border border-white/15">
+          <div aria-hidden="true" className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur flex items-center justify-center border border-border">
             <Lock className="w-4 h-4 text-amber-300" />
           </div>
         )}
@@ -34,10 +34,10 @@ export default function MangaCard({ manga }) {
           <div className="flex items-center gap-1 text-amber-300 text-xs mb-1">
             <Star className="w-3.5 h-3.5 fill-current" />
             <span className="font-semibold">{manga.rating?.toFixed(1) ?? "4.5"}</span>
-            <span className="text-slate-400 ml-2 flex items-center gap-1"><BookOpen className="w-3.5 h-3.5" />{manga.episodes}{t("mc.ep")}</span>
+            <span className="text-muted-foreground ml-2 flex items-center gap-1"><BookOpen className="w-3.5 h-3.5" />{manga.episodes}{t("mc.ep")}</span>
           </div>
-          <h3 className="font-display font-bold text-white text-lg leading-tight line-clamp-2">{manga.title}</h3>
-          <p className="text-slate-400 text-sm mt-0.5">{manga.author}</p>
+          <h3 className="font-display font-bold text-foreground text-lg leading-tight line-clamp-2">{manga.title}</h3>
+          <p className="text-muted-foreground text-sm mt-0.5">{manga.author}</p>
         </div>
       </div>
     </Link>

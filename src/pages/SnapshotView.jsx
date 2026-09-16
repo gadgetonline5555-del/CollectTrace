@@ -66,17 +66,17 @@ export default function SnapshotView() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
-      <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white mb-6">
+      <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
         <ArrowLeft className="w-4 h-4" /> {t("snap.back")}
       </Link>
       {loading ? (
-        <div className="rounded-3xl border border-white/10 bg-slate-900/60 p-12 text-center">
+        <div className="rounded-3xl border border-border bg-card/60 p-12 text-center">
           <div className="w-8 h-8 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto" />
         </div>
       ) : error ? (
-        <div className="rounded-3xl border border-white/10 bg-slate-900/60 p-12 text-center">
+        <div className="rounded-3xl border border-border bg-card/60 p-12 text-center">
           <Sparkles className="w-10 h-10 text-slate-600 mx-auto mb-4" />
-          <p className="text-slate-300">{t("snap.notfound")}</p>
+          <p className="text-muted-foreground">{t("snap.notfound")}</p>
         </div>
       ) : (
         <>

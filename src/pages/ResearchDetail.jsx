@@ -18,8 +18,8 @@ export default function ResearchDetail() {
     base44.entities.Research.get(id).then((r) => { setReport(r); setLoading(false); track("research_view", { target_id: r?.id, target_type: "research", title: r?.title, category: r?.sector, ticker: r?.ticker, content_tier: r?.plan_tier }); }).catch(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <div className="max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center text-slate-400">{t("rd.loading")}</div>;
-  if (!report) return <div className="max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center text-slate-400">{t("rd.notfound")}</div>;
+  if (loading) return <div className="max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center text-muted-foreground">{t("rd.loading")}</div>;
+  if (!report) return <div className="max-w-4xl mx-auto px-4 sm:px-6 py-20 text-center text-muted-foreground">{t("rd.notfound")}</div>;
 
   const plan = getPlan(report.plan_tier);
   const access = can(report.plan_tier);
@@ -35,43 +35,43 @@ export default function ResearchDetail() {
 
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-      <Link to="/research" className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-white mb-6">
+      <Link to="/research" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
         <ArrowLeft className="w-4 h-4" /> {t("rd.back")}
       </Link>
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-sm font-mono font-bold text-slate-300">{report.ticker}</span>
+        <span className="text-sm font-mono font-bold text-muted-foreground">{report.ticker}</span>
         <span className={`px-2.5 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${plan.accent} text-slate-950`}>{plan.name[lang]}</span>
-        <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-900 border border-white/10 text-slate-300">{report.sector}</span>
+        <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-card border border-border text-muted-foreground">{report.sector}</span>
       </div>
-      <h1 className="font-display text-4xl font-bold text-white leading-tight">{report.title}</h1>
-      <div className="flex items-center gap-4 mt-4 text-sm text-slate-400">
+      <h1 className="font-display text-4xl font-bold text-foreground leading-tight">{report.title}</h1>
+      <div className="flex items-center gap-4 mt-4 text-sm text-muted-foreground">
         {report.author && <span className="flex items-center gap-1"><User className="w-4 h-4" />{report.author}</span>}
         {report.published_date && <span className="flex items-center gap-1"><Calendar className="w-4 h-4" />{report.published_date}</span>}
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
         {METRICS.map((m) => (
-          <div key={m.id} className="rounded-2xl p-5 bg-slate-900/60 border border-white/10">
-            <m.icon className="w-5 h-5 text-slate-400 mb-2" />
-            <div className={`font-display text-2xl font-bold ${m.id === "upside" ? (upside >= 0 ? "text-emerald-400" : "text-rose-400") : "text-white"}`}>
+          <div key={m.id} className="rounded-2xl p-5 bg-card/60 border border-border">
+            <m.icon className="w-5 h-5 text-muted-foreground mb-2" />
+            <div className={`font-display text-2xl font-bold ${m.id === "upside" ? (upside >= 0 ? "text-emerald-400" : "text-rose-400") : "text-foreground"}`}>
               {m.value}
             </div>
-            <div className="text-xs text-slate-500">{m.label}</div>
+            <div className="text-xs text-muted-foreground/70">{m.label}</div>
           </div>
         ))}
       </div>
-      {report.summary && <p className="mt-8 text-lg text-slate-300 leading-relaxed border-l-2 border-violet-400 pl-4 italic">{report.summary}</p>}
+      {report.summary && <p className="mt-8 text-lg text-muted-foreground leading-relaxed border-l-2 border-violet-400 pl-4 italic">{report.summary}</p>}
       <div className="mt-8">
         {!access ? (
           <div className="rounded-3xl border border-amber-400/30 bg-amber-500/5 p-8 text-center">
             <Lock className="w-10 h-10 text-amber-300 mx-auto mb-4" />
-            <h2 className="font-display text-2xl font-bold text-white">{t("rd.lock_h", { plan: plan.name[lang] })}</h2>
-            <p className="text-slate-400 mt-2 mb-6">{t("rd.lock_p", { price: plan.priceLabel[lang] })}</p>
+            <h2 className="font-display text-2xl font-bold text-foreground">{t("rd.lock_h", { plan: plan.name[lang] })}</h2>
+            <p className="text-muted-foreground mt-2 mb-6">{t("rd.lock_p", { price: plan.priceLabel[lang] })}</p>
             <Link to="/pricing" className="inline-flex px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-amber-300 to-orange-500 text-slate-950 hover:opacity-90">
               {t("rd.view_plans")}
             </Link>
           </div>
         ) : (
-          <div className="space-y-5 text-slate-300 leading-relaxed whitespace-pre-line">
+          <div className="space-y-5 text-muted-foreground leading-relaxed whitespace-pre-line">
             {report.content || t("rd.empty")}
           </div>
         )}

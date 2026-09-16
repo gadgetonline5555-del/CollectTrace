@@ -24,16 +24,16 @@ export default function TopicCard({ topic }) {
   const drillType = ["company", "sector", "market", "theme"].includes(topic.drill_type) ? topic.drill_type : "theme";
 
   return (
-    <div className="group rounded-2xl border border-white/10 bg-slate-900/60 p-5 hover:border-white/20 hover:bg-slate-900 transition-colors flex flex-col">
+    <div className="group rounded-2xl border border-border bg-card/60 p-5 hover:border-white/20 hover:bg-card transition-colors flex flex-col">
       <div className="flex items-center gap-2 mb-3">
         <span className={`px-2.5 py-1 rounded-full text-xs font-semibold border ${cat.chip}`}>{t(cat.key)}</span>
-        <span className="inline-flex items-center gap-1 text-xs text-slate-500">
+        <span className="inline-flex items-center gap-1 text-xs text-muted-foreground/70">
           <span className={`w-1.5 h-1.5 rounded-full ${fresh.dot}`} /> {t(fresh.key)}
         </span>
       </div>
-      <h3 className="font-display text-lg font-bold text-white leading-snug">{topic.title}</h3>
-      {topic.hook && <p className="text-slate-300 text-sm leading-relaxed mt-2">{topic.hook}</p>}
-      {topic.angle && <p className="text-slate-500 text-sm leading-relaxed mt-2 italic">{topic.angle}</p>}
+      <h3 className="font-display text-lg font-bold text-foreground leading-snug">{topic.title}</h3>
+      {topic.hook && <p className="text-muted-foreground text-sm leading-relaxed mt-2">{topic.hook}</p>}
+      {topic.angle && <p className="text-muted-foreground/70 text-sm leading-relaxed mt-2 italic">{topic.angle}</p>}
       <div className="mt-4 pt-4 border-t border-white/5">
         <Link to={`/ai-research?query=${encodeURIComponent(topic.drill_query || topic.title)}&type=${drillType}`}
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-300 hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">

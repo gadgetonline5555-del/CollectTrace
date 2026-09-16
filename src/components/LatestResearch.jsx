@@ -44,19 +44,19 @@ export default function LatestResearch() {
         <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-300 mb-1">
           <Sparkles className="w-3.5 h-3.5" /> {t("home.live_badge")}
         </div>
-        <h2 className="font-display text-3xl font-bold text-white">{t("home.live_h")}</h2>
-        <p className="text-slate-400 mt-1">{t("home.live_p")}</p>
+        <h2 className="font-display text-3xl font-bold text-foreground">{t("home.live_h")}</h2>
+        <p className="text-muted-foreground mt-1">{t("home.live_p")}</p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {items.map((it) => {
           const title = it.company_name || it.query || "—";
           const sub = it.summary || "";
           return (
-            <Link key={it.id} to={`/s/${it.id}`} className="group rounded-2xl border border-white/10 bg-slate-900/50 hover:bg-slate-900 hover:border-cyan-400/30 p-5 transition-colors flex flex-col">
+            <Link key={it.id} to={`/s/${it.id}`} className="group rounded-2xl border border-border bg-card/50 hover:bg-card hover:border-cyan-400/30 p-5 transition-colors flex flex-col">
               <span className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${typeColor[it._type]}`}>{t(`snap.type_${it._type}`)}</span>
-              <h3 className="font-semibold text-white group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug">{title}</h3>
-              {sub && <p className="text-sm text-slate-400 mt-1.5 line-clamp-3 leading-relaxed">{sub}</p>}
-              <div className="mt-auto pt-3 flex items-center justify-between text-xs text-slate-500">
+              <h3 className="font-semibold text-foreground group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug">{title}</h3>
+              {sub && <p className="text-sm text-muted-foreground mt-1.5 line-clamp-3 leading-relaxed">{sub}</p>}
+              <div className="mt-auto pt-3 flex items-center justify-between text-xs text-muted-foreground/70">
                 <span>{formatDistanceToNow(new Date(it.created_date), { addSuffix: true, locale })}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </div>
