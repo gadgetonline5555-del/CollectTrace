@@ -1,0 +1,86 @@
+{
+  "name": "RadarItem",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string",
+      "enum": [
+        "edgar",
+        "tdnet",
+        "press"
+      ]
+    },
+    "region": {
+      "type": "string",
+      "enum": [
+        "us",
+        "jp",
+        "global"
+      ],
+      "default": "us"
+    },
+    "ticker": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "form_type": {
+      "type": "string"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": "string"
+    },
+    "sector": {
+      "type": "string"
+    },
+    "sentiment": {
+      "type": "string",
+      "enum": [
+        "bullish",
+        "neutral",
+        "bearish"
+      ],
+      "default": "neutral"
+    },
+    "language": {
+      "type": "string",
+      "default": "jp"
+    }
+  },
+  "required": [
+    "headline",
+    "region",
+    "source"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

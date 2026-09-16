@@ -437,7 +437,21 @@ const DICT = {
   "disc.cat_weather": { jp: "気象・災害", en: "Weather/Disaster" },
   "disc.cat_geopolitics": { jp: "地政学・移民・人口", en: "Geopolitics/Population" },
   "disc.cat_science": { jp: "科学・生物・人類", en: "Science/Humanity" },
-  "disc.cat_market": { jp: "市場", en: "Market" }
+  "disc.cat_market": { jp: "市場", en: "Market" },
+
+  "nav.radar": { jp: "情報レーダー", en: "Radar" },
+  "radar.badge": { jp: "一次情報・最速・出典付き", en: "Primary info · fastest · sourced" },
+  "radar.h": { jp: "情報レーダー", en: "Information Radar" },
+  "radar.p": { jp: "EDGAR提出と日本の適時開示・プレスを自動収集し、出典付きで時系列表示。生成コンテンツではなく、一次情報を最速で構造化します。", en: "Auto-aggregates EDGAR filings and Japanese timely disclosures/press into a sourced timeline. Primary information at speed — not generated content." },
+  "radar.refresh": { jp: "最新化する", en: "Refresh" },
+  "radar.refreshing": { jp: "更新中…", en: "Refreshing…" },
+  "radar.region_all": { jp: "すべて", en: "All" },
+  "radar.region_jp": { jp: "日本", en: "Japan" },
+  "radar.region_us": { jp: "米国", en: "United States" },
+  "radar.source": { jp: "出典を開く", en: "Open source" },
+  "radar.empty": { jp: "まだ情報がありません。「最新化する」で収集を開始します。", en: "No items yet. Click Refresh to start collecting." },
+  "radar.err_refresh": { jp: "更新に失敗しました", en: "Refresh failed" },
+  "radar.locked": { jp: "詳細は有料プランで", en: "Detail in paid plan" }
 };
 
 const I18nContext = createContext({ lang: "jp", setLang: () => {}, t: (k) => k });

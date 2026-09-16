@@ -12,6 +12,7 @@ const Home = lazy(() => import('@/pages/Home'));
 const MangaLibrary = lazy(() => import('@/pages/MangaLibrary'));
 const MangaReader = lazy(() => import('@/pages/MangaReader'));
 const ResearchHub = lazy(() => import('@/pages/ResearchHub'));
+const Radar = lazy(() => import('@/pages/Radar'));
 const ResearchDetail = lazy(() => import('@/pages/ResearchDetail'));
 const Pricing = lazy(() => import('@/pages/Pricing'));
 const Admin = lazy(() => import('@/pages/Admin'));
@@ -70,6 +71,7 @@ const AuthenticatedApp = () => {
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/radar" element={<Radar />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/glossary" element={<Glossary />} />
         <Route path="/ai-research" element={<AiResearch />} />

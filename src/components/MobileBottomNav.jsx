@@ -19,6 +19,7 @@ const TABS = [
 ];
 
 const MORE = [
+  { to: "/radar", key: "nav.radar" },
   { to: "/glossary", key: "nav.glossary" },
   { to: "/ai-research", key: "nav.air" },
   { to: "/wealth", key: "nav.wealth" },
