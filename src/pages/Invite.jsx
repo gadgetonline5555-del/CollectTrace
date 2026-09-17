@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/AuthContext";
 import { useI18n } from "@/lib/i18n";
 import { base44 } from "@/api/base44Client";
 import ShareBar from "@/components/ShareBar";
+import PullToRefresh from "@/components/PullToRefresh";
 
 export default function Invite() {
   const { user } = useAuth();
@@ -15,19 +16,22 @@ export default function Invite() {
 
   const link = user?.id ? `${window.location.origin}/?ref=${user.id}` : "";
 
-  useEffect(() => {
+  const loadStats = () => {
     if (!user?.id) { setLoading(false); return; }
+    setLoading(true);
     base44.functions.invoke("getReferralStats", {})
       .then((res) => setStats(res.data || { count: 0, bonus: 0 }))
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [user?.id]);
+  };
+  useEffect(() => { loadStats(); }, [user?.id]);
 
   const copy = async () => {
     try { await navigator.clipboard.writeText(link); setCopied(true); setTimeout(() => setCopied(false), 1800); } catch { /* ignore */ }
   };
 
   return (
+    <PullToRefresh onRefresh={loadStats}>
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-xs font-semibold mb-4">
         <Gift className="w-3.5 h-3.5" /> {t("invite.badge")}
@@ -96,5 +100,6 @@ export default function Invite() {
 
       <p className="mt-8 text-sm text-muted-foreground/80 leading-relaxed">{t("invite.disclaimer")}</p>
     </div>
+    </PullToRefresh>
   );
 }

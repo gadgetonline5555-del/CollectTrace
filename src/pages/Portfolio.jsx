@@ -120,7 +120,7 @@ export default function Portfolio() {
         ) : items.length === 0 ? (
           <div className="text-center py-16 text-muted-foreground/80">{t("pf.empty")}</div>
         ) : (
-          <div className="-mx-4 sm:mx-0 overflow-x-auto overscroll-x-auto pb-2">
+          <div className="-mx-4 sm:mx-0 overflow-x-auto overscroll-none pb-2">
           <div className="min-w-[36rem] space-y-3">
             <div className="grid grid-cols-5 gap-2 px-4 text-xs text-muted-foreground/80 uppercase tracking-wide [&>*]:min-w-0">
               <span>{t("pf.ticker")}</span><span>{t("pf.shares")}</span><span>{t("pf.current")}</span><span>{t("pf.value")}</span><span>{t("pf.pnl")}</span>

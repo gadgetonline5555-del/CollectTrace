@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-export default function PullToRefresh({ onRefresh, children, threshold = 70 }) {
+export default function PullToRefresh({ onRefresh, children, threshold = 70, scrollRef }) {
   const ref = useRef(null);
   const startY = useRef(0);
   const pulling = useRef(false);
@@ -8,6 +8,7 @@ export default function PullToRefresh({ onRefresh, children, threshold = 70 }) {
   const [refreshing, setRefreshing] = useState(false);
 
   const atTop = () => {
+    if (scrollRef && scrollRef.current) return scrollRef.current.scrollTop <= 0;
     const y = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
     return y <= 0;
   };
@@ -55,12 +56,12 @@ export default function PullToRefresh({ onRefresh, children, threshold = 70 }) {
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
-      className="relative"
+      className="relative overscroll-none"
     >
       {showIndicator && (
         <div
-          className="absolute inset-x-0 top-0 flex items-center justify-center"
-          style={{ height: pull || threshold }}
+          className="absolute inset-x-0 flex items-center justify-center"
+          style={{ top: "calc(env(safe-area-inset-top) + 3rem)", height: pull || threshold }}
         >
           <div
             className={`w-6 h-6 border-2 border-border border-t-primary rounded-full ${

@@ -7,6 +7,7 @@ import { PLANS } from "@/lib/plans";
 import PricingTiers from "@/components/PricingTiers";
 import { track } from "@/lib/track";
 import { isNativeMobileApp, openExternal } from "@/lib/platform";
+import PullToRefresh from "@/components/PullToRefresh";
 
 export default function Pricing() {
   const { toast } = useToast();
@@ -59,6 +60,7 @@ export default function Pricing() {
   const cell = (v) => v === "yes" ? <Check className="w-4 h-4 text-emerald-400 mx-auto" /> : v === "no" ? <X className="w-4 h-4 text-muted-foreground/80 mx-auto" /> : v;
 
   return (
+    <PullToRefresh onRefresh={async () => {}}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
       <div className="text-center mb-12">
         <h1 className="font-display text-5xl font-bold text-foreground">{t("pricing.h1")}</h1>
@@ -125,5 +127,6 @@ export default function Pricing() {
         </div>
       </div>
     </div>
+    </PullToRefresh>
   );
 }

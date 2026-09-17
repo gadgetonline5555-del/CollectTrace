@@ -3,6 +3,7 @@ import { Copy, Check, KeyRound, Code } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
 import TierGate from "@/components/TierGate";
+import PullToRefresh from "@/components/PullToRefresh";
 
 export default function ApiAccess() {
   const { t } = useI18n();
@@ -16,6 +17,7 @@ export default function ApiAccess() {
 
   return (
     <TierGate requiredTier="elite" title={t("api.locked_h")} description={t("api.locked_p")}>
+      <PullToRefresh onRefresh={async () => {}}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
         <div className="mb-8">
           <h1 className="font-display text-4xl font-bold text-foreground">{t("api.h")}</h1>
@@ -44,6 +46,7 @@ export default function ApiAccess() {
           </div>
         </div>
       </div>
+      </PullToRefresh>
     </TierGate>
   );
 }

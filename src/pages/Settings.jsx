@@ -15,6 +15,7 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { Sun, Moon, Monitor, Trash2 } from "lucide-react";
+import PullToRefresh from "@/components/PullToRefresh";
 
 const THEMES = [
   { id: "light", icon: Sun, key: "set.theme_light" },
@@ -47,6 +48,7 @@ export default function Settings() {
   };
 
   return (
+    <PullToRefresh onRefresh={async () => {}}>
     <div className="max-w-2xl mx-auto px-5 py-8">
       <h1 className="font-display text-2xl font-bold text-foreground mb-6">{t("set.h")}</h1>
 
@@ -139,5 +141,6 @@ export default function Settings() {
         </section>
       )}
     </div>
+    </PullToRefresh>
   );
 }

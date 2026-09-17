@@ -8,6 +8,7 @@ import WealthProfileCard from "@/components/WealthProfileCard";
 import CompanyIntelCard from "@/components/CompanyIntelCard";
 import IpoProfileCard from "@/components/IpoProfileCard";
 import ShareBar from "@/components/ShareBar";
+import PullToRefresh from "@/components/PullToRefresh";
 
 // Public, indexable snapshot page. Every AI research any visitor runs is
 // stored server-side; this route turns each one into a permanent shareable
@@ -20,29 +21,33 @@ export default function SnapshotView() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const fetchSnapshot = async () => {
+    const tries = [
+      { type: "ai", fn: () => base44.entities.AiResearchSnapshot.get(id) },
+      { type: "wealth", fn: () => base44.entities.WealthProfile.get(id) },
+      { type: "intel", fn: () => base44.entities.CompanyIntel.get(id) },
+      { type: "ipo", fn: () => base44.entities.IpoProfile.get(id) },
+    ];
+    let found = null, foundType = null;
+    for (const tr of tries) {
+      try {
+        const r = await tr.fn();
+        if (r) { found = r; foundType = tr.type; break; }
+      } catch { /* not this entity, try next */ }
+    }
+    if (found) { setData(found); setType(foundType); } else { setError(true); }
+    setLoading(false);
+  };
+
   useEffect(() => {
-    let alive = true;
     setLoading(true); setError(false); setData(null); setType(null);
-    (async () => {
-      const tries = [
-        { type: "ai", fn: () => base44.entities.AiResearchSnapshot.get(id) },
-        { type: "wealth", fn: () => base44.entities.WealthProfile.get(id) },
-        { type: "intel", fn: () => base44.entities.CompanyIntel.get(id) },
-        { type: "ipo", fn: () => base44.entities.IpoProfile.get(id) },
-      ];
-      let found = null, foundType = null;
-      for (const tr of tries) {
-        try {
-          const r = await tr.fn();
-          if (r) { found = r; foundType = tr.type; break; }
-        } catch { /* not this entity, try next */ }
-      }
-      if (!alive) return;
-      if (found) { setData(found); setType(foundType); } else { setError(true); }
-      setLoading(false);
-    })();
-    return () => { alive = false; };
+    fetchSnapshot();
   }, [id]);
+
+  const reload = async () => {
+    setLoading(true); setError(false);
+    await fetchSnapshot();
+  };
 
   // Dynamic SEO: update <title> + meta description per snapshot (helps modern
   // crawlers + link-previews). Reverts when navigating away.
@@ -65,6 +70,7 @@ export default function SnapshotView() {
   const shareText = data?.query ? t("share.research", { q: data.query }) : "";
 
   return (
+    <PullToRefresh onRefresh={reload}>
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
       <Link to="/" className="md:hidden inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
         <ArrowLeft className="w-4 h-4" /> {t("snap.back")}
@@ -88,5 +94,6 @@ export default function SnapshotView() {
         </>
       )}
     </div>
+    </PullToRefresh>
   );
 }
