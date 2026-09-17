@@ -63,7 +63,7 @@ export default function PullToRefresh({ onRefresh, children, threshold = 70 }) {
           style={{ height: pull || threshold }}
         >
           <div
-            className={`w-6 h-6 border-2 border-slate-600 border-t-cyan-400 rounded-full ${
+            className={`w-6 h-6 border-2 border-border border-t-primary rounded-full ${
               refreshing ? "animate-spin" : ""
             }`}
           />

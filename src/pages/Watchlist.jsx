@@ -6,6 +6,7 @@ import { useUserTier } from "@/hooks/useUserTier";
 import TierGate from "@/components/TierGate";
 import { track } from "@/lib/track";
 import { useToast } from "@/components/ui/use-toast";
+import PullToRefresh from "@/components/PullToRefresh";
 
 export default function Watchlist() {
   const { t } = useI18n();
@@ -55,6 +56,7 @@ export default function Watchlist() {
 
   return (
     <TierGate requiredTier="starter" title={t("wl.locked_h")} description={t("wl.locked_p")}>
+      <PullToRefresh onRefresh={load}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         <div className="mb-8">
           <h1 className="font-display text-4xl font-bold text-foreground">{t("wl.h")}</h1>
@@ -87,6 +89,7 @@ export default function Watchlist() {
           </div>
         )}
       </div>
+      </PullToRefresh>
     </TierGate>
   );
 }

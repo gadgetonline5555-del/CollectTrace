@@ -6,6 +6,7 @@ import { useUserTier } from "@/hooks/useUserTier";
 import TierGate from "@/components/TierGate";
 import { track } from "@/lib/track";
 import { useToast } from "@/components/ui/use-toast";
+import PullToRefresh from "@/components/PullToRefresh";
 
 export default function Portfolio() {
   const { t } = useI18n();
@@ -81,6 +82,7 @@ export default function Portfolio() {
 
   return (
     <TierGate requiredTier="pro" title={t("pf.locked_h")} description={t("pf.locked_p")}>
+      <PullToRefresh onRefresh={load}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
         <div className="mb-8">
           <h1 className="font-display text-4xl font-bold text-foreground">{t("pf.h")}</h1>
@@ -141,6 +143,7 @@ export default function Portfolio() {
           </div>
         )}
       </div>
+      </PullToRefresh>
     </TierGate>
   );
 }

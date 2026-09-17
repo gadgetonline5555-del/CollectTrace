@@ -26,7 +26,7 @@ export default function MangaReader() {
 
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-      <Link to="/manga" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
+      <Link to="/manga" className="md:hidden inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
         <ArrowLeft className="w-4 h-4" /> {t("reader.back")}
       </Link>
       <div className="flex items-center gap-2 mb-4">

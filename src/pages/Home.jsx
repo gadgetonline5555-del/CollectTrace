@@ -7,11 +7,12 @@ import { useI18n } from "@/lib/i18n";
 import MangaCard from "@/components/MangaCard";
 import ResearchCard from "@/components/ResearchCard";
 import LatestResearch from "@/components/LatestResearch";
+import PullToRefresh from "@/components/PullToRefresh";
 
 export default function Home() {
   const { t } = useI18n();
-  const { data: mangas = [] } = useQuery({ queryKey: ["home", "manga", "featured"], queryFn: () => base44.entities.Manga.list("-rating", 4).catch(() => []) });
-  const { data: reports = [] } = useQuery({ queryKey: ["home", "research", "featured"], queryFn: () => base44.entities.Research.list("-published_date", 3).catch(() => []) });
+  const { data: mangas = [], refetch: refetchManga } = useQuery({ queryKey: ["home", "manga", "featured"], queryFn: () => base44.entities.Manga.list("-rating", 4).catch(() => []) });
+  const { data: reports = [], refetch: refetchResearch } = useQuery({ queryKey: ["home", "research", "featured"], queryFn: () => base44.entities.Research.list("-published_date", 3).catch(() => []) });
 
   const STAT_TILES = [
     { label: t("stat.manga.label"), value: "120+", sub: t("stat.manga.sub"), icon: BookOpen, accent: "text-cyan-400" },
@@ -21,6 +22,7 @@ export default function Home() {
   ];
 
   return (
+    <PullToRefresh onRefresh={async () => { await Promise.all([refetchManga(), refetchResearch()]); }}>
     <div>
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur text-xs text-muted-foreground mb-6">
@@ -96,5 +98,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </PullToRefresh>
   );
 }

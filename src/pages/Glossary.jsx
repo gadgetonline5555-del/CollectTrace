@@ -4,6 +4,7 @@ import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/track";
+import PullToRefresh from "@/components/PullToRefresh";
 
 const CATS = [
   { value: "すべて", key: "gcat.all" },
@@ -19,7 +20,7 @@ export default function Glossary() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState("すべて");
 
-  const { data: terms = [], isFetching: loading } = useQuery({
+  const { data: terms = [], isFetching: loading, refetch: refetchTerms } = useQuery({
     queryKey: ["glossary", "terms"],
     queryFn: () => base44.entities.Glossary.list("term", 200),
   });
@@ -37,6 +38,7 @@ export default function Glossary() {
   });
 
   return (
+    <PullToRefresh onRefresh={refetchTerms}>
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
       <div className="mb-8">
         <h1 className="font-display text-4xl font-bold text-foreground">{t("glossary.h")}</h1>
@@ -73,5 +75,6 @@ export default function Glossary() {
         </div>
       )}
     </div>
+    </PullToRefresh>
   );
 }
