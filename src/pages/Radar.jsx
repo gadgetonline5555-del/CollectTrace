@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Radar as RadarIcon, RefreshCw } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
+import { useValueMilestones } from "@/hooks/useValueMilestones";
 import { track } from "@/lib/track";
 import PullToRefresh from "@/components/PullToRefresh";
 import RadarCard from "@/components/RadarCard";
 import CompetitiveEdge from "@/components/CompetitiveEdge";
 import SectorPulse from "@/components/SectorPulse";
 import QuotaNotice from "@/components/QuotaNotice";
+import UpgradeNudge from "@/components/UpgradeNudge";
 
 const REGIONS = [
   { value: "all", key: "radar.region_all" },
@@ -25,6 +27,9 @@ export default function Radar() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(null);
   const [quota, setQuota] = useState(null);
+  const { bump } = useValueMilestones();
+
+  useEffect(() => { bump(); }, [bump]);
 
   const { data: items = [], isFetching: loading, refetch } = useQuery({
     queryKey: ["radar"],
@@ -135,6 +140,7 @@ export default function Radar() {
           </div>
         )}
 
+        <UpgradeNudge />
         <CompetitiveEdge />
       </div>
     </PullToRefresh>

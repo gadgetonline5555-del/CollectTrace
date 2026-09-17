@@ -1,0 +1,69 @@
+{
+  "name": "SystemHealth",
+  "type": "object",
+  "properties": {
+    "report_type": {
+      "type": "string",
+      "enum": [
+        "daily_health",
+        "self_heal",
+        "security_audit"
+      ],
+      "default": "daily_health"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "radar_total": {
+      "type": "number"
+    },
+    "radar_latest_at": {
+      "type": "string"
+    },
+    "radar_stale": {
+      "type": "boolean"
+    },
+    "research_total": {
+      "type": "number"
+    },
+    "manga_total": {
+      "type": "number"
+    },
+    "actions_taken": {
+      "type": "string",
+      "description": "JSON\u914d\u5217: \u5b9f\u884c\u3057\u305f\u81ea\u5df1\u4fee\u5fa9\u30a2\u30af\u30b7\u30e7\u30f3"
+    },
+    "issues": {
+      "type": "string",
+      "description": "JSON\u914d\u5217: \u691c\u51fa\u3057\u305f\u554f\u984c"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "report_type"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 3 * * *",
+      "one_time_date": null,
+      "timezone": "Asia/Tokyo",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "auto_improve",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "health": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "systemHealthCheck",
+            "args": {
+              "mode": "scheduled"
+            }
+          },
+          "then": "check_stale",
+          "x-base44": {
+            "title": "\u5065\u5168\u6027\u30fb\u81ea\u5df1\u6539\u5584\u76e3\u67fb",
+            "description": "\u30c7\u30fc\u30bf\u9bae\u5ea6\u30fb\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u76e3\u67fb"
+          }
+        }
+      },
+      {
+        "check_stale": {
+          "switch": [
+            {
+              "when": "${ .health.radar_stale == true }",
+              "then": "refresh_radar"
+            },
+            {
+              "when": "${ true }",
+              "then": "end"
+            }
+          ],
+          "x-base44": {
+            "title": "\u30ec\u30fc\u30c0\u30fc\u9bae\u5ea6\u5224\u5b9a",
+            "description": "\u53e4\u3051\u308c\u3070\u81ea\u5df1\u4fee\u5fa9"
+          }
+        }
+      },
+      {
+        "refresh_radar": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "refreshRadar",
+            "args": {
+              "mode": "scheduled"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "\u30ec\u30fc\u30c0\u30fc\u81ea\u52d5\u66f4\u65b0",
+            "description": "\u81ea\u5df1\u4fee\u5fa9"
+          }
+        }
+      }
+    ]
+  },
+  "description": "\u6bcf\u65e53\u6642(JST)\u306b\u81ea\u5df1\u6539\u5584: \u30c7\u30fc\u30bf\u9bae\u5ea6\u3068\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u72b6\u6cc1\u3092\u76e3\u67fb\u3057\u3001\u53e4\u3044\u30ec\u30fc\u30c0\u30fc\u3092\u81ea\u5df1\u4fee\u5fa9\u3067\u81ea\u52d5\u66f4\u65b0\u3059\u308b\u3002",
+  "name": "Auto Improve"
+}

@@ -477,7 +477,17 @@ const DICT = {
 
   "pulse.badge": { jp: "セクター別開示急増", en: "Sector pulse" },
   "pulse.h": { jp: "直近24時間のセクター別開示動向（自動検出）", en: "Last 24h disclosure by sector (auto-detected)" },
-  "pulse.spike": { jp: "急増", en: "Spiking" }
+  "pulse.spike": { jp: "急増", en: "Spiking" },
+
+  "nudge.dismiss": { jp: "閉じる", en: "Dismiss" },
+  "nudge.badge_starter": { jp: "¥1,000プランがおすすめ", en: "Starter plan for you" },
+  "nudge.badge_pro": { jp: "¥10,000プランがおすすめ", en: "Pro plan for you" },
+  "nudge.title_starter": { jp: "もっと深く掘り下げませんか？", en: "Ready to go deeper?" },
+  "nudge.title_pro": { jp: "プロの分析をすべて手元に", en: "Pro analysis, all yours" },
+  "nudge.reason_starter": { jp: "レーダーを何度も活用いただいています。全リージョン・プロ要点・影響連鎖が¥1,000/月で解放できます。", en: "You've used Radar several times — unlock all regions, pro points & impact chains for ¥1,000/mo." },
+  "nudge.reason_pro": { jp: "調査を重ねるあなたへ。AI研究の無制限化・ポートフォリオ・ウォッチリストを¥10,000/月で。", en: "For deep researchers: unlimited AI research, portfolio & watchlist at ¥10,000/mo." },
+  "nudge.cta_starter": { jp: "¥1,000プランを見る", en: "See Starter plan" },
+  "nudge.cta_pro": { jp: "¥10,000プランを見る", en: "See Pro plan" }
 };
 
 const I18nContext = createContext({ lang: "jp", setLang: () => {}, t: (k) => k });
