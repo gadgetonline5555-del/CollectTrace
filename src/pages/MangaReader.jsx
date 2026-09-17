@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Lock, Star, BookOpen, CheckCircle2 } from "lucide-react";
+import { Lock, Star, BookOpen, CheckCircle2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
@@ -26,9 +26,6 @@ export default function MangaReader() {
 
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-      <Link to="/manga" className="md:hidden inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
-        <ArrowLeft className="w-4 h-4" /> {t("reader.back")}
-      </Link>
       <div className="flex items-center gap-2 mb-4">
         <span className={`px-2.5 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${plan.accent} text-slate-950`}>{plan.name[lang]}</span>
         <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-card border border-border text-muted-foreground">{manga.category}</span>

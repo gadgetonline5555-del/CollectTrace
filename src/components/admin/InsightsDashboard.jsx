@@ -75,7 +75,7 @@ export default function InsightsDashboard() {
 
   useEffect(() => {
     Promise.all([
-      base44.entities.UserActivity.list("-created_date", 500).catch(() => []),
+      base44.entities.UserActivity.list("-created_date", 100).catch(() => []),
       base44.entities.User.list().catch(() => []),
     ]).then(([a, u]) => { setActs(a || []); setUsers(u || []); setLoading(false); });
   }, []);
@@ -143,7 +143,7 @@ export default function InsightsDashboard() {
         <Kpi icon={Users} label="総ユーザー数" value={stats.totalUsers} accent="text-cyan-400" />
         <Kpi icon={Crown} label="有料ユーザー数" value={stats.payingUsers} sub={`転換率 ${stats.convRate}%`} accent="text-amber-400" />
         <Kpi icon={TrendingUp} label="現在の月次売上 (MRR)" value={`¥${stats.mrr.toLocaleString()}`} sub={`ARPU ¥${stats.arpu.toLocaleString()}`} accent="text-emerald-400" />
-        <Kpi icon={Activity} label="記録された行動数" value={acts.length} sub={`直近500件`} accent="text-violet-400" />
+        <Kpi icon={Activity} label="記録された行動数" value={acts.length} sub={`直近100件`} accent="text-violet-400" />
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
@@ -227,6 +227,7 @@ export default function InsightsDashboard() {
       </div>
 
       <Section title="最近のアクティビティ" icon={Activity}>
+        <p className="text-xs text-muted-foreground/80 mb-3">※ パフォーマンス向上のため直近100件のみ取得・表示しています。</p>
         {recent.length === 0 ? <div className="text-muted-foreground/80 text-sm py-4 text-center">記録なし</div> : (
           <div className="space-y-2 max-h-72 overflow-y-auto">
             {recent.map((a) => (

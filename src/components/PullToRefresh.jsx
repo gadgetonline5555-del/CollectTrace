@@ -13,9 +13,22 @@ export default function PullToRefresh({ onRefresh, children, threshold = 70, scr
     return y <= 0;
   };
 
+  const findScrollableAncestor = (el) => {
+    let node = el;
+    while (node && node !== ref.current) {
+      const overflowY = window.getComputedStyle(node).overflowY;
+      if (overflowY === "auto" || overflowY === "scroll") return node;
+      node = node.parentElement;
+    }
+    return null;
+  };
+
   const onTouchStart = (e) => {
     if (refreshing) return;
-    if (atTop()) {
+    const target = e.touches[0].target;
+    const scrollable = findScrollableAncestor(target);
+    const innerAtTop = !scrollable || scrollable.scrollTop <= 0;
+    if (atTop() && innerAtTop) {
       startY.current = e.touches[0].clientY;
       pulling.current = true;
     } else {

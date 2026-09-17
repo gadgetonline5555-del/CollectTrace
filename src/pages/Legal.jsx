@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import PullToRefresh from "@/components/PullToRefresh";
 
@@ -55,10 +55,6 @@ export default function Legal() {
   return (
     <PullToRefresh onRefresh={async () => {}}>
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-      <Link to="/settings" className="md:hidden inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
-        <ArrowLeft className="w-4 h-4" /> {jp ? "設定に戻る" : "Back to settings"}
-      </Link>
-
       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border text-xs font-semibold text-muted-foreground mb-4">
         <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> {jp ? "情報提供のみ・投資助言ではありません" : "Informational only · not investment advice"}
       </div>

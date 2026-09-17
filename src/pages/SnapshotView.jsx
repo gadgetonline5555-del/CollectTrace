@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import AiSnapshotCard from "@/components/AiSnapshotCard";
@@ -72,9 +72,6 @@ export default function SnapshotView() {
   return (
     <PullToRefresh onRefresh={reload}>
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
-      <Link to="/" className="md:hidden inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
-        <ArrowLeft className="w-4 h-4" /> {t("snap.back")}
-      </Link>
       {loading ? (
         <div className="rounded-3xl border border-border bg-card/60 p-12 text-center">
           <div className="w-8 h-8 border-4 border-slate-700 border-t-cyan-400 rounded-full animate-spin mx-auto" />

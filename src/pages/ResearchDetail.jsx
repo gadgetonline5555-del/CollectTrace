@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Lock, TrendingUp, TrendingDown, BarChart3, Target, Calendar, User } from "lucide-react";
+import { Lock, TrendingUp, TrendingDown, BarChart3, Target, Calendar, User } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
@@ -35,9 +35,6 @@ export default function ResearchDetail() {
 
   return (
     <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-      <Link to="/research" className="md:hidden inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
-        <ArrowLeft className="w-4 h-4" /> {t("rd.back")}
-      </Link>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-sm font-mono font-bold text-muted-foreground">{report.ticker}</span>
         <span className={`px-2.5 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${plan.accent} text-slate-950`}>{plan.name[lang]}</span>
