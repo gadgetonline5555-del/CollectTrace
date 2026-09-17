@@ -30,7 +30,7 @@ export default function Footer() {
           <p className="text-muted-foreground leading-relaxed">{t("footer.notice")}</p>
         </div>
       </div>
-      <div className="border-t border-border py-4 text-center text-xs text-muted-foreground/70">
+      <div className="border-t border-border py-4 text-center text-xs text-muted-foreground/80">
         © 2026 Collect Trace. All rights reserved.
       </div>
     </footer>

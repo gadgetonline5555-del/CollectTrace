@@ -75,7 +75,7 @@ export default function SnapshotView() {
         </div>
       ) : error ? (
         <div className="rounded-3xl border border-border bg-card/60 p-12 text-center">
-          <Sparkles className="w-10 h-10 text-slate-600 mx-auto mb-4" />
+          <Sparkles className="w-10 h-10 text-muted-foreground/80 mx-auto mb-4" />
           <p className="text-muted-foreground">{t("snap.notfound")}</p>
         </div>
       ) : (

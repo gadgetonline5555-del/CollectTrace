@@ -33,7 +33,7 @@ function Kpi({ icon: Icon, label, value, sub, accent }) {
         <Icon className={`w-4 h-4 ${accent}`} /> {label}
       </div>
       <div className="font-display text-2xl font-bold text-foreground">{value}</div>
-      {sub && <div className="text-xs text-muted-foreground/70 mt-1">{sub}</div>}
+      {sub && <div className="text-xs text-muted-foreground/80 mt-1">{sub}</div>}
     </div>
   );
 }
@@ -50,13 +50,13 @@ function Section({ title, icon: Icon, children }) {
 }
 
 function RankList({ items, unit }) {
-  if (!items.length) return <div className="text-muted-foreground/70 text-sm py-4 text-center">データなし</div>;
+  if (!items.length) return <div className="text-muted-foreground/80 text-sm py-4 text-center">データなし</div>;
   const max = items[0][1];
   return (
     <div className="space-y-2">
       {items.map(([k, v], i) => (
         <div key={k} className="flex items-center gap-3">
-          <span className="w-6 text-muted-foreground/70 text-sm font-mono">{i + 1}</span>
+          <span className="w-6 text-muted-foreground/80 text-sm font-mono">{i + 1}</span>
           <span className="w-40 truncate text-foreground text-sm">{k}</span>
           <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
             <div className="h-full rounded-full bg-gradient-to-r from-violet-400 to-cyan-400" style={{ width: `${(v / max) * 100}%` }} />
@@ -148,7 +148,7 @@ export default function InsightsDashboard() {
 
       <div className="grid md:grid-cols-2 gap-6">
         <Section title="プラン別ユーザー分布" icon={Crown}>
-          {stats.totalUsers === 0 ? <div className="text-muted-foreground/70 text-sm py-8 text-center">ユーザーなし</div> : (
+          {stats.totalUsers === 0 ? <div className="text-muted-foreground/80 text-sm py-8 text-center">ユーザーなし</div> : (
             <Suspense fallback={<ChartFallback />}>
               <ChartComponents variant="plan" data={planData} />
             </Suspense>
@@ -169,14 +169,14 @@ export default function InsightsDashboard() {
               <span className="text-muted-foreground">ユーザー1,000人到達時の予想MRR（現轉換率維持）</span>
               <span className="font-display font-bold text-cyan-400">¥{stats.projected1000.toLocaleString()}</span>
             </div>
-            <p className="text-xs text-muted-foreground/70 pt-1">※ 現在のプラン構成比率とARPUから試算。公開後の集客次第で変動します。</p>
+            <p className="text-xs text-muted-foreground/80 pt-1">※ 現在のプラン構成比率とARPUから試算。公開後の集客次第で変動します。</p>
           </div>
         </Section>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         <Section title="漫画カテゴリ別 閲覧興味" icon={BookOpen}>
-          {mangaCatData.length === 0 ? <div className="text-muted-foreground/70 text-sm py-8 text-center">データなし</div> : (
+          {mangaCatData.length === 0 ? <div className="text-muted-foreground/80 text-sm py-8 text-center">データなし</div> : (
             <Suspense fallback={<ChartFallback />}>
               <ChartComponents variant="manga" data={mangaCatData} />
             </Suspense>
@@ -184,7 +184,7 @@ export default function InsightsDashboard() {
         </Section>
 
         <Section title="調査レポート セクター別 閲覧興味" icon={BarChart3}>
-          {researchSecData.length === 0 ? <div className="text-muted-foreground/70 text-sm py-8 text-center">データなし</div> : (
+          {researchSecData.length === 0 ? <div className="text-muted-foreground/80 text-sm py-8 text-center">データなし</div> : (
             <Suspense fallback={<ChartFallback />}>
               <ChartComponents variant="research" data={researchSecData} />
             </Suspense>
@@ -227,14 +227,14 @@ export default function InsightsDashboard() {
       </div>
 
       <Section title="最近のアクティビティ" icon={Activity}>
-        {recent.length === 0 ? <div className="text-muted-foreground/70 text-sm py-4 text-center">記録なし</div> : (
+        {recent.length === 0 ? <div className="text-muted-foreground/80 text-sm py-4 text-center">記録なし</div> : (
           <div className="space-y-2 max-h-72 overflow-y-auto">
             {recent.map((a) => (
               <div key={a.id} className="flex items-center gap-3 text-sm py-1.5 border-b border-white/5">
                 <span className="px-2 py-0.5 rounded-md bg-slate-800 text-muted-foreground text-xs whitespace-nowrap">{evtLabel[a.event_type] || a.event_type}</span>
                 <span className="text-foreground truncate flex-1">{a.title || a.keyword || a.ticker || a.category || "—"}</span>
-                <span className="text-muted-foreground/70 text-xs uppercase">{a.language || ""}</span>
-                <span className="text-slate-600 text-xs">{new Date(a.created_date).toLocaleString("ja-JP")}</span>
+                <span className="text-muted-foreground/80 text-xs uppercase">{a.language || ""}</span>
+                <span className="text-muted-foreground/80 text-xs">{new Date(a.created_date).toLocaleString("ja-JP")}</span>
               </div>
             ))}
           </div>

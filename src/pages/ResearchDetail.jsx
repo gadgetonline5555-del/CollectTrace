@@ -55,7 +55,7 @@ export default function ResearchDetail() {
             <div className={`font-display text-2xl font-bold ${m.id === "upside" ? (upside >= 0 ? "text-emerald-400" : "text-rose-400") : "text-foreground"}`}>
               {m.value}
             </div>
-            <div className="text-xs text-muted-foreground/70">{m.label}</div>
+            <div className="text-xs text-muted-foreground/80">{m.label}</div>
           </div>
         ))}
       </div>

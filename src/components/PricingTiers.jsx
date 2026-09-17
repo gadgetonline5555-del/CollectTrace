@@ -10,11 +10,11 @@ export default function PricingTiers({ currentTier = "free", onUpgrade, compact 
   return (
     <div>
       <div className="flex items-center justify-center gap-3 mb-8">
-        <span className={`text-sm ${!annual ? "text-foreground font-semibold" : "text-muted-foreground/70"}`}>{t("pt.monthly")}</span>
+        <span className={`text-sm ${!annual ? "text-foreground font-semibold" : "text-muted-foreground/80"}`}>{t("pt.monthly")}</span>
         <button onClick={() => setAnnual((a) => !a)} className={`relative w-14 h-7 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${annual ? "bg-gradient-to-r from-cyan-400 to-violet-500" : "bg-slate-700"}`}>
           <span className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform ${annual ? "translate-x-8" : "translate-x-1"}`} />
         </button>
-        <span className={`text-sm ${annual ? "text-foreground font-semibold" : "text-muted-foreground/70"}`}>{t("pt.annual")} <span className="text-emerald-400 text-xs">{t("pt.annual_hint")}</span></span>
+        <span className={`text-sm ${annual ? "text-foreground font-semibold" : "text-muted-foreground/80"}`}>{t("pt.annual")} <span className="text-emerald-400 text-xs">{t("pt.annual_hint")}</span></span>
       </div>
 
       <div className={`grid gap-5 ${compact ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-2 xl:grid-cols-4"}`}>
@@ -36,7 +36,7 @@ export default function PricingTiers({ currentTier = "free", onUpgrade, compact 
               <p className="text-muted-foreground text-sm mb-4">{plan.tagline[lang]}</p>
               <div className="mb-5">
                 <span className="font-display text-4xl font-bold text-foreground">{price === 0 ? t("pt.free_display") : `¥${price.toLocaleString()}`}</span>
-                <span className="text-muted-foreground/70 text-sm ml-1">{price === 0 ? "" : annual ? t("pt.yr") : t("pt.mo")}</span>
+                <span className="text-muted-foreground/80 text-sm ml-1">{price === 0 ? "" : annual ? t("pt.yr") : t("pt.mo")}</span>
               </div>
               <ul className="space-y-2.5 mb-5 flex-1">
                 {plan.features[lang].map((f) => (
@@ -46,13 +46,13 @@ export default function PricingTiers({ currentTier = "free", onUpgrade, compact 
                   </li>
                 ))}
                 {plan.locked[lang].map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
+                  <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground/80">
                     <Lock className="w-4 h-4 mt-0.5 shrink-0" />
                     {f}
                   </li>
                 ))}
               </ul>
-              <button disabled={isCurrent || isBusy} onClick={() => onUpgrade?.(plan.id)} className={`w-full py-3 rounded-xl font-semibold text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${isCurrent ? "bg-slate-800 text-muted-foreground/70 cursor-default" : `bg-gradient-to-r ${plan.accent} text-slate-950 hover:opacity-90 hover:shadow-lg ${isBusy ? "opacity-60 cursor-wait" : ""}`}`}>
+              <button disabled={isCurrent || isBusy} onClick={() => onUpgrade?.(plan.id)} className={`w-full py-3 rounded-xl font-semibold text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${isCurrent ? "bg-slate-800 text-muted-foreground/80 cursor-default" : `bg-gradient-to-r ${plan.accent} text-slate-950 hover:opacity-90 hover:shadow-lg ${isBusy ? "opacity-60 cursor-wait" : ""}`}`}>
                 {isBusy ? t("pt.loading") : isCurrent ? t("pt.current") : price === 0 ? t("pt.startfree") : t("pt.upgrade")}
               </button>
             </div>

@@ -129,7 +129,7 @@ export default function MobileBottomNav() {
                   className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-foreground/5 min-h-11"
                 >
                   <span className="text-sm text-foreground">{t(key)}</span>
-                  <ChevronRight className="w-4 h-4 text-muted-foreground/70" />
+                  <ChevronRight className="w-4 h-4 text-muted-foreground/80" />
                 </Link>
               </DrawerClose>
             ))}

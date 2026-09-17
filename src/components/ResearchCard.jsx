@@ -24,7 +24,7 @@ export default function ResearchCard({ research }) {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xs font-mono font-bold text-muted-foreground">{research.ticker}</span>
-            <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wide bg-gradient-to-r ${plan.accent} text-slate-950`}>
+            <span className={`px-2 py-0.5 rounded-md text-xs font-bold uppercase tracking-wide bg-gradient-to-r ${plan.accent} text-slate-950`}>
               {plan.name[lang]}
             </span>
           </div>
@@ -35,7 +35,7 @@ export default function ResearchCard({ research }) {
             <Lock className="w-4 h-4 text-amber-300" />
           </div>
         ) : (
-          <ArrowUpRight className="w-5 h-5 text-muted-foreground/70 group-hover:text-foreground transition-colors" />
+          <ArrowUpRight className="w-5 h-5 text-muted-foreground/80 group-hover:text-foreground transition-colors" />
         )}
       </div>
       <p className="text-muted-foreground text-sm line-clamp-2 mb-4">{research.summary}</p>
@@ -45,13 +45,13 @@ export default function ResearchCard({ research }) {
             {isBuy ? <TrendingUp className="w-4 h-4 text-emerald-400" /> : <TrendingDown className="w-4 h-4 text-rose-400" />}
             ¥{research.current_price?.toLocaleString() ?? "—"}
           </div>
-          <div className="text-xs text-muted-foreground/70">{t("rc.current")}</div>
+          <div className="text-xs text-muted-foreground/80">{t("rc.current")}</div>
         </div>
         <div className="text-right">
           <div className={`text-lg font-bold font-mono ${upside >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
             {upside >= 0 ? "+" : ""}{upside}%
           </div>
-          <div className="text-xs text-muted-foreground/70">{t("rc.upside")}</div>
+          <div className="text-xs text-muted-foreground/80">{t("rc.upside")}</div>
         </div>
       </div>
     </Link>

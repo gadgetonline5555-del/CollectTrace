@@ -70,9 +70,9 @@ export default function Watchlist() {
           </div>
         </form>
         {loading ? (
-          <div className="text-muted-foreground/70 py-12 text-center">Loading…</div>
+          <div className="text-muted-foreground/80 py-12 text-center">Loading…</div>
         ) : items.length === 0 ? (
-          <div className="text-center py-16 text-muted-foreground/70">{t("wl.empty")}</div>
+          <div className="text-center py-16 text-muted-foreground/80">{t("wl.empty")}</div>
         ) : (
           <div className="space-y-3">
             {items.map((it) => (
@@ -80,8 +80,8 @@ export default function Watchlist() {
                 <span className="font-mono font-bold text-foreground">{it.ticker}</span>
                 <span className="text-muted-foreground flex-1">{it.title}</span>
                 {it.target_price != null && <span className="text-sm text-muted-foreground">¥{Number(it.target_price).toLocaleString()}</span>}
-                {it.note && <span className="text-sm text-muted-foreground/70 hidden md:block max-w-xs truncate">{it.note}</span>}
-                <button onClick={() => remove(it.id)} aria-label={t("wl.remove")} className="min-h-11 min-w-11 inline-flex items-center justify-center text-muted-foreground/70 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
+                {it.note && <span className="text-sm text-muted-foreground/80 hidden md:block max-w-xs truncate">{it.note}</span>}
+                <button onClick={() => remove(it.id)} aria-label={t("wl.remove")} className="min-h-11 min-w-11 inline-flex items-center justify-center text-muted-foreground/80 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
               </div>
             ))}
           </div>

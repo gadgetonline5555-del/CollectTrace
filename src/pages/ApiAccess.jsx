@@ -23,21 +23,21 @@ export default function ApiAccess() {
         </div>
         <div className="space-y-5">
           <div className="rounded-2xl p-5 bg-card/60 border border-border">
-            <div className="text-xs text-muted-foreground/70 mb-1">{t("api.base")}</div>
+            <div className="text-xs text-muted-foreground/80 mb-1">{t("api.base")}</div>
             <code className="text-cyan-300 font-mono text-sm break-all">{baseUrl}</code>
           </div>
           <div className="rounded-2xl p-5 bg-card/60 border border-border">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground/70 mb-2"><KeyRound className="w-3.5 h-3.5" />{t("api.key")}</div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground/80 mb-2"><KeyRound className="w-3.5 h-3.5" />{t("api.key")}</div>
             {apiKey ? (
               <code className="text-amber-300 font-mono text-sm break-all">{apiKey}</code>
             ) : (
-              <p className="text-muted-foreground/70 text-sm">{t("api.pending")}</p>
+              <p className="text-muted-foreground/80 text-sm">{t("api.pending")}</p>
             )}
-            <p className="text-muted-foreground/70 text-sm mt-2">{t("api.key_desc")}</p>
+            <p className="text-muted-foreground/80 text-sm mt-2">{t("api.key_desc")}</p>
           </div>
           <div className="rounded-2xl p-5 bg-background border border-border">
             <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground/70"><Code className="w-3.5 h-3.5" />{t("api.example")}</div>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground/80"><Code className="w-3.5 h-3.5" />{t("api.example")}</div>
               <button onClick={copy} className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1">{copied ? <><Check className="w-3.5 h-3.5 text-emerald-400" />{t("api.copied")}</> : <><Copy className="w-3.5 h-3.5" />{t("api.copy")}</>}</button>
             </div>
             <pre className="text-muted-foreground font-mono text-xs whitespace-pre-wrap break-all">{example}</pre>

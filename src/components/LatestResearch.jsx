@@ -53,10 +53,10 @@ export default function LatestResearch() {
           const sub = it.summary || "";
           return (
             <Link key={it.id} to={`/s/${it.id}`} className="group rounded-2xl border border-border bg-card/50 hover:bg-card hover:border-cyan-400/30 p-5 transition-colors flex flex-col">
-              <span className={`text-[10px] font-semibold uppercase tracking-wider mb-2 ${typeColor[it._type]}`}>{t(`snap.type_${it._type}`)}</span>
+              <span className={`text-xs font-semibold uppercase tracking-wider mb-2 ${typeColor[it._type]}`}>{t(`snap.type_${it._type}`)}</span>
               <h3 className="font-semibold text-foreground group-hover:text-cyan-300 transition-colors line-clamp-2 leading-snug">{title}</h3>
               {sub && <p className="text-sm text-muted-foreground mt-1.5 line-clamp-3 leading-relaxed">{sub}</p>}
-              <div className="mt-auto pt-3 flex items-center justify-between text-xs text-muted-foreground/70">
+              <div className="mt-auto pt-3 flex items-center justify-between text-xs text-muted-foreground/80">
                 <span>{formatDistanceToNow(new Date(it.created_date), { addSuffix: true, locale })}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </div>

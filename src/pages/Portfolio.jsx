@@ -89,15 +89,15 @@ export default function Portfolio() {
         {items.length > 0 && (
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="rounded-2xl p-5 bg-card/60 border border-border">
-              <div className="text-sm text-muted-foreground/70 mb-1">{t("pf.value")}</div>
+              <div className="text-sm text-muted-foreground/80 mb-1">{t("pf.value")}</div>
               <div className="font-display text-2xl font-bold text-foreground">¥{totalValue.toLocaleString()}</div>
             </div>
             <div className="rounded-2xl p-5 bg-card/60 border border-border">
-              <div className="text-sm text-muted-foreground/70 mb-1">{t("pf.cost")}</div>
+              <div className="text-sm text-muted-foreground/80 mb-1">{t("pf.cost")}</div>
               <div className="font-display text-2xl font-bold text-foreground">¥{totalCost.toLocaleString()}</div>
             </div>
             <div className="rounded-2xl p-5 bg-card/60 border border-border">
-              <div className="text-sm text-muted-foreground/70 mb-1">{t("pf.pnl")}</div>
+              <div className="text-sm text-muted-foreground/80 mb-1">{t("pf.pnl")}</div>
               <div className={`font-display text-2xl font-bold flex items-center gap-1 ${totalPnl >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                 {totalPnl >= 0 ? <TrendingUp className="w-5 h-5" /> : <TrendingDown className="w-5 h-5" />}
                 ¥{totalPnl.toLocaleString()}
@@ -114,13 +114,13 @@ export default function Portfolio() {
           </div>
         </form>
         {loading ? (
-          <div className="text-muted-foreground/70 py-12 text-center">Loading…</div>
+          <div className="text-muted-foreground/80 py-12 text-center">Loading…</div>
         ) : items.length === 0 ? (
-          <div className="text-center py-16 text-muted-foreground/70">{t("pf.empty")}</div>
+          <div className="text-center py-16 text-muted-foreground/80">{t("pf.empty")}</div>
         ) : (
           <div className="-mx-4 sm:mx-0 overflow-x-auto overscroll-x-auto pb-2">
           <div className="min-w-[36rem] space-y-3">
-            <div className="grid grid-cols-5 gap-2 px-4 text-xs text-muted-foreground/70 uppercase tracking-wide [&>*]:min-w-0">
+            <div className="grid grid-cols-5 gap-2 px-4 text-xs text-muted-foreground/80 uppercase tracking-wide [&>*]:min-w-0">
               <span>{t("pf.ticker")}</span><span>{t("pf.shares")}</span><span>{t("pf.current")}</span><span>{t("pf.value")}</span><span>{t("pf.pnl")}</span>
             </div>
             {rows.map((r) => (
@@ -130,10 +130,10 @@ export default function Portfolio() {
                 <span className="text-muted-foreground">{r.cur ? `¥${r.cur.toLocaleString()}` : t("pf.noprice")}</span>
                 <span className="text-foreground font-semibold">{r.value != null ? `¥${r.value.toLocaleString()}` : "—"}</span>
                 <div className="flex items-center gap-2">
-                  <span className={r.pnl != null ? (r.pnl >= 0 ? "text-emerald-400" : "text-rose-400") : "text-muted-foreground/70"}>
+                  <span className={r.pnl != null ? (r.pnl >= 0 ? "text-emerald-400" : "text-rose-400") : "text-muted-foreground/80"}>
                     {r.pnl != null ? `${r.pnl >= 0 ? "+" : ""}¥${r.pnl.toLocaleString()}` : "—"}
                   </span>
-                  <button onClick={() => remove(r.id)} aria-label={t("pf.remove")} className="ml-auto min-h-11 min-w-11 inline-flex items-center justify-center text-muted-foreground/70 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
+                  <button onClick={() => remove(r.id)} aria-label={t("pf.remove")} className="ml-auto min-h-11 min-w-11 inline-flex items-center justify-center text-muted-foreground/80 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
                 </div>
               </div>
             ))}

@@ -49,8 +49,8 @@ export default function MangaLibrary() {
       </div>
       <div className="flex flex-col md:flex-row md:items-center gap-4 mb-8">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/70" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("lib.search")} className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-violet-400/50" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/80" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("lib.search")} className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/80 focus:outline-none focus:border-violet-400/50" />
         </div>
         <div className="flex flex-wrap gap-2">
           {CATEGORIES.map((c) => (
@@ -65,7 +65,7 @@ export default function MangaLibrary() {
           {Array.from({ length: 8 }).map((_, i) => (<div key={i} className="aspect-[3/4] rounded-2xl bg-card animate-pulse" />))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20 text-muted-foreground/70">{t("lib.empty")}</div>
+        <div className="text-center py-20 text-muted-foreground/80">{t("lib.empty")}</div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5">
           {filtered.map((m) => <MangaCard key={m.id} manga={m} />)}

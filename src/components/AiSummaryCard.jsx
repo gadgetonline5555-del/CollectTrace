@@ -34,7 +34,7 @@ export default function AiSummaryCard({ snapshot }) {
       </div>
 
       <h2 className="font-display text-2xl font-bold text-foreground mb-1">{snapshot.query}</h2>
-      <p className="text-xs text-muted-foreground/70 mb-4">
+      <p className="text-xs text-muted-foreground/80 mb-4">
         {snapshot.created_date ? formatDistanceToNow(new Date(snapshot.created_date), { addSuffix: true, locale }) : ""} · v{snapshot.version}
       </p>
 
@@ -46,7 +46,7 @@ export default function AiSummaryCard({ snapshot }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-5">
           {Object.entries(metrics).slice(0, 6).map(([k, v]) => (
             <div key={k} className="rounded-lg px-3 py-2 bg-card/50 border border-white/5">
-              <div className="text-[10px] text-muted-foreground/70 uppercase tracking-wide">{k.replace(/_/g, " ")}</div>
+              <div className="text-sm text-muted-foreground/80 uppercase tracking-wide">{k.replace(/_/g, " ")}</div>
               <div className="font-display text-base font-bold text-foreground">{String(v)}</div>
             </div>
           ))}

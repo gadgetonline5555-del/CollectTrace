@@ -117,15 +117,15 @@ export default function CompanyIntel() {
           ))}
         </div>
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/70" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/80" />
           <input value={input} onChange={(e) => setInput(e.target.value)} placeholder={t("intel.search_ph")}
-            className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-emerald-400/50 text-lg" />
+            className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/80 focus:outline-none focus:border-emerald-400/50 text-lg" />
         </div>
       </form>
 
       {!query && (
         <div className="mb-8">
-          <p className="text-sm text-muted-foreground/70 mb-3">{t("intel.suggest")}</p>
+          <p className="text-sm text-muted-foreground/80 mb-3">{t("intel.suggest")}</p>
           <div className="flex flex-wrap gap-2">
             {SUGGESTIONS.map((s) => (
               <button key={s} onClick={() => { setInput(s); setQuery(s); }}
@@ -153,7 +153,7 @@ export default function CompanyIntel() {
               )}
             </div>
             {latest && !refreshing && (
-              <span className="text-xs text-muted-foreground/70">
+              <span className="text-xs text-muted-foreground/80">
                 {t("intel.last_update")}: {formatDistanceToNow(new Date(latest.created_date), { addSuffix: true, locale })}
               </span>
             )}
@@ -166,7 +166,7 @@ export default function CompanyIntel() {
             <div className="rounded-3xl border border-border bg-card/60 p-12 text-center">
               <div className="w-8 h-8 border-4 border-slate-700 border-t-emerald-400 rounded-full animate-spin mx-auto mb-4" />
               <p className="text-muted-foreground">{t("intel.generating")}</p>
-              <p className="text-xs text-slate-600 mt-1">{t("intel.generating_p")}</p>
+              <p className="text-xs text-muted-foreground/80 mt-1">{t("intel.generating_p")}</p>
             </div>
           ) : loading ? (
             <div className="rounded-3xl border border-border bg-card/60 p-12 text-center">
@@ -176,9 +176,9 @@ export default function CompanyIntel() {
             <CompanyIntelCard intel={shown} live={!!viewing && viewing.id === latest?.id} />
           ) : (
             <div className="rounded-3xl border border-border bg-card/60 p-12 text-center">
-              <Network className="w-10 h-10 text-slate-600 mx-auto mb-4" />
+              <Network className="w-10 h-10 text-muted-foreground/80 mx-auto mb-4" />
               <p className="text-muted-foreground font-medium">{t("intel.no_intel")}</p>
-              <p className="text-muted-foreground/70 text-sm mt-1 mb-6">{t("intel.no_intel_p")}</p>
+              <p className="text-muted-foreground/80 text-sm mt-1 mb-6">{t("intel.no_intel_p")}</p>
               <button onClick={handleRefresh}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-950 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                 <Network className="w-4 h-4" /> {t("intel.generate_first")}
@@ -189,9 +189,9 @@ export default function CompanyIntel() {
           {history.length > 1 && (
             <div className="mt-8">
               <div className="flex items-center gap-2 mb-4">
-                <History className="w-4 h-4 text-muted-foreground/70" />
+                <History className="w-4 h-4 text-muted-foreground/80" />
                 <h3 className="text-sm font-semibold text-muted-foreground">{t("intel.history")}</h3>
-                <span className="text-xs text-muted-foreground/70">({history.length})</span>
+                <span className="text-xs text-muted-foreground/80">({history.length})</span>
               </div>
               <div className="space-y-2">
                 {history.map((h) => (
@@ -202,9 +202,9 @@ export default function CompanyIntel() {
                         <span className="text-xs font-mono text-muted-foreground">v{h.version}</span>
                         <span className="text-xs px-1.5 py-0.5 rounded bg-slate-800 text-muted-foreground capitalize">{h.company_type}</span>
                       </div>
-                      <p className="text-sm text-muted-foreground/70 mt-1 truncate">{h.summary || h.market_cap}</p>
+                      <p className="text-sm text-muted-foreground/80 mt-1 truncate">{h.summary || h.market_cap}</p>
                     </div>
-                    <span className="text-xs text-muted-foreground/70 shrink-0">
+                    <span className="text-xs text-muted-foreground/80 shrink-0">
                       {formatDistanceToNow(new Date(h.created_date), { addSuffix: true, locale })}
                     </span>
                   </button>

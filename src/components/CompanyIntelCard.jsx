@@ -12,7 +12,7 @@ function Section({ icon: Icon, title, children }) {
   if (!children) return null;
   return (
     <div>
-      <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-3">
+      <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground/80 mb-3">
         <Icon className="w-3.5 h-3.5" /> {title}
       </h3>
       {children}
@@ -62,7 +62,7 @@ export default function CompanyIntelCard({ intel, live = false }) {
           )}
         </div>
         <h2 className="font-display text-3xl font-bold text-foreground">{intel.query}</h2>
-        <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground/70">
+        <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground/80">
           <Clock className="w-3.5 h-3.5" />
           {intel.created_date ? formatDistanceToNow(new Date(intel.created_date), { addSuffix: true, locale }) : ""}
         </div>
@@ -76,13 +76,13 @@ export default function CompanyIntelCard({ intel, live = false }) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {intel.market_cap && (
             <div className="rounded-xl p-4 bg-card/60 border border-white/5">
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/70 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("intel.market_cap")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/80 uppercase tracking-wide"><DollarSign className="w-3.5 h-3.5" /> {t("intel.market_cap")}</div>
               <div className="font-display text-base font-bold text-foreground mt-1">{intel.market_cap}</div>
             </div>
           )}
           {intel.growth_rate && (
             <div className="rounded-xl p-4 bg-card/60 border border-emerald-400/20">
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/70 uppercase tracking-wide"><TrendingUp className="w-3.5 h-3.5" /> {t("intel.growth_rate")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/80 uppercase tracking-wide"><TrendingUp className="w-3.5 h-3.5" /> {t("intel.growth_rate")}</div>
               <div className="font-display text-base font-bold text-emerald-300 mt-1">{intel.growth_rate}</div>
             </div>
           )}
@@ -137,7 +137,7 @@ export default function CompanyIntelCard({ intel, live = false }) {
                     <span className="font-medium text-foreground">{p.name}</span>
                     {p.nature && <span className="text-xs px-1.5 py-0.5 rounded bg-slate-800 text-muted-foreground">{p.nature}</span>}
                   </div>
-                  {p.note && <p className="text-xs text-muted-foreground/70 mt-1">{p.note}</p>}
+                  {p.note && <p className="text-xs text-muted-foreground/80 mt-1">{p.note}</p>}
                 </div>
               ))}
             </div>

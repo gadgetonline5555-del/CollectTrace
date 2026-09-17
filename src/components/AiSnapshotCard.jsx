@@ -38,7 +38,7 @@ export default function AiSnapshotCard({ snapshot, live = false }) {
             )}
           </div>
           <h2 className="font-display text-2xl font-bold text-foreground">{snapshot.query}</h2>
-          <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground/70">
+          <div className="flex items-center gap-1.5 mt-2 text-xs text-muted-foreground/80">
             <Clock className="w-3.5 h-3.5" />
             {snapshot.created_date ? formatDistanceToNow(new Date(snapshot.created_date), { addSuffix: true, locale }) : ""}
           </div>
@@ -55,11 +55,11 @@ export default function AiSnapshotCard({ snapshot, live = false }) {
 
         {Object.keys(metrics).length > 0 && (
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-3">{t("air.metrics")}</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80 mb-3">{t("air.metrics")}</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {Object.entries(metrics).slice(0, 6).map(([k, v]) => (
                 <div key={k} className="rounded-xl p-3 bg-slate-800/60 border border-white/5">
-                  <div className="text-xs text-muted-foreground/70 uppercase tracking-wide">{k.replace(/_/g, " ")}</div>
+                  <div className="text-xs text-muted-foreground/80 uppercase tracking-wide">{k.replace(/_/g, " ")}</div>
                   <div className="font-display text-lg font-bold text-foreground mt-0.5">{String(v)}</div>
                 </div>
               ))}
@@ -69,7 +69,7 @@ export default function AiSnapshotCard({ snapshot, live = false }) {
 
         {keyPoints.length > 0 && (
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-3">{t("air.key_points")}</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80 mb-3">{t("air.key_points")}</h3>
             <ul className="space-y-2">
               {keyPoints.map((p, i) => (
                 <li key={i} className="flex gap-2.5 text-muted-foreground leading-relaxed">
@@ -83,14 +83,14 @@ export default function AiSnapshotCard({ snapshot, live = false }) {
 
         {snapshot.content && (
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-3">{t("air.full_analysis")}</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80 mb-3">{t("air.full_analysis")}</h3>
             <div className="text-muted-foreground leading-relaxed whitespace-pre-line">{snapshot.content}</div>
           </div>
         )}
 
         {sources.length > 0 && (
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70 mb-3">{t("air.sources")}</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80 mb-3">{t("air.sources")}</h3>
             <div className="flex flex-col gap-1.5">
               {sources.map((s, i) => (
                 <a key={i} href={s} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-sm text-cyan-300 hover:text-cyan-200 truncate">

@@ -49,8 +49,8 @@ export default function ResearchHub() {
       </div>
       <div className="flex flex-col md:flex-row md:items-center gap-4 mb-8">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/70" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("hub.search")} className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-violet-400/50" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/80" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("hub.search")} className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/80 focus:outline-none focus:border-violet-400/50" />
         </div>
         <div className="flex items-center gap-2 text-muted-foreground text-sm">
           <SlidersHorizontal className="w-4 h-4" /> {t("hub.sector")}
@@ -68,7 +68,7 @@ export default function ResearchHub() {
           {Array.from({ length: 6 }).map((_, i) => (<div key={i} className="h-52 rounded-2xl bg-card animate-pulse" />))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20 text-muted-foreground/70">{t("hub.empty")}</div>
+        <div className="text-center py-20 text-muted-foreground/80">{t("hub.empty")}</div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((r) => <ResearchCard key={r.id} research={r} />)}

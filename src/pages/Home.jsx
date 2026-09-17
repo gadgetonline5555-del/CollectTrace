@@ -48,7 +48,7 @@ export default function Home() {
               <s.icon className={`w-6 h-6 mb-3 ${s.accent}`} />
               <div className="font-display text-3xl font-bold text-foreground">{s.value}</div>
               <div className="text-muted-foreground text-sm font-medium">{s.label}</div>
-              <div className="text-muted-foreground/70 text-xs">{s.sub}</div>
+              <div className="text-muted-foreground/80 text-xs">{s.sub}</div>
             </div>
           ))}
         </div>

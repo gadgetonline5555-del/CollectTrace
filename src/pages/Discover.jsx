@@ -53,7 +53,7 @@ export default function Discover() {
         </div>
         <h1 className="font-display text-4xl font-bold text-foreground">{t("disc.h")}</h1>
         <p className="text-slate-400 mt-2 max-w-3xl">{t("disc.p")}</p>
-        <div className="inline-flex items-center gap-1.5 mt-3 text-xs text-muted-foreground/70">
+        <div className="inline-flex items-center gap-1.5 mt-3 text-xs text-muted-foreground/80">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> {t("disc.safety")}
         </div>
       </div>
@@ -74,7 +74,7 @@ export default function Discover() {
           <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
           {loading ? t("disc.generating") : t("disc.refresh")}
         </button>
-        <p className="text-xs text-muted-foreground/70 sm:ml-auto max-w-md">
+        <p className="text-xs text-muted-foreground/80 sm:ml-auto max-w-md">
           {mode === "personalized" ? t("disc.mode_desc_p") : t("disc.mode_desc_d")}
         </p>
       </div>
@@ -97,8 +97,8 @@ export default function Discover() {
           </div>
         </>
       ) : (
-        <div className="text-center py-20 text-muted-foreground/70">
-          <Sparkles className="w-10 h-10 text-slate-600 mx-auto mb-4" />
+        <div className="text-center py-20 text-muted-foreground/80">
+          <Sparkles className="w-10 h-10 text-muted-foreground/80 mx-auto mb-4" />
           {t("disc.empty")}
         </div>
       )}

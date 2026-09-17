@@ -56,7 +56,7 @@ export default function Pricing() {
     { label: t("cmp.row5"), values: ["no", "no", "no", "yes"] },
   ];
 
-  const cell = (v) => v === "yes" ? <Check className="w-4 h-4 text-emerald-400 mx-auto" /> : v === "no" ? <X className="w-4 h-4 text-slate-600 mx-auto" /> : v;
+  const cell = (v) => v === "yes" ? <Check className="w-4 h-4 text-emerald-400 mx-auto" /> : v === "no" ? <X className="w-4 h-4 text-muted-foreground/80 mx-auto" /> : v;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">

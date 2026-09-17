@@ -46,7 +46,7 @@ export default function ResourceManager({ entityName, fields, titleField = "titl
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={3} className="p-6 text-center text-muted-foreground/70">読み込み中…</td></tr>
+              <tr><td colSpan={3} className="p-6 text-center text-muted-foreground/80">読み込み中…</td></tr>
             ) : items.map((it) => (
               <tr key={it.id} className="border-t border-border text-muted-foreground">
                 <td className="p-3 text-foreground">{it[titleField]}</td>

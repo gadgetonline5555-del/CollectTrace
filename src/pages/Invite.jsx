@@ -51,9 +51,9 @@ export default function Invite() {
 
       {!user?.id ? (
         <div className="mt-6 rounded-2xl border border-border bg-card/60 p-8 text-center">
-          <Users className="w-10 h-10 text-slate-600 mx-auto mb-4" />
+          <Users className="w-10 h-10 text-muted-foreground/80 mx-auto mb-4" />
           <p className="text-muted-foreground font-medium mb-2">{t("invite.login_h")}</p>
-          <p className="text-muted-foreground/70 text-sm mb-6">{t("invite.login_p")}</p>
+          <p className="text-muted-foreground/80 text-sm mb-6">{t("invite.login_p")}</p>
           <div className="flex items-center justify-center gap-3">
             <Link to="/register" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-emerald-400 to-cyan-500 text-slate-950 hover:opacity-90">
               <Rocket className="w-4 h-4" /> {t("invite.register")}
@@ -66,7 +66,7 @@ export default function Invite() {
       ) : (
         <>
           <div className="mt-6 rounded-2xl border border-border bg-card/60 p-6">
-            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/70">{t("invite.your_link")}</label>
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">{t("invite.your_link")}</label>
             <div className="mt-2 flex items-center gap-2">
               <input readOnly value={link} className="flex-1 px-4 py-3 rounded-xl bg-background border border-border text-foreground font-mono text-sm truncate" />
               <button onClick={copy} className="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-semibold bg-white text-slate-950 hover:opacity-90">
@@ -74,7 +74,7 @@ export default function Invite() {
                 {copied ? t("invite.copied") : t("invite.copy")}
               </button>
             </div>
-            <p className="text-sm text-muted-foreground/70 mt-2">{t("invite.link_hint")}</p>
+            <p className="text-sm text-muted-foreground/80 mt-2">{t("invite.link_hint")}</p>
 
             <div className="mt-4">
               <ShareBar url={link} text={t("invite.share_text")} />
@@ -83,7 +83,7 @@ export default function Invite() {
 
           <div className="mt-6 grid grid-cols-2 gap-4">
             <div className="rounded-2xl border border-border bg-card/60 p-5">
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/70 uppercase tracking-wide"><Users className="w-3.5 h-3.5" /> {t("invite.invited")}</div>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/80 uppercase tracking-wide"><Users className="w-3.5 h-3.5" /> {t("invite.invited")}</div>
               <div className="font-display text-3xl font-bold text-foreground mt-1">{loading ? "…" : stats.count}</div>
             </div>
             <div className="rounded-2xl border border-emerald-400/20 bg-emerald-500/5 p-5">
@@ -94,7 +94,7 @@ export default function Invite() {
         </>
       )}
 
-      <p className="mt-8 text-sm text-slate-600 leading-relaxed">{t("invite.disclaimer")}</p>
+      <p className="mt-8 text-sm text-muted-foreground/80 leading-relaxed">{t("invite.disclaimer")}</p>
     </div>
   );
 }

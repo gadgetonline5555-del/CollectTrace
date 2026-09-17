@@ -131,7 +131,7 @@ export default function Radar() {
             {Array.from({ length: 6 }).map((_, i) => <div key={i} className="h-32 rounded-2xl bg-card animate-pulse" />)}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="text-center py-20 text-muted-foreground/70">{t("radar.empty")}</div>
+          <div className="text-center py-20 text-muted-foreground/80">{t("radar.empty")}</div>
         ) : (
           <div className="grid md:grid-cols-2 gap-4">
             {filtered.map((it) => (

@@ -39,7 +39,7 @@ export default function RadarCard({ item, locked }) {
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium bg-foreground/5 border border-border text-muted-foreground">{region}</span>
           <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium border ${tier === "primary" ? "bg-emerald-500/10 border-emerald-400/30 text-emerald-300" : "bg-foreground/5 border-border text-muted-foreground"}`}>{t(tier === "primary" ? "radar.tier_primary" : "radar.tier_secondary")}</span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground/70">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground/80">
           <Clock className="w-3 h-3" />
           {item.published_at ? formatDistanceToNow(new Date(item.published_at), { addSuffix: true, locale }) : ""}
         </div>

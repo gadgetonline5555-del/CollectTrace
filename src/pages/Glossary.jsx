@@ -44,8 +44,8 @@ export default function Glossary() {
       </div>
       <div className="flex flex-col md:flex-row md:items-center gap-4 mb-8">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/70" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("glossary.search")} className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-violet-400/50" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/80" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t("glossary.search")} className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/80 focus:outline-none focus:border-violet-400/50" />
         </div>
         <div className="flex flex-wrap gap-2">
           {CATS.map((c) => (
@@ -56,16 +56,16 @@ export default function Glossary() {
         </div>
       </div>
       {loading ? (
-        <div className="text-muted-foreground/70 py-20 text-center">Loading…</div>
+        <div className="text-muted-foreground/80 py-20 text-center">Loading…</div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-20 text-muted-foreground/70">{t("glossary.empty")}</div>
+        <div className="text-center py-20 text-muted-foreground/80">{t("glossary.empty")}</div>
       ) : (
         <div className="grid md:grid-cols-2 gap-4">
           {filtered.map((g) => (
             <div key={g.id} className="rounded-2xl p-5 bg-card/60 border border-border">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-display text-lg font-bold text-foreground">{g.term}</h3>
-                <span className="text-xs text-muted-foreground/70">{g.category}</span>
+                <span className="text-xs text-muted-foreground/80">{g.category}</span>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">{g.definition}</p>
             </div>
