@@ -11,8 +11,8 @@ export default function PricingTiers({ currentTier = "free", onUpgrade, compact 
     <div>
       <div className="flex items-center justify-center gap-3 mb-8">
         <span className={`text-sm ${!annual ? "text-foreground font-semibold" : "text-muted-foreground/80"}`}>{t("pt.monthly")}</span>
-        <button onClick={() => setAnnual((a) => !a)} className={`relative w-14 h-7 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${annual ? "bg-gradient-to-r from-cyan-400 to-violet-500" : "bg-slate-700"}`}>
-          <span className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform ${annual ? "translate-x-8" : "translate-x-1"}`} />
+        <button onClick={() => setAnnual((a) => !a)} aria-label="年間請求を切り替える" className={`relative w-14 h-11 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${annual ? "bg-gradient-to-r from-cyan-400 to-violet-500" : "bg-slate-700"}`}>
+          <span className={`absolute top-2.5 w-6 h-6 rounded-full bg-white transition-transform ${annual ? "translate-x-7" : "translate-x-1"}`} />
         </button>
         <span className={`text-sm ${annual ? "text-foreground font-semibold" : "text-muted-foreground/80"}`}>{t("pt.annual")} <span className="text-emerald-400 text-xs">{t("pt.annual_hint")}</span></span>
       </div>

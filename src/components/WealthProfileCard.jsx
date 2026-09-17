@@ -28,7 +28,7 @@ function Section({ icon: Icon, title, children }) {
   if (!children) return null;
   return (
     <div>
-      <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground/80 mb-3">
+      <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground/80 mb-3">
         <Icon className="w-3.5 h-3.5" /> {title}
       </h3>
       {children}

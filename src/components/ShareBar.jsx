@@ -25,7 +25,7 @@ export default function ShareBar({ url, title, text, compact = false }) {
     } catch { /* ignore */ }
   };
 
-  const btn = "inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-card text-foreground hover:bg-slate-800 transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+  const btn = "inline-flex items-center justify-center gap-1.5 min-h-11 rounded-lg border border-border bg-card text-foreground hover:bg-slate-800 transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
   if (compact) {
     return (
