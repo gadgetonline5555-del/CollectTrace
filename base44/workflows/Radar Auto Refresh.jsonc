@@ -1,0 +1,48 @@
+{
+  "description": "refreshRadar \u3092\u5b9a\u671f\u7684\u306b\u81ea\u52d5\u5b9f\u884c\u3057\u3001\u60c5\u5831\u30ec\u30fc\u30c0\u30fc\u3092\u6700\u65b0\u72b6\u614b\u306b\u4fdd\u3064\uff08EDGAR\uff0b\u65e5\u672c\u9069\u6642\u958b\u793a\uff09",
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "radar_auto_refresh",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "refresh": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "refreshRadar",
+            "args": {
+              "mode": "scheduled",
+              "language": "jp"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "\u30ec\u30fc\u30c0\u30fc\u6700\u65b0\u5316",
+            "description": "EDGAR\uff0b\u9069\u6642\u958b\u793a\u3092\u81ea\u52d5\u53ce\u96c6\u30fb\u69cb\u9020\u5316"
+          }
+        }
+      }
+    ]
+  },
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "*/30 * * * *",
+      "one_time_date": null,
+      "timezone": "Asia/Tokyo",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "name": "Radar Auto Refresh"
+}
