@@ -467,7 +467,17 @@ const DICT = {
   "edge.row_manga": { jp: "漫画で学ぶ導線", en: "Manga learning path" },
   "edge.row_retail": { jp: "個人向け価格", en: "Retail pricing" },
   "edge.row_neutral": { jp: "中立・助言なし", en: "Neutral · no advice" },
-  "edge.row_referral": { jp: "紹介で無料拡大", en: "Referral free quota" }
+  "edge.row_referral": { jp: "紹介で無料拡大", en: "Referral free quota" },
+
+  "radar.beginner": { jp: "初心者向け", en: "Beginner" },
+  "radar.pro": { jp: "プロ向け", en: "Pro" },
+  "radar.impact": { jp: "影響連鎖", en: "Impact chain" },
+  "radar.impact_sectors": { jp: "波及セクター", en: "Affected sectors" },
+  "radar.pro_locked": { jp: "プロ分析は有料プランで", en: "Pro analysis in paid plan" },
+
+  "pulse.badge": { jp: "セクター別開示急増", en: "Sector pulse" },
+  "pulse.h": { jp: "直近24時間のセクター別開示動向（自動検出）", en: "Last 24h disclosure by sector (auto-detected)" },
+  "pulse.spike": { jp: "急増", en: "Spiking" }
 };
 
 const I18nContext = createContext({ lang: "jp", setLang: () => {}, t: (k) => k });

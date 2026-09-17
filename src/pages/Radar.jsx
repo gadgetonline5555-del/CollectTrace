@@ -8,6 +8,7 @@ import { track } from "@/lib/track";
 import PullToRefresh from "@/components/PullToRefresh";
 import RadarCard from "@/components/RadarCard";
 import CompetitiveEdge from "@/components/CompetitiveEdge";
+import SectorPulse from "@/components/SectorPulse";
 import QuotaNotice from "@/components/QuotaNotice";
 
 const REGIONS = [
@@ -117,6 +118,8 @@ export default function Radar() {
 
         {quota && <div className="mb-5"><QuotaNotice used={quota.used} limit={quota.limit} /></div>}
         {error && <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 p-4 text-rose-300 text-sm mb-5">{error}</div>}
+
+        {items.length > 0 && <SectorPulse items={items} />}
 
         {refreshing && items.length === 0 ? (
           <div className="grid md:grid-cols-2 gap-4">

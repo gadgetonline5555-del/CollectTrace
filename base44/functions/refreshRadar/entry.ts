@@ -2,10 +2,10 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 import { checkQuota, logCall } from '../../shared/aiQuota.ts';
 
 // Collect Trace Radar — auto-aggregates PRIMARY information at speed.
-// US: real EDGAR Atom feed (no API key, just a descriptive User-Agent).
-// JP: LLM with web search over timely disclosures (TDnet) + press, real source URLs only.
-// Output is structured, sourced RadarItem records — not generated content.
-// mode:"scheduled" skips per-user quota (server-side auto-update, no user context).
+// US: real EDGAR Atom feed. JP: LLM web search over TDnet/press (real source URLs only).
+// Each item is enriched with: beginner_note (education hook), pro_points, impact chain
+// (affected sectors + related names) — the manga↔pro journey applied to live filings.
+// mode:"scheduled" skips per-user quota (server-side auto-update).
 
 const SEC_UA = "Collect Trace Radar research@collecttrace.app";
 
@@ -35,6 +35,10 @@ function parseAtom(xml: string, formType: string) {
       sector: "",
       summary: "",
       content: "",
+      beginner_note: "",
+      pro_points: "[]",
+      impact_sectors: "[]",
+      impact_related: "[]",
       source_tier: "primary",
       sentiment: "neutral",
       language: "jp"
@@ -75,14 +79,21 @@ export default async function(req: Request): Promise<Response> {
     const [ks8, ks10] = await Promise.all([fetchEdgar("8-K", 20), fetchEdgar("10-K", 8)]);
     let usItems = [...ks8, ...ks10].slice(0, 25);
 
-    // 1b. Enrich US items with a JP summary + sector (single LLM pass, no web)
+    // 1b. Enrich US items: summary, sector, beginner_note, pro_points, impact chain (single LLM pass)
     if (usItems.length > 0) {
       try {
         const enrichInput = usItems.slice(0, 15).map((it, i) => ({ index: i, form: it.form_type, company: it.company_name, headline: it.headline }));
-        const enrichPrompt = `You translate and classify recent US SEC (EDGAR) filings for Japanese investors.
-Write in ${language === "en" ? "English" : "日本語"}.
-For each item below, produce a concise 1-2 sentence summary of what the filing likely signals (stay neutral, no advice) and a sector label.
-Return JSON: { "items": [ { "index": number, "summary": string, "sector": string } ] }.
+        const langWord = language === "en" ? "English" : "日本語";
+        const enrichPrompt = `You translate and classify recent US SEC (EDGAR) filings for Japanese investors, from complete beginners to professionals.
+Write in ${langWord}. Stay strictly neutral — no investment advice, no speculation, no hype.
+For each item below produce:
+- summary: 1-2 sentence neutral signal of what the filing likely indicates.
+- sector: a sector label.
+- beginner_note: ONE plain sentence a complete beginner can understand (what this filing is, in simple words).
+- pro_points: 2-3 short bullets a professional cares about (what to watch, neutral).
+- impact_sectors: up to 3 sectors this may ripple into.
+- impact_related: up to 3 related tickers/companies/names.
+Return JSON: { "items": [ { "index": number, "summary": string, "sector": string, "beginner_note": string, "pro_points": [string], "impact_sectors": [string], "impact_related": [string] } ] }.
 Input items:
 ${JSON.stringify(enrichInput)}`;
         const enriched = await base44.asServiceRole.integrations.Core.InvokeLLM({
@@ -97,7 +108,11 @@ ${JSON.stringify(enrichInput)}`;
                   properties: {
                     index: { type: "number" },
                     summary: { type: "string" },
-                    sector: { type: "string" }
+                    sector: { type: "string" },
+                    beginner_note: { type: "string" },
+                    pro_points: { type: "array", items: { type: "string" } },
+                    impact_sectors: { type: "array", items: { type: "string" } },
+                    impact_related: { type: "array", items: { type: "string" } }
                   },
                   required: ["index", "summary"]
                 }
@@ -110,7 +125,15 @@ ${JSON.stringify(enrichInput)}`;
         usItems = usItems.map((it, i) => {
           const e = map.get(i);
           if (!e) return it;
-          return { ...it, summary: String(e.summary || ""), sector: String(e.sector || "") };
+          return {
+            ...it,
+            summary: String(e.summary || ""),
+            sector: String(e.sector || ""),
+            beginner_note: String(e.beginner_note || ""),
+            pro_points: JSON.stringify(e.pro_points || []),
+            impact_sectors: JSON.stringify(e.impact_sectors || []),
+            impact_related: JSON.stringify(e.impact_related || [])
+          };
         });
       } catch (e) {
         console.error("radar US enrich error:", e?.message || e);
@@ -121,9 +144,9 @@ ${JSON.stringify(enrichInput)}`;
     const langLabel = language === "en" ? "English (keep company names)" : "日本語";
     const jpPrompt = `You are the "Collect Trace Radar" engine. List the most recent (roughly last 24 hours) notable Japanese listed-company timely disclosures (TDnet / 適時開示) and major press releases.
 Return ONLY real, verifiable items with real source URLs (TDnet, an exchange, or a reputable news outlet). Never fabricate URLs.
-Write everything in ${langLabel}.
-For each item give: headline, company_name, ticker, sector, a 2-3 sentence summary, a short 1-paragraph content, source_url, published_at (ISO), form_type, sentiment.
-Return JSON: { "items": [ { "headline": string, "company_name": string, "ticker": string, "sector": string, "summary": string, "content": string, "source_url": string, "published_at": string, "form_type": string, "sentiment": "bullish|neutral|bearish" } ] } (up to 12 items).`;
+Write everything in ${langLabel}. Stay strictly neutral — no investment advice, no speculation.
+For each item give: headline, company_name, ticker, sector, a 2-3 sentence summary, a short 1-paragraph content, a one-sentence beginner_note, 2-3 pro_points, up to 3 impact_sectors, up to 3 impact_related, source_url, published_at (ISO), form_type, sentiment.
+Return JSON: { "items": [ { "headline": string, "company_name": string, "ticker": string, "sector": string, "summary": string, "content": string, "beginner_note": string, "pro_points": [string], "impact_sectors": [string], "impact_related": [string], "source_url": string, "published_at": string, "form_type": string, "sentiment": "bullish|neutral|bearish" } ] } (up to 12 items).`;
 
     let jpItems: any[] = [];
     try {
@@ -144,6 +167,10 @@ Return JSON: { "items": [ { "headline": string, "company_name": string, "ticker"
                   sector: { type: "string" },
                   summary: { type: "string" },
                   content: { type: "string" },
+                  beginner_note: { type: "string" },
+                  pro_points: { type: "array", items: { type: "string" } },
+                  impact_sectors: { type: "array", items: { type: "string" } },
+                  impact_related: { type: "array", items: { type: "string" } },
                   source_url: { type: "string" },
                   published_at: { type: "string" },
                   form_type: { type: "string" },
@@ -166,6 +193,10 @@ Return JSON: { "items": [ { "headline": string, "company_name": string, "ticker"
         sector: String(it.sector || ""),
         summary: String(it.summary || ""),
         content: String(it.content || ""),
+        beginner_note: String(it.beginner_note || ""),
+        pro_points: JSON.stringify(it.pro_points || []),
+        impact_sectors: JSON.stringify(it.impact_sectors || []),
+        impact_related: JSON.stringify(it.impact_related || []),
         source_url: String(it.source_url || ""),
         published_at: it.published_at || new Date().toISOString(),
         source_tier: "primary",
