@@ -10,6 +10,16 @@
         "press"
       ]
     },
+    "source_tier": {
+      "type": "string",
+      "enum": [
+        "primary",
+        "secondary",
+        "generated"
+      ],
+      "default": "primary",
+      "description": "\u60c5\u5831\u306e\u6b63\u7d71\u6027: primary=\u4e00\u6b21\u60c5\u5831(EDGAR/TDnet), secondary=\u4e8c\u6b21(\u30d7\u30ec\u30b9), generated=AI\u751f\u6210"
+    },
     "region": {
       "type": "string",
       "enum": [

@@ -35,6 +35,7 @@ function parseAtom(xml: string, formType: string) {
       sector: "",
       summary: "",
       content: "",
+      source_tier: "primary",
       sentiment: "neutral",
       language: "jp"
     });
@@ -167,6 +168,7 @@ Return JSON: { "items": [ { "headline": string, "company_name": string, "ticker"
         content: String(it.content || ""),
         source_url: String(it.source_url || ""),
         published_at: it.published_at || new Date().toISOString(),
+        source_tier: "primary",
         sentiment: ["bullish", "neutral", "bearish"].includes(it.sentiment) ? it.sentiment : "neutral",
         language
       })).filter((it: any) => it.source_url);

@@ -451,7 +451,23 @@ const DICT = {
   "radar.source": { jp: "出典を開く", en: "Open source" },
   "radar.empty": { jp: "まだ情報がありません。「最新化する」で収集を開始します。", en: "No items yet. Click Refresh to start collecting." },
   "radar.err_refresh": { jp: "更新に失敗しました", en: "Refresh failed" },
-  "radar.locked": { jp: "詳細は有料プランで", en: "Detail in paid plan" }
+  "radar.locked": { jp: "詳細は有料プランで", en: "Detail in paid plan" },
+  "radar.tier_primary": { jp: "一次情報", en: "Primary" },
+  "radar.tier_secondary": { jp: "二次情報", en: "Secondary" },
+  "radar.filter_primary": { jp: "一次情報のみ", en: "Primary only" },
+
+  "edge.badge": { jp: "大手との違い", en: "How we differ" },
+  "edge.h": { jp: "Bloomberg・生成AI金融・調査会社との違い", en: "vs Bloomberg · generative AI finance · research firms" },
+  "edge.p": { jp: "一次情報の最速収集＋出典の透明表示＋漫画で学ぶ導線を、個人向け価格で。機関向け高額ツールでも、生成AI金融でもない、第三の選択肢。", en: "Primary-source speed + sourcing transparency + manga learning, at retail pricing. Neither a pricey institutional terminal nor generic generative-AI finance — a third option." },
+  "edge.col_ct": { jp: "Collect Trace", en: "Collect Trace" },
+  "edge.col_bb": { jp: "Bloomberg等", en: "Bloomberg etc." },
+  "edge.col_ai": { jp: "生成AI金融", en: "Gen AI finance" },
+  "edge.row_source": { jp: "一次情報の最速収集", en: "Primary-source speed" },
+  "edge.row_sourcing": { jp: "出典の透明表示", en: "Sourcing transparency" },
+  "edge.row_manga": { jp: "漫画で学ぶ導線", en: "Manga learning path" },
+  "edge.row_retail": { jp: "個人向け価格", en: "Retail pricing" },
+  "edge.row_neutral": { jp: "中立・助言なし", en: "Neutral · no advice" },
+  "edge.row_referral": { jp: "紹介で無料拡大", en: "Referral free quota" }
 };
 
 const I18nContext = createContext({ lang: "jp", setLang: () => {}, t: (k) => k });

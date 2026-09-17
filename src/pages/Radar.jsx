@@ -7,6 +7,7 @@ import { useUserTier } from "@/hooks/useUserTier";
 import { track } from "@/lib/track";
 import PullToRefresh from "@/components/PullToRefresh";
 import RadarCard from "@/components/RadarCard";
+import CompetitiveEdge from "@/components/CompetitiveEdge";
 import QuotaNotice from "@/components/QuotaNotice";
 
 const REGIONS = [
@@ -19,6 +20,7 @@ export default function Radar() {
   const { t, lang } = useI18n();
   const { can } = useUserTier();
   const [region, setRegion] = useState("all");
+  const [primaryOnly, setPrimaryOnly] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(null);
   const [quota, setQuota] = useState(null);
@@ -71,7 +73,8 @@ export default function Radar() {
     return true;
   };
 
-  const filtered = items.filter((it) => (region === "all" ? true : it.region === region));
+  const tierOf = (it) => it.source_tier || (it.source === "press" ? "secondary" : "primary");
+  const filtered = items.filter((it) => (region === "all" ? true : it.region === region) && (!primaryOnly || tierOf(it) === "primary"));
 
   return (
     <PullToRefresh onRefresh={refresh}>
@@ -100,6 +103,7 @@ export default function Radar() {
                 </button>
               );
             })}
+          <button onClick={() => setPrimaryOnly((v) => !v)} className={`min-h-11 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${primaryOnly ? "bg-emerald-500/15 border border-emerald-400/40 text-emerald-300" : "bg-card text-muted-foreground border border-border hover:bg-foreground/5"}`}>{t("radar.filter_primary")}</button>
           </div>
           <button
             onClick={refresh}
@@ -127,6 +131,8 @@ export default function Radar() {
             ))}
           </div>
         )}
+
+        <CompetitiveEdge />
       </div>
     </PullToRefresh>
   );

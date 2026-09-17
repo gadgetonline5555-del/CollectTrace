@@ -16,11 +16,15 @@ export default function RadarCard({ item, locked }) {
   const SentIcon = item.sentiment === "bullish" ? TrendingUp : item.sentiment === "bearish" ? TrendingDown : Minus;
   const sentColor = item.sentiment === "bullish" ? "text-emerald-400" : item.sentiment === "bearish" ? "text-rose-400" : "text-muted-foreground";
   const region = REGION_LABEL[item.region]?.[lang] || item.region;
+  const tier = item.source_tier || (item.source === "press" ? "secondary" : "primary");
 
   return (
     <article className="rounded-2xl border border-border bg-card/60 p-5 flex flex-col gap-3 hover:bg-card transition-colors">
       <div className="flex items-center justify-between gap-2">
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium bg-foreground/5 border border-border text-muted-foreground">{region}</span>
+        <div className="flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium bg-foreground/5 border border-border text-muted-foreground">{region}</span>
+          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium border ${tier === "primary" ? "bg-emerald-500/10 border-emerald-400/30 text-emerald-300" : "bg-foreground/5 border-border text-muted-foreground"}`}>{t(tier === "primary" ? "radar.tier_primary" : "radar.tier_secondary")}</span>
+        </div>
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground/70">
           <Clock className="w-3 h-3" />
           {item.published_at ? formatDistanceToNow(new Date(item.published_at), { addSuffix: true, locale }) : ""}
