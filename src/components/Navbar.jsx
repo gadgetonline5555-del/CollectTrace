@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck, Globe, ChevronDown, Lock, Star, Briefcase, Terminal, Sparkles, Compass, Crown, Network, Rocket, Gift, Radar } from "lucide-react";
+import { TrendingUp, BookOpen, BarChart3, Tag, ShieldCheck, Globe, ChevronDown, Lock, Star, Briefcase, Terminal, Sparkles, Compass, Crown, Network, Rocket, Gift, Radar, Filter } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
@@ -8,14 +8,13 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 
 const NAV = [
   { to: "/", key: "nav.home", icon: TrendingUp },
-  { to: "/manga", key: "nav.manga", icon: BookOpen },
   { to: "/research", key: "nav.research", icon: BarChart3 },
   { to: "/pricing", key: "nav.pricing", icon: Tag },
 ];
 
 const TOOLS = [
   { to: "/radar", key: "nav.radar", tier: "free", icon: Radar },
-  { to: "/glossary", key: "nav.glossary", tier: "free", icon: BookOpen },
+  { to: "/screener", key: "nav.screener", tier: "starter", icon: Filter },
   { to: "/ai-research", key: "nav.air", tier: "free", icon: Sparkles },
   { to: "/discover", key: "nav.discover", tier: "free", icon: Compass },
   { to: "/wealth", key: "nav.wealth", tier: "free", icon: Crown },
@@ -45,7 +44,7 @@ export default function Navbar() {
           </div>
           <div className="leading-none">
             <span className="font-display font-bold text-foreground tracking-tight text-lg">Collect Trace</span>
-            <span className="block text-xs text-muted-foreground tracking-widest uppercase">Manga × Research</span>
+            <span className="block text-xs text-muted-foreground tracking-widest uppercase">Investment Research</span>
           </div>
         </Link>
         <nav className="hidden md:flex items-center gap-1">

@@ -1,28 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, BarChart3, TrendingUp, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Filter, BarChart3, TrendingUp, Sparkles, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
-import MangaCard from "@/components/MangaCard";
 import ResearchCard from "@/components/ResearchCard";
 import LatestResearch from "@/components/LatestResearch";
 import PullToRefresh from "@/components/PullToRefresh";
 
 export default function Home() {
   const { t } = useI18n();
-  const { data: mangas = [], refetch: refetchManga } = useQuery({ queryKey: ["home", "manga", "featured"], queryFn: () => base44.entities.Manga.list("-rating", 4).catch(() => []) });
   const { data: reports = [], refetch: refetchResearch } = useQuery({ queryKey: ["home", "research", "featured"], queryFn: () => base44.entities.Research.list("-published_date", 3).catch(() => []) });
 
   const STAT_TILES = [
-    { label: t("stat.manga.label"), value: "120+", sub: t("stat.manga.sub"), icon: BookOpen, accent: "text-cyan-400" },
+    { label: t("stat.screener.label"), value: t("stat.screener.value"), sub: t("stat.screener.sub"), icon: Filter, accent: "text-cyan-400" },
     { label: t("stat.reports.label"), value: "480", sub: t("stat.reports.sub"), icon: BarChart3, accent: "text-violet-400" },
     { label: t("stat.upside.label"), value: "+34%", sub: t("stat.upside.sub"), icon: TrendingUp, accent: "text-emerald-400" },
     { label: t("stat.cadence.label"), value: t("stat.cadence.value"), sub: t("stat.cadence.sub"), icon: Zap, accent: "text-amber-400" },
   ];
 
   return (
-    <PullToRefresh onRefresh={async () => { await Promise.all([refetchManga(), refetchResearch()]); }}>
+    <PullToRefresh onRefresh={async () => { await refetchResearch(); }}>
     <div>
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-foreground/5 backdrop-blur text-xs text-muted-foreground mb-6">
@@ -34,7 +32,7 @@ export default function Home() {
         </h1>
         <p className="mt-6 text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">{t("hero.p")}</p>
         <div className="mt-8 flex items-center justify-center gap-3">
-          <Link to="/manga" className="px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 transition-opacity flex items-center gap-2">
+          <Link to="/screener" className="px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 transition-opacity flex items-center gap-2">
             {t("hero.cta1")} <ArrowRight className="w-4 h-4" />
           </Link>
           <Link to="/research" className="px-6 py-3 rounded-xl font-semibold border border-border text-foreground hover:bg-foreground/5 transition-colors">
@@ -57,17 +55,19 @@ export default function Home() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
-        <div className="flex items-end justify-between mb-6">
-          <div>
-            <h2 className="font-display text-3xl font-bold text-foreground">{t("home.featured_h")}</h2>
-            <p className="text-muted-foreground mt-1">{t("home.featured_p")}</p>
+        <div className="relative rounded-3xl overflow-hidden border border-border bg-gradient-to-br from-cyan-900/30 via-slate-900 to-violet-900/30 p-8 sm:p-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="max-w-xl">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 text-xs font-semibold mb-4">
+                <Filter className="w-3.5 h-3.5" /> {t("screen.badge")}
+              </div>
+              <h2 className="font-display text-3xl font-bold text-foreground">{t("screen.promo_h")}</h2>
+              <p className="text-muted-foreground mt-2">{t("screen.promo_p")}</p>
+            </div>
+            <Link to="/screener" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 hover:opacity-90 transition-opacity shrink-0">
+              {t("screen.promo_btn")} <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
-          <Link to="/manga" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
-            {t("home.see_all")} <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          {mangas.map((m) => <MangaCard key={m.id} manga={m} />)}
         </div>
       </section>
 

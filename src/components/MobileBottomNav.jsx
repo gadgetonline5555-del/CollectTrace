@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, BookOpen, BarChart3, Compass, MoreHorizontal, ChevronRight } from "lucide-react";
+import { Home, BookOpen, BarChart3, Compass, Filter, MoreHorizontal, ChevronRight } from "lucide-react";
 import {
   Drawer,
   DrawerContent,
@@ -13,14 +13,13 @@ import { base44 } from "@/api/base44Client";
 
 const TABS = [
   { to: "/", key: "nav.home", icon: Home, exact: true },
-  { to: "/manga", key: "nav.manga", icon: BookOpen },
   { to: "/research", key: "nav.research", icon: BarChart3 },
+  { to: "/screener", key: "nav.screener", icon: Filter },
   { to: "/discover", key: "nav.discover", icon: Compass },
 ];
 
 const MORE = [
   { to: "/radar", key: "nav.radar" },
-  { to: "/glossary", key: "nav.glossary" },
   { to: "/ai-research", key: "nav.air" },
   { to: "/wealth", key: "nav.wealth" },
   { to: "/company-intel", key: "nav.intel" },

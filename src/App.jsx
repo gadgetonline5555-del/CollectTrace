@@ -11,6 +11,7 @@ import { lazy, Suspense } from 'react';
 const Home = lazy(() => import('@/pages/Home'));
 const MangaLibrary = lazy(() => import('@/pages/MangaLibrary'));
 const MangaReader = lazy(() => import('@/pages/MangaReader'));
+const Screener = lazy(() => import('@/pages/Screener'));
 const ResearchHub = lazy(() => import('@/pages/ResearchHub'));
 const Radar = lazy(() => import('@/pages/Radar'));
 const ResearchDetail = lazy(() => import('@/pages/ResearchDetail'));
@@ -72,6 +73,7 @@ const AuthenticatedApp = () => {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/radar" element={<Radar />} />
+        <Route path="/screener" element={<Screener />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/glossary" element={<Glossary />} />
         <Route path="/ai-research" element={<AiResearch />} />
