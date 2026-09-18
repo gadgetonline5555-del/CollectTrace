@@ -15,6 +15,7 @@ export default function LatestResearch() {
   const locale = lang === "en" ? enUS : ja;
   const { data: items = [] } = useQuery({
     queryKey: ["home", "latest-research"],
+    staleTime: 60000,
     queryFn: async () => {
       const [ai, wealth, intel, ipo] = await Promise.allSettled([
         base44.entities.AiResearchSnapshot.list("-created_date", 6),

@@ -61,7 +61,7 @@ export default function Navbar() {
             <DropdownMenuTrigger className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition-colors outline-none">
               <Star className="w-4 h-4" /> {t("nav.tools")} <ChevronDown className="w-3.5 h-3.5" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="bg-slate-900 border-border">
+            <DropdownMenuContent align="start" className="bg-popover border-border">
               {TOOLS.map(({ to, key, tier, icon: Icon }) => (
                 <DropdownMenuItem key={to} asChild>
                   <Link to={to} className="flex items-center gap-2 cursor-pointer">

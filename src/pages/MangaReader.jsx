@@ -6,6 +6,7 @@ import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
 import { track } from "@/lib/track";
+import PullToRefresh from "@/components/PullToRefresh";
 
 export default function MangaReader() {
   const { t, lang } = useI18n();
@@ -25,6 +26,7 @@ export default function MangaReader() {
   const access = can(manga.plan_tier);
 
   return (
+    <PullToRefresh onRefresh={async () => {}}>
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
       <div className="flex items-center gap-2 mb-4">
         <span className={`px-2.5 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${plan.accent} text-slate-950`}>{plan.name[lang]}</span>
@@ -65,5 +67,6 @@ export default function MangaReader() {
         )}
       </div>
     </article>
+    </PullToRefresh>
   );
 }

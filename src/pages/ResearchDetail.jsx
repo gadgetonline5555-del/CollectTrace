@@ -6,6 +6,7 @@ import { getPlan } from "@/lib/plans";
 import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
 import { track } from "@/lib/track";
+import PullToRefresh from "@/components/PullToRefresh";
 
 export default function ResearchDetail() {
   const { t, lang } = useI18n();
@@ -34,6 +35,7 @@ export default function ResearchDetail() {
   ];
 
   return (
+    <PullToRefresh onRefresh={async () => {}}>
     <article className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-sm font-mono font-bold text-muted-foreground">{report.ticker}</span>
@@ -74,5 +76,6 @@ export default function ResearchDetail() {
         )}
       </div>
     </article>
+    </PullToRefresh>
   );
 }

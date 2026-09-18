@@ -29,8 +29,8 @@ export default function AiSnapshotCard({ snapshot, live = false }) {
       <div className="p-6 border-b border-border flex items-start justify-between gap-4 flex-wrap">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 border border-border text-muted-foreground capitalize">{snapshot.query_type}</span>
-            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 border border-border text-muted-foreground">v{snapshot.version}</span>
+            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground capitalize">{snapshot.query_type}</span>
+            <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">v{snapshot.version}</span>
             {live && (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-cyan-500/15 border border-cyan-400/30 text-cyan-300">
                 <Sparkles className="w-3 h-3" /> {t("air.just_now")}
@@ -58,7 +58,7 @@ export default function AiSnapshotCard({ snapshot, live = false }) {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/80 mb-3">{t("air.metrics")}</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {Object.entries(metrics).slice(0, 6).map(([k, v]) => (
-                <div key={k} className="rounded-xl p-3 bg-slate-800/60 border border-white/5">
+                <div key={k} className="rounded-xl p-3 bg-muted/60 border border-white/5">
                   <div className="text-xs text-muted-foreground/80 uppercase tracking-wide">{k.replace(/_/g, " ")}</div>
                   <div className="font-display text-lg font-bold text-foreground mt-0.5">{String(v)}</div>
                 </div>
