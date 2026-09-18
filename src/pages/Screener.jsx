@@ -6,6 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { useUserTier } from "@/hooks/useUserTier";
 import TierGate from "@/components/TierGate";
 import PullToRefresh from "@/components/PullToRefresh";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { track } from "@/lib/track";
 
 const RATINGS = ["Strong Buy", "Buy", "Hold", "Sell"];
@@ -85,17 +86,27 @@ export default function Screener() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 p-5 rounded-2xl bg-card/60 border border-border">
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">{t("screen.filter_sector")}</label>
-              <select value={sector} onChange={(e) => setSector(e.target.value)} className={selectCls}>
-                <option value="">{t("screen.all")}</option>
-                {sectors.map((s) => <option key={s} value={s}>{s}</option>)}
-              </select>
+              <Select value={sector || "all"} onValueChange={(v) => setSector(v === "all" ? "" : v)}>
+                <SelectTrigger className="bg-background border-border text-foreground min-h-11">
+                  <SelectValue placeholder={t("screen.all")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("screen.all")}</SelectItem>
+                  {sectors.map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">{t("screen.filter_rating")}</label>
-              <select value={rating} onChange={(e) => setRating(e.target.value)} className={selectCls}>
-                <option value="">{t("screen.all")}</option>
-                {RATINGS.map((r) => <option key={r} value={r}>{r}</option>)}
-              </select>
+              <Select value={rating || "all"} onValueChange={(v) => setRating(v === "all" ? "" : v)}>
+                <SelectTrigger className="bg-background border-border text-foreground min-h-11">
+                  <SelectValue placeholder={t("screen.all")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("screen.all")}</SelectItem>
+                  {RATINGS.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">{t("screen.filter_upside")}</label>
@@ -103,11 +114,16 @@ export default function Screener() {
             </div>
             <div>
               <label className="text-xs text-muted-foreground mb-1 block">{t("screen.sort")}</label>
-              <select value={sort} onChange={(e) => setSort(e.target.value)} className={selectCls}>
-                <option value="upside">{t("screen.sort_upside")}</option>
-                <option value="current_price">{t("screen.sort_current")}</option>
-                <option value="target_price">{t("screen.sort_target")}</option>
-              </select>
+              <Select value={sort} onValueChange={setSort}>
+                <SelectTrigger className="bg-background border-border text-foreground min-h-11">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="upside">{t("screen.sort_upside")}</SelectItem>
+                  <SelectItem value="current_price">{t("screen.sort_current")}</SelectItem>
+                  <SelectItem value="target_price">{t("screen.sort_target")}</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
