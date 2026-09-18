@@ -14,8 +14,10 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-import { Sun, Moon, Monitor, Trash2 } from "lucide-react";
+import { Sun, Moon, Monitor, Trash2, CreditCard } from "lucide-react";
 import PullToRefresh from "@/components/PullToRefresh";
+import { useToast } from "@/components/ui/use-toast";
+import { useUserTier } from "@/hooks/useUserTier";
 
 const THEMES = [
   { id: "light", icon: Sun, key: "set.theme_light" },
@@ -27,9 +29,13 @@ export default function Settings() {
   const { lang, setLang, t } = useI18n();
   const { theme, setTheme } = useTheme();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const { tier } = useUserTier();
   const [user, setUser] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const [err, setErr] = useState(null);
+  const [canceling, setCanceling] = useState(false);
+  const [subErr, setSubErr] = useState(null);
 
   useEffect(() => {
     base44.auth.me().then(setUser).catch(() => setUser(null));
@@ -44,6 +50,24 @@ export default function Settings() {
     } catch (e) {
       setErr(e?.message || "error");
       setDeleting(false);
+    }
+  };
+
+  const handleCancelSub = async () => {
+    setCanceling(true);
+    setSubErr(null);
+    try {
+      const res = await base44.functions.invoke("cancelSubscription");
+      if (res.data?.ok) {
+        toast({ title: t("set.sub_cancel_done"), description: t("set.sub_cancel_done_desc") });
+      } else {
+        setSubErr(res.data?.message || t("set.sub_err"));
+      }
+    } catch (e) {
+      const code = e?.response?.data?.error || e?.message;
+      setSubErr(code === "no_subscription" ? t("set.sub_no_sub") : t("set.sub_err"));
+    } finally {
+      setCanceling(false);
     }
   };
 
@@ -102,6 +126,44 @@ export default function Settings() {
           </Link>
         </div>
       </section>
+
+      {user && tier !== "free" && (
+        <section className="mb-8">
+          <h2 className="text-sm font-semibold text-muted-foreground mb-3">{t("set.subscription")}</h2>
+          <div className="rounded-2xl border border-border bg-card/60 p-4">
+            <p className="text-sm text-muted-foreground mb-4">{t("set.sub_desc")}</p>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button
+                  disabled={canceling}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold bg-card border border-border text-foreground hover:bg-slate-800 disabled:opacity-50 min-h-11"
+                >
+                  <CreditCard className="w-4 h-4" /> {t("set.sub_cancel_btn")}
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="bg-background border-border text-foreground">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>{t("set.sub_cancel_confirm_t")}</AlertDialogTitle>
+                  <AlertDialogDescription className="text-muted-foreground">
+                    {t("set.sub_cancel_confirm_d")}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                {subErr && <p className="text-xs text-rose-400">{subErr}</p>}
+                <AlertDialogFooter>
+                  <AlertDialogCancel disabled={canceling}>{t("set.cancel")}</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleCancelSub}
+                    disabled={canceling}
+                    className="bg-card border border-border text-foreground hover:bg-slate-800"
+                  >
+                    {canceling ? t("set.sub_canceling") : t("set.sub_cancel_confirm")}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        </section>
+      )}
 
       {user && (
         <section>

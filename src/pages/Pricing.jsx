@@ -8,11 +8,14 @@ import PricingTiers from "@/components/PricingTiers";
 import { track } from "@/lib/track";
 import { isNativeMobileApp, openExternal } from "@/lib/platform";
 import PullToRefresh from "@/components/PullToRefresh";
+import { useUserTier } from "@/hooks/useUserTier";
+import { useAuth } from "@/lib/AuthContext";
 
 export default function Pricing() {
   const { toast } = useToast();
   const { t, lang } = useI18n();
-  const [current, setCurrent] = useState("free");
+  const { tier } = useUserTier();
+  const { checkUserAuth } = useAuth();
   const [busy, setBusy] = useState(null);
   const native = isNativeMobileApp();
 
@@ -21,12 +24,17 @@ export default function Pricing() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const status = params.get("status");
-    if (status === "success") toast({ title: t("pt.success"), description: t("pt.success_desc") });
+    if (status === "success") {
+      toast({ title: t("pt.success"), description: t("pt.success_desc") });
+      // Re-fetch the user so the newly-paid tier reflects without a full reload
+      // (the webhook may process a moment after the Stripe redirect lands).
+      setTimeout(() => { checkUserAuth?.().catch(() => {}); }, 2000);
+    }
     else if (status === "cancelled") toast({ title: t("pt.cancelled"), variant: "destructive" });
   }, [toast, t]);
 
   const handleUpgrade = async (planId) => {
-    if (planId === "free") { setCurrent("free"); return; }
+    if (planId === "free") return;
     if (native) {
       openExternal(`${window.location.origin}/pricing`);
       toast({ title: t("pt.native_title"), description: t("pt.native_desc") });
@@ -82,7 +90,7 @@ export default function Pricing() {
         )}
       </div>
 
-      <PricingTiers currentTier={current} onUpgrade={handleUpgrade} busy={busy} />
+      <PricingTiers currentTier={tier} onUpgrade={handleUpgrade} busy={busy} />
 
       <div className="mt-20">
         <h2 className="font-display text-2xl font-bold text-foreground text-center mb-8">{t("pricing.compare_h")}</h2>
