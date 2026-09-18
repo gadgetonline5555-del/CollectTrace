@@ -20,7 +20,7 @@ export default function Layout() {
       <div className="relative z-10 flex flex-col min-h-screen pb-safe-nav md:pb-0">
         <MobileTopBar />
         <Navbar />
-        <main className="flex-1">
+        <main className="flex-1 pt-12 md:pt-0">
           <PageTransition key={location.pathname}>
             <Outlet />
           </PageTransition>

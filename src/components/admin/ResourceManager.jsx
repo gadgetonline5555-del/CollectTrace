@@ -52,8 +52,8 @@ export default function ResourceManager({ entityName, fields, titleField = "titl
                 <td className="p-3 text-foreground">{it[titleField]}</td>
                 <td className="p-3">{it.plan_tier}</td>
                 <td className="p-3 text-right whitespace-nowrap">
-                  <button onClick={() => startEdit(it)} className="p-1.5 hover:text-foreground"><Pencil className="w-4 h-4" /></button>
-                  <button onClick={() => remove(it.id)} className="p-1.5 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
+                  <button onClick={() => startEdit(it)} className="min-h-11 min-w-11 inline-flex items-center justify-center p-2 hover:text-foreground"><Pencil className="w-4 h-4" /></button>
+                  <button onClick={() => remove(it.id)} className="min-h-11 min-w-11 inline-flex items-center justify-center p-2 hover:text-rose-400"><Trash2 className="w-4 h-4" /></button>
                 </td>
               </tr>
             ))}

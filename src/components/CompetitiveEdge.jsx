@@ -28,8 +28,8 @@ export default function CompetitiveEdge() {
       </div>
       <h2 className="font-display text-2xl font-bold text-foreground">{t("edge.h")}</h2>
       <p className="text-muted-foreground mt-2 mb-5 max-w-2xl text-sm">{t("edge.p")}</p>
-      <div className="overflow-x-auto -mx-4 sm:mx-0 rounded-2xl border border-border bg-card/40">
-        <table className="w-full min-w-[560px] border-collapse">
+      <div className="overflow-x-auto overscroll-x-contain -mx-4 sm:mx-0 rounded-2xl border border-border bg-card/40">
+        <table className="w-full min-w-[560px] md:min-w-0 border-collapse">
           <thead>
             <tr className="border-b border-border">
               <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider py-3 px-3">{t("cmp.feature")}</th>

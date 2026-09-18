@@ -98,6 +98,7 @@ export default function WealthProfileCard({ profile, live = false }) {
         {holdings.length > 0 && (
           <Section icon={Users} title={t("wealth.holdings")}>
             <div className="rounded-2xl border border-border overflow-hidden">
+              <div className="overflow-x-auto overscroll-x-contain">
               <table className="w-full text-sm">
                 <thead className="bg-card/80 text-muted-foreground/80 text-xs uppercase tracking-wide">
                   <tr>
@@ -130,6 +131,7 @@ export default function WealthProfileCard({ profile, live = false }) {
                   })}
                 </tbody>
               </table>
+              </div>
             </div>
           </Section>
         )}

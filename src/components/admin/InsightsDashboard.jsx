@@ -55,7 +55,7 @@ function RankList({ items, unit }) {
   return (
     <div className="space-y-2">
       {items.map(([k, v], i) => (
-        <div key={k} className="flex items-center gap-3">
+        <div key={k} className="flex items-center gap-3 min-h-11">
           <span className="w-6 text-muted-foreground/80 text-sm font-mono">{i + 1}</span>
           <span className="w-40 truncate text-foreground text-sm">{k}</span>
           <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">

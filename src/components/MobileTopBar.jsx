@@ -35,7 +35,7 @@ export default function MobileTopBar() {
   const isRoot = pathname === "/";
 
   return (
-    <div className="md:hidden sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border pt-safe">
+    <div className="md:hidden fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border pt-safe">
       <div className="h-12 flex items-center gap-1 px-2">
         {isRoot ? (
           <Link to="/" className="flex items-center gap-2 pl-1" aria-label="Collect Trace">

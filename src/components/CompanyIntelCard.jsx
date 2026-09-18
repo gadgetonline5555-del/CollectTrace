@@ -33,6 +33,7 @@ export default function CompanyIntelCard({ intel, live = false }) {
 
   const RelTable = ({ rows, cols }) => (
     <div className="rounded-2xl border border-border overflow-hidden">
+      <div className="overflow-x-auto overscroll-x-contain">
       <table className="w-full text-sm">
         <tbody className="divide-y divide-white/5">
           {rows.map((r, i) => (
@@ -46,6 +47,7 @@ export default function CompanyIntelCard({ intel, live = false }) {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 
