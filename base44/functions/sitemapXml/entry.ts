@@ -5,7 +5,7 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 export default async function(req: Request): Promise<Response> {
   try {
     const base44 = createClientFromRequest(req);
-    const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || "investra-manga-insight.base44.app";
+    const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || "collectrace.com";
     const origin = "https://" + host;
 
     const sources = [
