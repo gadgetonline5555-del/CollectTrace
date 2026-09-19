@@ -1,0 +1,162 @@
+{
+  "auth": "oauth",
+  "tools": {
+    "functions": [
+      {
+        "name": "research_company_intel",
+        "title": "Research company intelligence",
+        "description": "Generate a comprehensive corporate-intelligence snapshot for a company (listed, private, or subsidiary): valuation vs intrinsic value, index-passive lift, investors, investments, partnerships, corporate structure, and growth story. Use when the user asks to analyze a company. Subject to the signed-in user's daily AI quota (higher tiers get more calls).",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Company name or identifier to research. 1-160 characters."
+            },
+            "language": {
+              "type": "string",
+              "enum": ["jp", "en"],
+              "description": "Output language. Defaults to jp (Japanese)."
+            },
+            "company_type": {
+              "type": "string",
+              "enum": ["listed", "private", "subsidiary"],
+              "description": "Company type. Defaults to listed."
+            }
+          },
+          "required": ["query"]
+        },
+        "handler": "researchCompanyIntel",
+        "annotations": { "read_only_hint": false, "destructive_hint": false, "idempotent_hint": false }
+      },
+      {
+        "name": "research_ipo",
+        "title": "Research IPO profile",
+        "description": "Generate a detailed IPO research profile (filing status, offering price/size, valuation, underwriters, use of proceeds, growth story, risks, comparables) for a specific IPO or a regional IPO overview. Use when the user asks about an IPO or new listing. Subject to the signed-in user's daily AI quota.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "IPO target (company name, ticker, or aggregate term like '日本のIPO 2025'). 1-160 characters."
+            },
+            "language": {
+              "type": "string",
+              "enum": ["jp", "en"],
+              "description": "Output language. Defaults to jp (Japanese)."
+            },
+            "region": {
+              "type": "string",
+              "enum": ["jp", "us", "global"],
+              "description": "Region focus. Defaults to global."
+            }
+          },
+          "required": ["query"]
+        },
+        "handler": "researchIpo",
+        "annotations": { "read_only_hint": false, "destructive_hint": false, "idempotent_hint": false }
+      },
+      {
+        "name": "research_wealth_profile",
+        "title": "Research wealth profile",
+        "description": "Generate a global wealth/asset-intelligence profile (net worth, holdings, portfolio allocation, philanthropy, lifestyle, recent activity, history) for an individual, company, institution, fund, or sovereign entity. Use when the user asks to analyze a wealthy entity or asset holder. Subject to the signed-in user's daily AI quota.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Subject name (person, company, institution, fund, or sovereign entity). 1-160 characters."
+            },
+            "language": {
+              "type": "string",
+              "enum": ["jp", "en"],
+              "description": "Output language. Defaults to jp (Japanese)."
+            },
+            "profile_type": {
+              "type": "string",
+              "enum": ["individual", "company", "institution", "fund", "sovereign"],
+              "description": "Profile type. Defaults to individual."
+            }
+          },
+          "required": ["query"]
+        },
+        "handler": "researchWealthProfile",
+        "annotations": { "read_only_hint": false, "destructive_hint": false, "idempotent_hint": false }
+      },
+      {
+        "name": "research_ai_snapshot",
+        "title": "Generate AI research snapshot",
+        "description": "Generate a real-time structured research brief (summary, key points, metrics, sentiment, sources) for a company, sector, market, or theme using the latest web information. Use when the user asks for a research brief or analysis on a topic. Subject to the signed-in user's daily AI quota.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Topic to research. 1-120 characters."
+            },
+            "language": {
+              "type": "string",
+              "enum": ["jp", "en"],
+              "description": "Output language. Defaults to jp (Japanese)."
+            },
+            "query_type": {
+              "type": "string",
+              "enum": ["company", "sector", "market", "theme"],
+              "description": "Type of query. Defaults to company."
+            }
+          },
+          "required": ["query"]
+        },
+        "handler": "refreshAiResearch",
+        "annotations": { "read_only_hint": false, "destructive_hint": false, "idempotent_hint": false }
+      },
+      {
+        "name": "generate_discover_feed",
+        "title": "Generate discovery feed",
+        "description": "Produce a discovery feed of timely topics across stocks, weather/disaster, geopolitics, science, and markets. Can be personalized to the signed-in user's watchlist and holdings, or a balanced default world overview. Subject to the signed-in user's daily AI quota.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": ["default", "personalized"],
+              "description": "default = balanced global overview; personalized = tailored to the signed-in user's activity, watchlist, and holdings. Defaults to default."
+            },
+            "language": {
+              "type": "string",
+              "enum": ["jp", "en"],
+              "description": "Output language. Defaults to jp (Japanese)."
+            }
+          }
+        },
+        "handler": "generateDiscoverFeed",
+        "annotations": { "read_only_hint": false, "destructive_hint": false, "idempotent_hint": false }
+      },
+      {
+        "name": "get_referral_stats",
+        "title": "Get referral stats",
+        "description": "Return the signed-in user's referral count and earned bonus quota. No parameters.",
+        "input_schema": { "type": "object", "properties": {} },
+        "handler": "getReferralStats",
+        "annotations": { "read_only_hint": true, "destructive_hint": false, "idempotent_hint": true }
+      },
+      {
+        "name": "record_referral",
+        "title": "Record referral",
+        "description": "Record that the signed-in user was referred by another user (deduplicated, self-referrals ignored). Use when the user provides a referrer id.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "referrerId": {
+              "type": "string",
+              "description": "The referrer's user id."
+            }
+          },
+          "required": ["referrerId"]
+        },
+        "handler": "recordReferral",
+        "annotations": { "read_only_hint": false, "destructive_hint": false, "idempotent_hint": true }
+      }
+    ]
+  }
+}
