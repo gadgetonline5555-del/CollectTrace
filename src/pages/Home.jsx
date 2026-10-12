@@ -14,8 +14,7 @@ export default function Home() {
 
   const STAT_TILES = [
     { label: t("stat.screener.label"), value: t("stat.screener.value"), sub: t("stat.screener.sub"), icon: Filter, accent: "text-cyan-400" },
-    { label: t("stat.reports.label"), value: "480", sub: t("stat.reports.sub"), icon: BarChart3, accent: "text-violet-400" },
-    { label: t("stat.upside.label"), value: "+34%", sub: t("stat.upside.sub"), icon: TrendingUp, accent: "text-emerald-400" },
+    { label: t("stat.reports.label"), value: t("stat.reports.sub"), icon: BarChart3, accent: "text-violet-400" },
     { label: t("stat.cadence.label"), value: t("stat.cadence.value"), sub: t("stat.cadence.sub"), icon: Zap, accent: "text-amber-400" },
   ];
 

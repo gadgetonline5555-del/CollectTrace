@@ -24,15 +24,14 @@ export default async function(req: Request): Promise<Response> {
     const radarStale = !radarLatestAt || (now - new Date(radarLatestAt).getTime()) > STALE_MS;
     if (radarStale) issues.push("radar_stale");
 
-    // 2. Volume counts (paginate cap 200 per entity — sufficient for health signal)
-    const [radarAll, researchAll, mangaAll] = await Promise.all([
-      base44.asServiceRole.entities.RadarItem.list("-created_date", 200),
-      base44.asServiceRole.entities.Research.list("-created_date", 200),
-      base44.asServiceRole.entities.Manga.list("-created_date", 200)
+    // 2. Volume counts via count() — NOT a list cap (which would undercount).
+    //    The previous list("-created_date", 200) reported 200 as "total" when
+    //    the real Radar count was 3,100+. Use count() for accurate totals.
+    const [radarTotal, researchTotal, mangaTotal] = await Promise.all([
+      base44.asServiceRole.entities.RadarItem.count({}),
+      base44.asServiceRole.entities.Research.count({}),
+      base44.asServiceRole.entities.Manga.count({})
     ]);
-    const radarTotal = radarAll.length;
-    const researchTotal = researchAll.length;
-    const mangaTotal = mangaAll.length;
 
     if (radarTotal === 0) issues.push("radar_empty");
     if (researchTotal === 0) issues.push("research_empty");
@@ -40,9 +39,11 @@ export default async function(req: Request): Promise<Response> {
     // 3. Self-heal decision: stale radar -> workflow triggers refreshRadar
     if (radarStale) actions.push("schedule_radar_refresh");
 
-    // 4. Security posture: user-scoped entities (Portfolio/Watchlist) enforce
-    //    created_by_id ownership by schema design — record as verified.
-    actions.push("rls_verified_user_scoped_entities");
+    // 4. Security posture: Portfolio/Watchlist have created_by_id ownership
+    //    rules in their entity schema. This audit does NOT perform runtime
+    //    RLS verification — it only notes that schema-level rules exist.
+    //    Schema presence ≠ runtime enforcement verified. Do not record as "verified".
+    actions.push("rls_rules_present_in_schema_not_runtime_verified");
 
     const report = {
       report_type: "daily_health" as const,

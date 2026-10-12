@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import { base44 } from "@/api/base44Client";
@@ -20,8 +20,12 @@ export default function SnapshotView() {
   const [type, setType] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  // Generation token: prevents a stale fetch (from an old id) from overwriting
+  // the state when the user navigates to a different snapshot.
+  const fetchGenRef = useRef(0);
 
   const fetchSnapshot = async () => {
+    const gen = ++fetchGenRef.current;
     const tries = [
       { type: "ai", fn: () => base44.entities.AiResearchSnapshot.get(id) },
       { type: "wealth", fn: () => base44.entities.WealthProfile.get(id) },
@@ -35,6 +39,8 @@ export default function SnapshotView() {
         if (r) { found = r; foundType = tr.type; break; }
       } catch { /* not this entity, try next */ }
     }
+    // Only commit state if this fetch is still the latest generation.
+    if (gen !== fetchGenRef.current) return;
     if (found) { setData(found); setType(foundType); } else { setError(true); }
     setLoading(false);
   };

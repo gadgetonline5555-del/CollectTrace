@@ -10,21 +10,24 @@ import PullToRefresh from "@/components/PullToRefresh";
 
 export default function Watchlist() {
   const { t } = useI18n();
-  const { can } = useUserTier();
+  const { can, user } = useUserTier();
   const { toast } = useToast();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ ticker: "", title: "", target_price: "", note: "" });
 
   const load = () => {
     setLoading(true);
     base44.entities.Watchlist.list("-created_date", 100).then((r) => { setItems(r); setLoading(false); }).catch(() => setLoading(false));
   };
-  useEffect(() => { if (can("starter")) load(); }, []);
+  // Reload when user changes to discard stale state from a previous account.
+  useEffect(() => { if (can("starter")) load(); else { setItems([]); setLoading(false); } }, [user?.id]);
 
   const add = async (e) => {
     e.preventDefault();
-    if (!form.ticker) return;
+    if (!form.ticker || submitting) return;
+    setSubmitting(true);
     const payload = {
       ticker: form.ticker.toUpperCase(),
       title: form.title || form.ticker.toUpperCase(),
@@ -41,15 +44,23 @@ export default function Watchlist() {
     } catch (err) {
       setItems((prev) => prev.filter((it) => it.id !== tempId));
       toast({ title: t("wl.err"), description: err?.message, variant: "destructive" });
+    } finally {
+      setSubmitting(false);
     }
   };
   const remove = async (id) => {
+    // Never call the delete API on unsaved temp rows — only remove from local state.
+    if (String(id).startsWith("temp_")) {
+      setItems((prev) => prev.filter((it) => it.id !== id));
+      return;
+    }
     const prev = items;
     setItems((cur) => cur.filter((it) => it.id !== id));
     try {
       await base44.entities.Watchlist.delete(id);
     } catch (err) {
-      setItems(prev);
+      // Restore only the failed row.
+      setItems((cur) => [...cur, prev.find((it) => it.id === id)].filter(Boolean));
       toast({ title: t("wl.err"), variant: "destructive" });
     }
   };
@@ -68,7 +79,7 @@ export default function Watchlist() {
           <input value={form.target_price} onChange={(e) => setForm({ ...form, target_price: e.target.value })} placeholder={t("wl.target")} type="number" className="px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm" />
           <div className="flex gap-2">
             <input value={form.note} onChange={(e) => setForm({ ...form, note: e.target.value })} placeholder={t("wl.note")} className="flex-1 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm" />
-            <button type="submit" className="px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 font-semibold text-sm flex items-center gap-1"><Plus className="w-4 h-4" />{t("wl.add")}</button>
+            <button type="submit" disabled={submitting} className="px-3 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-violet-500 text-slate-950 font-semibold text-sm flex items-center gap-1 disabled:opacity-50 min-h-11"><Plus className="w-4 h-4" />{t("wl.add")}</button>
           </div>
         </form>
         {loading ? (

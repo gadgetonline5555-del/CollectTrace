@@ -9,9 +9,10 @@ export const PLANS = [
     tagline: { jp: "AI調査で投資を始める", en: "Start investing with AI research" },
     priceLabel: { jp: "無料", en: "Free" },
     features: {
-      jp: ["AI投資調査 1日10回まで", "情報レーダー速報（ヘッドライン）", "用語集・発見フィード", "資産・企業・IPO調査の閲覧", "紹介で無料枠を拡大"],
-      en: ["AI investment research (10/day)", "Radar headlines", "Glossary & Discover feed", "Browse wealth, company & IPO research", "Grow your quota by inviting friends"]
+      jp: ["企業調査 1日10回まで（広告あり）", "情報レーダー速報（ヘッドライン）", "用語集・発見フィード", "資産・企業・IPO調査の閲覧", "紹介で無料枠を拡大"],
+      en: ["Company research (10/day, with ads)", "Radar headlines", "Glossary & Discover feed", "Browse wealth, company & IPO research", "Grow your quota by inviting friends"]
     },
+    ads: true,
     locked: {
       jp: ["銘柄スクリーニング", "個別銘柄レポート", "市場データAPI"],
       en: ["Stock screening", "Stock reports", "Market data API"]
@@ -22,18 +23,19 @@ export const PLANS = [
     price: 1000,
     accent: "from-cyan-400 to-blue-600",
     ring: "ring-cyan-400/50",
-    name: { jp: "スターター", en: "Starter" },
+    name: { jp: "ベーシック", en: "Basic" },
     audience: { jp: "初中級者", en: "Beginner+" },
-    tagline: { jp: "AI調査を無制限で、データに触れる", en: "Unlimited AI research, touch the data" },
+    tagline: { jp: "調査を無制限で、データに触れる", en: "Unlimited research, touch the data" },
     priceLabel: { jp: "¥1,000/月", en: "¥1,000/mo" },
     features: {
-      jp: ["AI投資調査 無制限", "情報レーダー 1地域の詳細", "基礎スクリーニング機能", "初心者向けレポート閲覧", "銘柄ウォッチリスト"],
-      en: ["Unlimited AI investment research", "Radar: 1 region detail", "Basic stock screening", "Beginner-level reports", "Stock watchlist"]
+      jp: ["企業調査 無制限", "情報レーダー 1地域の詳細", "基礎スクリーニング機能", "初心者向け調査レポート閲覧", "銘柄ウォッチリスト"],
+      en: ["Unlimited company research", "Radar: 1 region detail", "Basic screening", "Beginner-level reports", "Watchlist"]
     },
     locked: {
       jp: ["詳細財務分析", "プロ級レポート"],
       en: ["Detailed financial analysis", "Pro-level reports"]
-    }
+    },
+    ads: false
   },
   {
     id: "pro",
@@ -45,28 +47,30 @@ export const PLANS = [
     tagline: { jp: "本格的な調査と分析", en: "Serious research and analysis" },
     priceLabel: { jp: "¥10,000/月", en: "¥10,000/mo" },
     features: {
-      jp: ["情報レーダー 両地域＋フィルタ", "中級スクリーニング & 財務分析", "詳細個別銘柄レポート", "テーマ別調査レポート", "市場センチメント可視化"],
-      en: ["Radar: both regions + filters", "Advanced screening & financials", "Detailed stock reports", "Thematic research", "Market sentiment visuals"]
+      jp: ["情報レーダー 両地域＋フィルタ", "中級スクリーニング & 財務分析", "詳細個別調査レポート", "テーマ別調査レポート", "市場センチメント可視化"],
+      en: ["Radar: both regions + filters", "Advanced screening & financials", "Detailed research reports", "Thematic research", "Market sentiment visuals"]
     },
     locked: {
       jp: ["機関級データ", "専属レポート"],
       en: ["Institutional data", "Dedicated reports"]
-    }
+    },
+    ads: false
   },
   {
     id: "elite",
     price: 100000,
     accent: "from-amber-300 to-orange-500",
     ring: "ring-amber-400/50",
-    name: { jp: "エリート", en: "Elite" },
+    name: { jp: "プライベート", en: "Private" },
     audience: { jp: "プロフェッショナル", en: "Professional" },
-    tagline: { jp: "機関投資家レベルの情報", en: "Institution-grade intelligence" },
+    tagline: { jp: "深い比較と継続調査", en: "Deep comparison and continuous research" },
     priceLabel: { jp: "¥100,000/月", en: "¥100,000/mo" },
     features: {
-      jp: ["情報レーダー API・過去アーカイブ", "機関級市場データ & API", "ディープ個別銘柄レポート", "独自アルゴ指標へのアクセス", "優先配信 & アーカイブ"],
-      en: ["Radar API + archive", "Institutional market data & API", "Deep-dive stock reports", "Proprietary algo indicators", "Priority feed & archive"]
+      jp: ["情報レーダー API・過去アーカイブ", "機関級市場データ & API", "ディープ個別調査レポート", "独自アルゴ指標へのアクセス", "優先配信 & アーカイブ"],
+      en: ["Radar API + archive", "Institutional market data & API", "Deep-dive research reports", "Proprietary algo indicators", "Priority feed & archive"]
     },
-    locked: { jp: [], en: [] }
+    locked: { jp: [], en: [] },
+    ads: false
   }
 ];
 

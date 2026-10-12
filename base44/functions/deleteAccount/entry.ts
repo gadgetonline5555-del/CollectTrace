@@ -10,15 +10,20 @@ export default async function (req: Request): Promise<Response> {
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
     // Cancel any active Stripe subscription so the user is not charged after deletion.
-    try {
-      if (user.email) {
+    // If cancellation fails, do NOT delete the user — that would leave them being
+    // charged for a service they can no longer access.
+    if (user.email) {
+      try {
         const stripe = new Stripe(secrets.get("STRIPE_SECRET_KEY"));
         const sub = await findActiveSubscription(stripe, user.email);
         if (sub) await stripe.subscriptions.del(sub.id);
+      } catch (subErr) {
+        console.error("deleteAccount: subscription cancel failed:", subErr.message);
+        return Response.json({
+          error: "subscription_cancel_failed",
+          message: "サブスクリプションの解約に失敗したため、アカウント削除を安全に中断しました。サポートにお問い合わせください。"
+        }, { status: 500 });
       }
-    } catch (subErr) {
-      // Log but do not block account deletion if subscription cancellation fails.
-      console.error("deleteAccount: subscription cancel failed:", subErr.message);
     }
 
     // Best-effort account deletion via service role.

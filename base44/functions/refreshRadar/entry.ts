@@ -69,6 +69,13 @@ export default async function(req: Request): Promise<Response> {
 
     let quota: any;
     if (scheduled) {
+      // Only the internal workflow (service role, no authenticated user) may
+      // bypass per-user quota. A user calling with mode:"scheduled" is rejected.
+      let caller = null;
+      try { caller = await base44.auth.me(); } catch { caller = null; }
+      if (caller) {
+        return Response.json({ error: "unauthorized_scheduled_mode" }, { status: 403 });
+      }
       quota = { allowed: true, identity: { userId: null, tier: "system", ip: "unknown" }, limit: Infinity, used: 0, bonus: 0 };
     } else {
       quota = await checkQuota(base44, req, "refreshRadar");
@@ -198,8 +205,10 @@ Return JSON: { "items": [ { "headline": string, "company_name": string, "ticker"
         impact_sectors: JSON.stringify(it.impact_sectors || []),
         impact_related: JSON.stringify(it.impact_related || []),
         source_url: String(it.source_url || ""),
-        published_at: it.published_at || new Date().toISOString(),
-        source_tier: "primary",
+        published_at: it.published_at || null,
+        // JP items come from LLM web search, not a direct TDnet feed — mark as
+        // "generated" so they are not treated as verified primary information.
+        source_tier: "generated",
         sentiment: ["bullish", "neutral", "bearish"].includes(it.sentiment) ? it.sentiment : "neutral",
         language
       })).filter((it: any) => it.source_url);

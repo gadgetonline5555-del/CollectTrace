@@ -9,8 +9,6 @@ import ScrollToTop from './components/ScrollToTop';
 // Add page imports here (lazy-loaded for code splitting)
 import { lazy, Suspense } from 'react';
 const Home = lazy(() => import('@/pages/Home'));
-const MangaLibrary = lazy(() => import('@/pages/MangaLibrary'));
-const MangaReader = lazy(() => import('@/pages/MangaReader'));
 const Screener = lazy(() => import('@/pages/Screener'));
 const ResearchHub = lazy(() => import('@/pages/ResearchHub'));
 const Radar = lazy(() => import('@/pages/Radar'));
@@ -88,11 +86,9 @@ const AuthenticatedApp = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/legal" element={<Legal />} />
         <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
-          <Route path="/manga" element={<MangaLibrary />} />
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/api-access" element={<ApiAccess />} />
-          <Route path="/manga/:id" element={<MangaReader />} />
           <Route path="/research" element={<ResearchHub />} />
           <Route path="/research/:id" element={<ResearchDetail />} />
           <Route path="/admin" element={<Admin />} />
