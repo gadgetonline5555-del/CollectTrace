@@ -69,11 +69,12 @@ export default async function(req: Request): Promise<Response> {
 
     let quota: any;
     if (scheduled) {
-      // Only the internal workflow (service role, no authenticated user) may
-      // bypass per-user quota. A user calling with mode:"scheduled" is rejected.
+      // The internal workflow runs as the service role (app owner = admin).
+      // A non-admin user calling with mode:"scheduled" to bypass quota is rejected.
+      // mode:"scheduled" alone does NOT grant exemption — the caller must be admin/service-role.
       let caller = null;
       try { caller = await base44.auth.me(); } catch { caller = null; }
-      if (caller) {
+      if (caller && caller.role !== 'admin') {
         return Response.json({ error: "unauthorized_scheduled_mode" }, { status: 403 });
       }
       quota = { allowed: true, identity: { userId: null, tier: "system", ip: "unknown" }, limit: Infinity, used: 0, bonus: 0 };

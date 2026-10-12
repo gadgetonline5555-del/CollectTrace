@@ -38,17 +38,17 @@ const GLOSSARY_FIELDS = [
 ];
 
 export default function Admin() {
-  const [tab, setTab] = useState("manga");
+  const [tab, setTab] = useState("research");
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
       <h1 className="font-display text-3xl font-bold text-foreground mb-2">管理画面</h1>
-      <p className="text-muted-foreground mb-8">漫画・調査レポートのコンテンツを管理します。</p>
+      <p className="text-muted-foreground mb-8">調査レポート・用語集のコンテンツを管理します。漫画データはバックアップとして保持しています。</p>
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList className="bg-card border border-border">
-          <TabsTrigger value="manga">漫画</TabsTrigger>
           <TabsTrigger value="research">調査レポート</TabsTrigger>
           <TabsTrigger value="glossary">用語集</TabsTrigger>
           <TabsTrigger value="insights">ユーザー分析</TabsTrigger>
+          <TabsTrigger value="manga">漫画（バックアップ）</TabsTrigger>
         </TabsList>
         <TabsContent value="manga" className="mt-6"><ResourceManager entityName="Manga" fields={MANGA_FIELDS} /></TabsContent>
         <TabsContent value="research" className="mt-6"><ResourceManager entityName="Research" fields={RESEARCH_FIELDS} /></TabsContent>

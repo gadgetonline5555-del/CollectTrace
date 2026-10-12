@@ -4,7 +4,6 @@ import { ArrowLeft, TrendingUp } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 const TITLES = [
-  { match: "/manga", key: "nav.manga" },
   { match: "/research", key: "nav.research" },
   { match: "/screener", key: "nav.screener" },
   { match: "/pricing", key: "nav.pricing" },

@@ -7,7 +7,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 // Add page imports here (lazy-loaded for code splitting)
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 const Home = lazy(() => import('@/pages/Home'));
 const Screener = lazy(() => import('@/pages/Screener'));
 const ResearchHub = lazy(() => import('@/pages/ResearchHub'));
@@ -39,7 +39,14 @@ import { I18nProvider } from '@/lib/i18n';
 import { ThemeProvider } from 'next-themes';
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin, checkAppState } = useAuth();
+
+  // Redirect to login on auth_required — in useEffect, not during render.
+  useEffect(() => {
+    if (authError?.type === 'auth_required') {
+      navigateToLogin();
+    }
+  }, [authError, navigateToLogin]);
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -55,9 +62,27 @@ const AuthenticatedApp = () => {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      // Redirect to login automatically
-      navigateToLogin();
-      return null;
+      return (
+        <div className="fixed inset-0 flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
+        </div>
+      );
+    } else if (authError.type === 'network_error' || authError.type === 'unknown') {
+      // Communication failure — show error and retry, do NOT treat as authenticated.
+      return (
+        <div className="fixed inset-0 flex items-center justify-center px-4">
+          <div className="max-w-md text-center">
+            <p className="text-foreground font-medium mb-2">通信エラーが発生しました</p>
+            <p className="text-muted-foreground text-sm mb-6">{authError.message || '認証状態を確認できませんでした。'}</p>
+            <button
+              onClick={() => checkAppState()}
+              className="px-6 py-3 rounded-xl font-semibold bg-foreground text-background min-h-11"
+            >
+              再試行
+            </button>
+          </div>
+        </div>
+      );
     }
   }
 

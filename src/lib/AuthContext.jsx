@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useRef } from 'react';
 import { base44 } from '@/api/base44Client';
 import { appParams } from '@/lib/app-params';
 
@@ -12,6 +12,9 @@ export const AuthProvider = ({ children }) => {
   const [authError, setAuthError] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);
   const [appPublicSettings, setAppPublicSettings] = useState(null); // Contains only { id, public_settings }
+  // Generation token: prevents a stale auth response (e.g. after logout or
+  // account switch in another tab) from overwriting the current user state.
+  const authGenRef = useRef(0);
 
   useEffect(() => {
     checkAppState();
@@ -78,18 +81,24 @@ export const AuthProvider = ({ children }) => {
   };
 
   const checkUserAuth = async () => {
+    const gen = ++authGenRef.current;
     try {
       // Now check if the user is authenticated
       setIsLoadingAuth(true);
       const currentUser = await base44.auth.me();
+      // Only commit state if this is still the latest auth check.
+      if (gen !== authGenRef.current) return;
       setUser(currentUser);
       setIsAuthenticated(true);
+      setAuthError(null);
       setIsLoadingAuth(false);
       setAuthChecked(true);
     } catch (error) {
+      if (gen !== authGenRef.current) return; // stale response — discard
       console.error('User auth check failed:', error);
       setIsLoadingAuth(false);
       setIsAuthenticated(false);
+      setUser(null);
       setAuthChecked(true);
       
       // If user auth fails, it might be an expired token
@@ -97,6 +106,13 @@ export const AuthProvider = ({ children }) => {
         setAuthError({
           type: 'auth_required',
           message: 'Authentication required'
+        });
+      } else {
+        // Network or server error — do NOT treat as "authenticated". Show
+        // error + retry so the user can re-check instead of silently proceeding.
+        setAuthError({
+          type: 'network_error',
+          message: error.message || '通信エラーが発生しました'
         });
       }
     }
