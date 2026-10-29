@@ -8,21 +8,9 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 // Add page imports here (lazy-loaded for code splitting)
 import { lazy, Suspense, useEffect } from 'react';
-const Home = lazy(() => import('@/pages/Home'));
-const Screener = lazy(() => import('@/pages/Screener'));
 const ResearchHub = lazy(() => import('@/pages/ResearchHub'));
-const Radar = lazy(() => import('@/pages/Radar'));
 const ResearchDetail = lazy(() => import('@/pages/ResearchDetail'));
-const Pricing = lazy(() => import('@/pages/Pricing'));
 const Admin = lazy(() => import('@/pages/Admin'));
-const Glossary = lazy(() => import('@/pages/Glossary'));
-const AiResearch = lazy(() => import('@/pages/AiResearch'));
-const Discover = lazy(() => import('@/pages/Discover'));
-const WealthTracker = lazy(() => import('@/pages/WealthTracker'));
-const CompanyIntel = lazy(() => import('@/pages/CompanyIntel'));
-const IpoTracker = lazy(() => import('@/pages/IpoTracker'));
-const Invite = lazy(() => import('@/pages/Invite'));
-const SnapshotView = lazy(() => import('@/pages/SnapshotView'));
 const Watchlist = lazy(() => import('@/pages/Watchlist'));
 const Portfolio = lazy(() => import('@/pages/Portfolio'));
 const ApiAccess = lazy(() => import('@/pages/ApiAccess'));
@@ -37,6 +25,9 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import Layout from '@/components/Layout';
 import { I18nProvider } from '@/lib/i18n';
 import { ThemeProvider } from 'next-themes';
+const PublicReadPreview = lazy(() => import('@/pages/PublicReadPreview'));
+// Public preview routes deliberately do not mount legacy navigation or live-data pages.
+const PUBLIC_PREVIEW_PATHS = ["/","/preview","/radar","/screener","/pricing","/glossary","/ai-research","/discover","/wealth","/company-intel","/ipo","/invite","/s/:id"];
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin, checkAppState } = useAuth();
@@ -95,19 +86,10 @@ const AuthenticatedApp = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/oauth/consent" element={<OAuthConsent />} />
+      {PUBLIC_PREVIEW_PATHS.map((path) => (
+        <Route key={path} path={path} element={<PublicReadPreview />} />
+      ))}
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/radar" element={<Radar />} />
-        <Route path="/screener" element={<Screener />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/glossary" element={<Glossary />} />
-        <Route path="/ai-research" element={<AiResearch />} />
-        <Route path="/discover" element={<Discover />} />
-        <Route path="/wealth" element={<WealthTracker />} />
-        <Route path="/company-intel" element={<CompanyIntel />} />
-        <Route path="/ipo" element={<IpoTracker />} />
-        <Route path="/invite" element={<Invite />} />
-        <Route path="/s/:id" element={<SnapshotView />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/legal" element={<Legal />} />
         <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
