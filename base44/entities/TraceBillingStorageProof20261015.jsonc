@@ -1,0 +1,58 @@
+{
+  "name": "TraceBillingStorageProof20261015",
+  "type": "object",
+  "properties": {
+    "run_id": {
+      "type": "string"
+    },
+    "case_name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "count": {
+      "type": "integer"
+    },
+    "limit": {
+      "type": "integer"
+    },
+    "winner": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "run_id",
+    "case_name",
+    "version",
+    "count",
+    "limit",
+    "winner",
+    "purpose"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
