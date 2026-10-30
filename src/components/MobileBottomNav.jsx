@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, BookOpen, BarChart3, Compass, Filter, MoreHorizontal, ChevronRight } from "lucide-react";
+import { Home, BarChart3, Compass, Filter, MoreHorizontal, ChevronRight } from "lucide-react";
 import {
   Drawer,
   DrawerContent,

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Filter, BarChart3, TrendingUp, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Filter, BarChart3, Sparkles, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
