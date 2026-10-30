@@ -2,7 +2,6 @@ import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
@@ -26,6 +25,7 @@ import Layout from '@/components/Layout';
 import { I18nProvider } from '@/lib/i18n';
 import { ThemeProvider } from 'next-themes';
 const PublicReadPreview = lazy(() => import('@/pages/PublicReadPreview'));
+const PublicPreviewNotFound = lazy(() => import('@/pages/PublicReadPreview').then((module) => ({ default: module.PublicPreviewNotFound })));
 // Public preview routes deliberately do not mount legacy navigation or live-data pages.
 const PUBLIC_PREVIEW_PATHS = ["/","/preview","/radar","/screener","/pricing","/glossary","/ai-research","/discover","/wealth","/company-intel","/ipo","/invite","/s/:id"];
 
@@ -101,7 +101,7 @@ const AuthenticatedApp = () => {
           <Route path="/admin" element={<Admin />} />
         </Route>
       </Route>
-      <Route path="*" element={<PageNotFound />} />
+      <Route path="*" element={<PublicPreviewNotFound />} />
     </Routes>
     </Suspense>
   );
