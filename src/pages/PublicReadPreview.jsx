@@ -109,9 +109,30 @@ export default function PublicReadPreview() {
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-4 px-5 py-7 text-xs leading-6 text-slate-500 sm:px-8">
           <p>Collect Trace · 閲覧専用の限定プレビュー</p>
-          <p>この画面に個人情報の入力欄はありません。配信基盤の通常のアクセスログ等は別途扱われます。</p>
+          <div className="max-w-2xl">
+            <p>この画面に個人情報の入力欄はありません。既存の配信基盤によるアクセス解析・認証確認の通信は残っています。</p>
+            <details className="mt-3">
+              <summary className="cursor-pointer rounded text-slate-700 underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-700">閲覧時の通信について</summary>
+              <p className="mt-3">アクセス解析には閲覧ページ、時刻、セッション識別子、参照元などが含まれます。保存済みのログイン情報がある場合、認証状態の確認やユーザー識別子を伴う解析が行われることがあります。「入力欄がない」ことは、情報が一切送信されないという意味ではありません。</p>
+              <p className="mt-2">この限定画面からAI生成・調査結果の個人保存・購入は行いません。既存サービス全体のAPIや課金を停止したものではありません。</p>
+            </details>
+          </div>
         </div>
       </footer>
     </div>
   );
 }
+/** Static fallback: do not reflect unknown paths or perform a separate auth query. */
+export function PublicPreviewNotFound() {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-[#f5f7f8] px-5 py-12 text-slate-900">
+      <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
+        <p className="text-xs font-semibold tracking-wider text-teal-700">Collect Trace · 限定プレビュー</p>
+        <h1 className="mt-4 text-2xl font-semibold">このページは公開範囲に含まれていません</h1>
+        <p className="mt-4 text-sm leading-7 text-slate-600">現在の限定プレビューは、NVIDIA 1社のFY2025決算の一部が対象です。指定されたURLから企業情報の検索や旧レポートの取得は行いません。</p>
+        <a href="/" className="mt-6 inline-flex min-h-11 items-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-700">限定プレビューへ戻る</a>
+      </div>
+    </main>
+  );
+}
+
